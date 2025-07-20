@@ -1,5 +1,6 @@
 package com.example.cleanmate.data.repository;
 
+import com.example.cleanmate.common.CommonConstants;
 import com.example.cleanmate.data.model.CustomerAddress;
 
 import java.sql.*;
@@ -7,12 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressRepository {
-    // Your Azure JDBC URL (fill in your password)
-    private static final String URL =
-            "jdbc:jtds:sqlserver://cleanmate-server.database.windows.net:1433/"
-                    + "CleanMateDB_PRM;ssl=require;user=cleanmateadmin@cleanmate-server;"
-                    + "password=YOUR_PASSWORD;";
-
+    private static final String URL = CommonConstants.JDBC_URL;
     private Connection conn;
 
     public AddressRepository() throws SQLException, ClassNotFoundException {
@@ -35,35 +31,35 @@ public class AddressRepository {
             ps.setString(5, addr.getAddressno());
             ps.setBigDecimal(6, addr.getLatitude());
             ps.setBigDecimal(7, addr.getLongitude());
-            ps.setBoolean(8, addr.isInuse());
-            ps.setBoolean(9, addr.isDefault());
+            ps.setBoolean(8, addr.getIsinuse());
+            ps.setBoolean(9, addr.getIsdefault());
             ps.executeUpdate();
 
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
-                    addr.setAddressId(keys.getInt(1));
+                    addr.setAddressid(keys.getInt(1));
                 }
             }
             return addr;
         }
     }
 
-    /** Updates an existing address; returns updated object or null if not found */
+    /** Updates an existing address; returns updated String or null if not found */
     public CustomerAddress editAddress(CustomerAddress addr) throws SQLException {
         String sql = "UPDATE CustomerAddresses SET"
                 + " GG_FormattedAddress=?, GG_DispalyName=?, GG_PlaceId=?,"
                 + " AddressNo=?, Latitude=?, Longitude=?, IsInUse=?, IsDefault=?"
                 + " WHERE AddressId=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, addr.getGgFormattedAddress());
-            ps.setString(2, addr.getGgDispalyName());
-            ps.setString(3, addr.getGgPlaceId());
-            ps.setString(4, addr.getAddressNo());
+            ps.setString(1, addr.getGgFormattedaddress());
+            ps.setString(2, addr.getGgDispalyname());
+            ps.setString(3, addr.getGgPlaceid());
+            ps.setString(4, addr.getAddressno());
             ps.setBigDecimal(5, addr.getLatitude());
             ps.setBigDecimal(6, addr.getLongitude());
-            ps.setBoolean(7, addr.isInUse());
-            ps.setBoolean(8, addr.isDefault());
-            ps.setInt(9, addr.getAddressId());
+            ps.setBoolean(7, addr.getIsinuse());
+            ps.setBoolean(8, addr.getIsdefault());
+            ps.setInt(9, addr.getAddressid());
             int updated = ps.executeUpdate();
             return (updated == 1) ? addr : null;
         }
@@ -98,16 +94,16 @@ public class AddressRepository {
     /** Helper: map a ResultSet row into your model */
     private CustomerAddress mapRow(ResultSet rs) throws SQLException {
         CustomerAddress a = new CustomerAddress();
-        a.setAddressId(rs.getInt("AddressId"));
-        a.setUserId(rs.getString("UserId"));
-        a.setGgFormattedAddress(rs.getString("GG_FormattedAddress"));
-        a.setGgDispalyName(rs.getString("GG_DispalyName"));
-        a.setGgPlaceId(rs.getString("GG_PlaceId"));
-        a.setAddressNo(rs.getString("AddressNo"));
+        a.setAddressid(rs.getInt("AddressId"));
+        a.setUserid(rs.getString("UserId"));
+        a.setGgFormattedaddress(rs.getString("GG_FormattedAddress"));
+        a.setGgDispalyname(rs.getString("GG_DispalyName"));
+        a.setGgPlaceid(rs.getString("GG_PlaceId"));
+        a.setAddressno(rs.getString("AddressNo"));
         a.setLatitude(rs.getBigDecimal("Latitude"));
         a.setLongitude(rs.getBigDecimal("Longitude"));
-        a.setInUse(rs.getBoolean("IsInUse"));
-        a.setDefault(rs.getBoolean("IsDefault"));
+        a.setIsinuse(rs.getBoolean("IsInUse"));
+        a.setIsdefault(rs.getBoolean("IsDefault"));
         return a;
     }
 

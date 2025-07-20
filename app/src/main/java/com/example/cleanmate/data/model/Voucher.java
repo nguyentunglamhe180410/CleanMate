@@ -1,5 +1,8 @@
 package com.example.cleanmate.data.model;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 public class Voucher {
 
     private Integer voucherid;
@@ -9,8 +12,23 @@ public class Voucher {
     private String expiredate;
     private String vouchercode;
     private Boolean iseventvoucher;
-    private Object createdby;
+    private String createdby;
     private String status;
+
+    public Voucher() {
+    }
+
+    public Voucher(Integer voucherid, String description, BigDecimal discountPercentage, Timestamp createdat, String expiredate, String vouchercode, Boolean iseventvoucher, String createdby, String status) {
+        this.voucherid = voucherid;
+        this.description = description;
+        this.discountPercentage = discountPercentage;
+        this.createdat = createdat;
+        this.expiredate = expiredate;
+        this.vouchercode = vouchercode;
+        this.iseventvoucher = iseventvoucher;
+        this.createdby = createdby;
+        this.status = status;
+    }
 
     public Integer getVoucherid() {
         return voucherid;
@@ -28,19 +46,19 @@ public class Voucher {
         this.description = description;
     }
 
-    public java.math.BigDecimal getDiscountPercentage() {
+    public BigDecimal getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(java.math.BigDecimal discountPercentage) {
+    public void setDiscountPercentage(BigDecimal discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
-    public java.sql.Timestamp getCreatedat() {
+    public Timestamp getCreatedat() {
         return createdat;
     }
 
-    public void setCreatedat(java.sql.Timestamp createdat) {
+    public void setCreatedat(Timestamp createdat) {
         this.createdat = createdat;
     }
 
@@ -68,11 +86,11 @@ public class Voucher {
         this.iseventvoucher = iseventvoucher;
     }
 
-    public Object getCreatedby() {
+    public String getCreatedby() {
         return createdby;
     }
 
-    public void setCreatedby(Object createdby) {
+    public void setCreatedby(String createdby) {
         this.createdby = createdby;
     }
 
@@ -83,5 +101,4 @@ public class Voucher {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

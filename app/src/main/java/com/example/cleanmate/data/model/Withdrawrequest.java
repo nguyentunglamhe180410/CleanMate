@@ -1,5 +1,7 @@
 package com.example.cleanmate.data.model;
 
+import java.math.BigDecimal;
+
 public class Withdrawrequest {
 
     private Integer requestid;
@@ -8,9 +10,24 @@ public class Withdrawrequest {
     private String status;
     private String requestedat;
     private String processedat;
-    private Object adminnote;
+    private String adminnote;
     private Integer transactionid;
     private String processedby;
+
+    public Withdrawrequest() {
+    }
+
+    public Withdrawrequest(Integer requestid, String userid, BigDecimal amount, String status, String requestedat, String processedat, String adminnote, Integer transactionid, String processedby) {
+        this.requestid = requestid;
+        this.userid = userid;
+        this.amount = amount;
+        this.status = status;
+        this.requestedat = requestedat;
+        this.processedat = processedat;
+        this.adminnote = adminnote;
+        this.transactionid = transactionid;
+        this.processedby = processedby;
+    }
 
     public Integer getRequestid() {
         return requestid;
@@ -28,11 +45,11 @@ public class Withdrawrequest {
         this.userid = userid;
     }
 
-    public java.math.BigDecimal getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(java.math.BigDecimal amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -60,11 +77,11 @@ public class Withdrawrequest {
         this.processedat = processedat;
     }
 
-    public Object getAdminnote() {
+    public String getAdminnote() {
         return adminnote;
     }
 
-    public void setAdminnote(Object adminnote) {
+    public void setAdminnote(String adminnote) {
         this.adminnote = adminnote;
     }
 
@@ -83,5 +100,4 @@ public class Withdrawrequest {
     public void setProcessedby(String processedby) {
         this.processedby = processedby;
     }
-
 }

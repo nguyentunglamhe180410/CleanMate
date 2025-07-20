@@ -1,9 +1,9 @@
 package com.example.cleanmate.data.model.viewmodels.employee;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
 
 public class WorkListViewModel {
     private int bookingId;
@@ -17,12 +17,12 @@ public class WorkListViewModel {
     private BigDecimal totalPrice;
     private String status;
     private String addressNo;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     public WorkListViewModel() {}
 
-    public WorkListViewModel(int bookingId, String serviceName, String customerFullName, LocalDate date, LocalTime startTime, int duration, String address, String note, BigDecimal totalPrice, String status, String addressNo, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public WorkListViewModel(int bookingId, String serviceName, String customerFullName, LocalDate date, LocalTime startTime, int duration, String address, String note, BigDecimal totalPrice, String status, String addressNo, Timestamp createdAt, Timestamp updatedAt) {
         this.bookingId = bookingId;
         this.serviceName = serviceName;
         this.customerFullName = customerFullName;
@@ -126,19 +126,19 @@ public class WorkListViewModel {
         this.addressNo = addressNo;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

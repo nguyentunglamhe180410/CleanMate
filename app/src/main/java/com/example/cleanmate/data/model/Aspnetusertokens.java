@@ -5,7 +5,7 @@ public class Aspnetusertokens {
     private String userid;
     private String loginprovider;
     private String name;
-    private Object value;
+    private String value;
 
     public String getUserid() {
         return userid;
@@ -31,11 +31,11 @@ public class Aspnetusertokens {
         this.name = name;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(String value) {
         this.value = value;
     }
 

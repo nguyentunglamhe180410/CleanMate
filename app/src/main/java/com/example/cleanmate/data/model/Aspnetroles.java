@@ -5,7 +5,7 @@ public class Aspnetroles {
     private String id;
     private String name;
     private String normalizedname;
-    private Object concurrencystamp;
+    private String concurrencystamp;
 
     public String getId() {
         return id;
@@ -31,11 +31,11 @@ public class Aspnetroles {
         this.normalizedname = normalizedname;
     }
 
-    public Object getConcurrencystamp() {
+    public String getConcurrencystamp() {
         return concurrencystamp;
     }
 
-    public void setConcurrencystamp(Object concurrencystamp) {
+    public void setConcurrencystamp(String concurrencystamp) {
         this.concurrencystamp = concurrencystamp;
     }
 

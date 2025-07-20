@@ -1,11 +1,23 @@
 package com.example.cleanmate.data.model;
 
+import java.math.BigDecimal;
+
 public class UserWallet {
 
     private Integer walletid;
     private String userid;
     private java.math.BigDecimal balance;
     private String updatedat;
+
+    public UserWallet() {
+    }
+
+    public UserWallet(Integer walletid, String userid, BigDecimal balance, String updatedat) {
+        this.walletid = walletid;
+        this.userid = userid;
+        this.balance = balance;
+        this.updatedat = updatedat;
+    }
 
     public Integer getWalletid() {
         return walletid;
@@ -23,11 +35,11 @@ public class UserWallet {
         this.userid = userid;
     }
 
-    public java.math.BigDecimal getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(java.math.BigDecimal balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -38,5 +50,4 @@ public class UserWallet {
     public void setUpdatedat(String updatedat) {
         this.updatedat = updatedat;
     }
-
 }

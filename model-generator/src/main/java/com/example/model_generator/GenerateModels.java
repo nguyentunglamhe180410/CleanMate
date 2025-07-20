@@ -117,7 +117,7 @@ public class GenerateModels {
             case Types.LONGVARCHAR: return "String";
             case Types.DATE:        return "java.sql.Date";
             case Types.TIMESTAMP:   return "java.sql.Timestamp";
-            default:                return "Object";
+            default:                return "String";
         }
     }
 

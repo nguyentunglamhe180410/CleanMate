@@ -4,7 +4,17 @@ public class Service {
 
     private Integer serviceid;
     private String name;
-    private Object description;
+    private String
+ description;
+
+    public Service() {
+    }
+
+    public Service(Integer serviceid, String name, String description) {
+        this.serviceid = serviceid;
+        this.name = name;
+        this.description = description;
+    }
 
     public Integer getServiceid() {
         return serviceid;
@@ -22,12 +32,11 @@ public class Service {
         this.name = name;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
     }
-
 }

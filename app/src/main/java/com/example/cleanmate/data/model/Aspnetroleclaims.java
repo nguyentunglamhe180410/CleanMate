@@ -4,8 +4,8 @@ public class Aspnetroleclaims {
 
     private Integer id;
     private String roleid;
-    private Object claimtype;
-    private Object claimvalue;
+    private String claimtype;
+    private String claimvalue;
 
     public Integer getId() {
         return id;
@@ -23,19 +23,19 @@ public class Aspnetroleclaims {
         this.roleid = roleid;
     }
 
-    public Object getClaimtype() {
+    public String getClaimtype() {
         return claimtype;
     }
 
-    public void setClaimtype(Object claimtype) {
+    public void setClaimtype(String claimtype) {
         this.claimtype = claimtype;
     }
 
-    public Object getClaimvalue() {
+    public String getClaimvalue() {
         return claimvalue;
     }
 
-    public void setClaimvalue(Object claimvalue) {
+    public void setClaimvalue(String claimvalue) {
         this.claimvalue = claimvalue;
     }
 

@@ -4,7 +4,7 @@ public class Aspnetuserlogins {
 
     private String loginprovider;
     private String providerkey;
-    private Object providerdisplayname;
+    private String providerdisplayname;
     private String userid;
 
     public String getLoginprovider() {
@@ -23,11 +23,11 @@ public class Aspnetuserlogins {
         this.providerkey = providerkey;
     }
 
-    public Object getProviderdisplayname() {
+    public String getProviderdisplayname() {
         return providerdisplayname;
     }
 
-    public void setProviderdisplayname(Object providerdisplayname) {
+    public void setProviderdisplayname(String providerdisplayname) {
         this.providerdisplayname = providerdisplayname;
     }
 

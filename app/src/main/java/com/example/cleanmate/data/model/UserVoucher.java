@@ -1,5 +1,7 @@
 package com.example.cleanmate.data.model;
 
+import java.sql.Timestamp;
+
 public class UserVoucher {
 
     private Integer uservoucherid;
@@ -8,6 +10,18 @@ public class UserVoucher {
     private Integer quantity;
     private Boolean isused;
     private java.sql.Timestamp usedat;
+
+    public UserVoucher() {
+    }
+
+    public UserVoucher(Integer uservoucherid, String userid, Integer voucherid, Integer quantity, Boolean isused, Timestamp usedat) {
+        this.uservoucherid = uservoucherid;
+        this.userid = userid;
+        this.voucherid = voucherid;
+        this.quantity = quantity;
+        this.isused = isused;
+        this.usedat = usedat;
+    }
 
     public Integer getUservoucherid() {
         return uservoucherid;
@@ -49,12 +63,11 @@ public class UserVoucher {
         this.isused = isused;
     }
 
-    public java.sql.Timestamp getUsedat() {
+    public Timestamp getUsedat() {
         return usedat;
     }
 
-    public void setUsedat(java.sql.Timestamp usedat) {
+    public void setUsedat(Timestamp usedat) {
         this.usedat = usedat;
     }
-
 }

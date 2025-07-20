@@ -5,6 +5,7 @@ import com.example.cleanmate.common.enums.TransactionType;
 import com.example.cleanmate.common.enums.VoucherStatus;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -302,7 +303,7 @@ public class dto {
     }
 
     // 2. BookingDTO
-    public class BookingDTO {
+    public static class BookingDTO {
         private int bookingId;
         private int servicePriceId;
         private String serviceName;
@@ -546,7 +547,7 @@ public class dto {
             return createdAt;
         }
 
-        public void setCreatedAt(LocalDateTime createdAt) {
+        public void setCreatedAt(Timestamp createdAt) {
             this.createdAt = createdAt;
         }
 
@@ -554,7 +555,7 @@ public class dto {
             return updatedAt;
         }
 
-        public void setUpdatedAt(LocalDateTime updatedAt) {
+        public void setUpdatedAt(Timestamp updatedAt) {
             this.updatedAt = updatedAt;
         }
 
@@ -564,6 +565,9 @@ public class dto {
 
         public void setHasFeedback(boolean hasFeedback) {
             this.hasFeedback = hasFeedback;
+        }
+
+        public void setBookingid(int bookingId) {
         }
     }
 
@@ -682,17 +686,17 @@ public class dto {
             this.transactions = transactions;
         }
 
-        public List<BookingDTO> getBookings() {
+        public List<BookingDTO> getBooking () {
             return bookings;
         }
 
-        public void setBookings(List<BookingDTO> bookings) {
+        public void setBooking (List<BookingDTO> bookings) {
             this.bookings = bookings;
         }
     }
 
     // 5. CleanerDTO
-    public class CleanerDTO {
+    public static class CleanerDTO {
         private String cleanerId;
         private String name;
 
@@ -789,7 +793,7 @@ public class dto {
     }
 
     // 7. CustomerAddressDTO
-    public class CustomerAddressDTO {
+    public static class CustomerAddressDTO {
         private int addressId;
         private String userId;
         private String ggFormattedAddress;
@@ -819,12 +823,90 @@ public class dto {
             this.longitude = longitude;
         }
 
-        // getters & setters omitted
+        public int getAddressId() {
+            return addressId;
+        }
+
+        public void setAddressId(int addressId) {
+            this.addressId = addressId;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getGgFormattedAddress() {
+            return ggFormattedAddress;
+        }
+
+        public void setGgFormattedAddress(String ggFormattedAddress) {
+            this.ggFormattedAddress = ggFormattedAddress;
+        }
+
+        public String getGgDispalyName() {
+            return ggDispalyName;
+        }
+
+        public void setGgDispalyName(String ggDispalyName) {
+            this.ggDispalyName = ggDispalyName;
+        }
+
+        public String getGgPlaceId() {
+            return ggPlaceId;
+        }
+
+        public void setGgPlaceId(String ggPlaceId) {
+            this.ggPlaceId = ggPlaceId;
+        }
+
+        public String getAddressNo() {
+            return addressNo;
+        }
+
+        public void setAddressNo(String addressNo) {
+            this.addressNo = addressNo;
+        }
+
+        public boolean isInUse() {
+            return isInUse;
+        }
+
+        public void setInUse(boolean inUse) {
+            isInUse = inUse;
+        }
+
+        public boolean isDefault() {
+            return isDefault;
+        }
+
+        public void setDefault(boolean aDefault) {
+            isDefault = aDefault;
+        }
+
+        public BigDecimal getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(BigDecimal latitude) {
+            this.latitude = latitude;
+        }
+
+        public BigDecimal getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(BigDecimal longitude) {
+            this.longitude = longitude;
+        }
     }
 
     // 8. CustomerDetailDTO
-    public class CustomerDetailDTO {
-        private String id;
+    public static class CustomerDetailDTO {
+        private Integer id;
         private String fullName;
         private String email;
         private String phoneNumber;
@@ -837,7 +919,7 @@ public class dto {
 
         public CustomerDetailDTO() {}
 
-        public CustomerDetailDTO(String id, String fullName, String email,
+        public CustomerDetailDTO(Integer id, String fullName, String email,
                                  String phoneNumber, LocalDateTime createdDate,
                                  boolean isActive, List<CustomerAddressDTO> addresses,
                                  BigDecimal walletBalance,
@@ -855,11 +937,11 @@ public class dto {
             this.bookings = bookings;
         }
 
-        public String getId() {
+        public Integer getId() {
             return id;
         }
 
-        public void setId(String id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -927,17 +1009,17 @@ public class dto {
             this.transactions = transactions;
         }
 
-        public List<BookingDTO> getBookings() {
+        public List<BookingDTO> getBooking () {
             return bookings;
         }
 
-        public void setBookings(List<BookingDTO> bookings) {
+        public void setBooking (List<BookingDTO> bookings) {
             this.bookings = bookings;
         }
     }
 
     // 9. CustomerListItemDTO
-    public class CustomerListItemDTO {
+    public static class CustomerListItemDTO {
         private String id;
         private String fullName;
         private String email;
@@ -1484,7 +1566,7 @@ public class dto {
     }
 
     // 18. WalletTransactionDTO
-    public class WalletTransactionDTO {
+    public static class WalletTransactionDTO {
         private int transactionId;
         private BigDecimal amount;
         private TransactionType transactionType;

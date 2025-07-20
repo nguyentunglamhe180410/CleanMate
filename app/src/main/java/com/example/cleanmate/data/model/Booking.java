@@ -50,11 +50,11 @@ public class Booking {
         this.userid = userid;
     }
 
-    public Integer getBookingstatusid() {
+    public Integer getBooking tatusid() {
         return bookingstatusid;
     }
 
-    public void setBookingstatusid(Integer bookingstatusid) {
+    public void setBooking tatusid(Integer bookingstatusid) {
         this.bookingstatusid = bookingstatusid;
     }
 

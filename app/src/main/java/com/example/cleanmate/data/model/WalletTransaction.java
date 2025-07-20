@@ -1,5 +1,7 @@
 package com.example.cleanmate.data.model;
 
+import java.math.BigDecimal;
+
 public class WalletTransaction {
 
     private Integer transactionid;
@@ -9,6 +11,19 @@ public class WalletTransaction {
     private String description;
     private String createdat;
     private Integer relatedbookingid;
+
+    public WalletTransaction() {
+    }
+
+    public WalletTransaction(Integer transactionid, Integer walletid, BigDecimal amount, String transactiontype, String description, String createdat, Integer relatedbookingid) {
+        this.transactionid = transactionid;
+        this.walletid = walletid;
+        this.amount = amount;
+        this.transactiontype = transactiontype;
+        this.description = description;
+        this.createdat = createdat;
+        this.relatedbookingid = relatedbookingid;
+    }
 
     public Integer getTransactionid() {
         return transactionid;
@@ -26,11 +41,11 @@ public class WalletTransaction {
         this.walletid = walletid;
     }
 
-    public java.math.BigDecimal getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(java.math.BigDecimal amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -65,5 +80,4 @@ public class WalletTransaction {
     public void setRelatedbookingid(Integer relatedbookingid) {
         this.relatedbookingid = relatedbookingid;
     }
-
 }
