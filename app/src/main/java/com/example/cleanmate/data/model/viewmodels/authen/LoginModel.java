@@ -1,4 +1,4 @@
-package com.example.cleanmate.models.viewmodels.authen;
+package com.example.cleanmate.data.model.viewmodels.authen;
 
 public class LoginModel {
     private String email;
