@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "44398247498",
+    "project_id": "cleanmate-3625b",
+    "storage_bucket": "cleanmate-3625b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44398247498:android:452c52d4edb39712d7f0b3",
+        "android_client_info": {
+          "package_name": "com.example.cleanmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwkbkVohZQoX_d6bQIxH1b5eKUx8nn2EQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
