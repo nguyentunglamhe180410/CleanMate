@@ -7,7 +7,7 @@ public class MonthlyEarningViewModel {
 
     public MonthlyEarningViewModel() {}
 
-    public MonthlyEarningViewModel(String month, BigDecimal earnings) {
+    public MonthlyEarningViewModel(int month, BigDecimal earnings) {
         this.month = month;
         this.earnings = earnings;
     }

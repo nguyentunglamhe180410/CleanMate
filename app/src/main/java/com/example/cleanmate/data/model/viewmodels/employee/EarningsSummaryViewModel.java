@@ -1,6 +1,7 @@
 package com.example.cleanmate.data.model.viewmodels.employee;
 
 
+import com.example.cleanmate.data.model.dto.dto;
 import com.example.cleanmate.data.model.viewmodels.wallet.TransactionViewModel;
 import com.example.cleanmate.data.model.viewmodels.wallet.WithdrawRequestViewModel;
 
@@ -22,6 +23,12 @@ public class EarningsSummaryViewModel {
         this.availableBalance = availableBalance;
         this.transactions = transactions;
         this.withdrawalRequests = withdrawalRequests;
+    }
+
+    public EarningsSummaryViewModel(BigDecimal totalEarnings, BigDecimal availableBalance, List<TransactionViewModel> transactions) {
+        this.totalEarnings = totalEarnings;
+        this.availableBalance = availableBalance;
+        this.transactions = transactions;
     }
 
     public BigDecimal getTotalEarnings() {

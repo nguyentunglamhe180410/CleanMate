@@ -584,7 +584,7 @@ public class dto {
     }
 
     // 4. CleanerDetailDTO
-    public class CleanerDetailDTO {
+    public static class CleanerDetailDTO {
         private int cleanerId;
         private String fullName;
         private String email;
@@ -596,7 +596,7 @@ public class dto {
         private List<WalletTransactionDTO> transactions;
         private List<BookingDTO> bookings;
 
-        public CleanerDetailDTO() {}
+        public CleanerDetailDTO(String id, String fullName, String email, String phoneNumber, BigDecimal balance) {}
 
         public CleanerDetailDTO(int cleanerId, String fullName, String email,
                                 String phoneNumber, String area, Boolean available,
@@ -714,7 +714,7 @@ public class dto {
     }
 
     // 6. CleanerListItemDTO
-    public class CleanerListItemDTO {
+    public static class CleanerListItemDTO {
         private String cleanerId;
         private String fullName;
         private String email;
