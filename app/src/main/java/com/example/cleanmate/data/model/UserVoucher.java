@@ -4,47 +4,47 @@ import java.sql.Timestamp;
 
 public class UserVoucher {
 
-    private Integer uservoucherid;
-    private String userid;
-    private Integer voucherid;
+    private Integer userVoucherId;
+    private String userId;
+    private Integer voucherId;
     private Integer quantity;
-    private Boolean isused;
-    private java.sql.Timestamp usedat;
+    private Boolean isUsed;
+    private java.sql.Timestamp usedAt;
 
     public UserVoucher() {
     }
 
     public UserVoucher(Integer uservoucherid, String userid, Integer voucherid, Integer quantity, Boolean isused, Timestamp usedat) {
-        this.uservoucherid = uservoucherid;
-        this.userid = userid;
-        this.voucherid = voucherid;
+        this.userVoucherId = uservoucherid;
+        this.userId = userid;
+        this.voucherId = voucherid;
         this.quantity = quantity;
-        this.isused = isused;
-        this.usedat = usedat;
+        this.isUsed = isused;
+        this.usedAt = usedat;
     }
 
-    public Integer getUservoucherid() {
-        return uservoucherid;
+    public Integer getUserVoucherId() {
+        return userVoucherId;
     }
 
-    public void setUservoucherid(Integer uservoucherid) {
-        this.uservoucherid = uservoucherid;
+    public void setUserVoucherId(Integer userVoucherId) {
+        this.userVoucherId = userVoucherId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public Integer getVoucherid() {
-        return voucherid;
+    public Integer getVoucherId() {
+        return voucherId;
     }
 
-    public void setVoucherid(Integer voucherid) {
-        this.voucherid = voucherid;
+    public void setVoucherId(Integer voucherId) {
+        this.voucherId = voucherId;
     }
 
     public Integer getQuantity() {
@@ -55,19 +55,19 @@ public class UserVoucher {
         this.quantity = quantity;
     }
 
-    public Boolean getIsused() {
-        return isused;
+    public Boolean getIsUsed() {
+        return isUsed;
     }
 
-    public void setIsused(Boolean isused) {
-        this.isused = isused;
+    public void setIsUsed(Boolean isUsed) {
+        this.isUsed = isUsed;
     }
 
-    public Timestamp getUsedat() {
-        return usedat;
+    public Timestamp getUsedAt() {
+        return usedAt;
     }
 
-    public void setUsedat(Timestamp usedat) {
-        this.usedat = usedat;
+    public void setUsedAt(Timestamp usedAt) {
+        this.usedAt = usedAt;
     }
 }

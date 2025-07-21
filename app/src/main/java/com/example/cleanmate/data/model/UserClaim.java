@@ -1,7 +1,6 @@
 package com.example.cleanmate.data.model;
 
-public class Aspnetuserclaims {
-
+public class UserClaim {
     private Integer id;
     private String userid;
     private String claimtype;
@@ -38,5 +37,4 @@ public class Aspnetuserclaims {
     public void setClaimvalue(String claimvalue) {
         this.claimvalue = claimvalue;
     }
-
 }

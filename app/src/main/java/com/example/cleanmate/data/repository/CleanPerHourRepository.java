@@ -17,9 +17,6 @@ public class CleanPerHourRepository implements AutoCloseable {
         this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
     }
 
-    /**
-     * Lấy danh sách tất cả cleaner đang Available = true.
-     */
     public List<dto.CleanerDTO> getAllCleaners() throws SQLException {
         String sql =
                 "SELECT c.UserId, u.FullName " +

@@ -5,41 +5,41 @@ import java.sql.Timestamp;
 
 public class Payment {
 
-    private Integer paymentid;
-    private Integer bookingid;
+    private Integer paymentId;
+    private Integer bookingId;
     private java.math.BigDecimal amount;
-    private String paymentmethod;
+    private String paymentMethod;
     private String paymentStatus;
-    private String transactionid;
-    private java.sql.Timestamp createdat;
+    private String transactionId;
+    private java.sql.Timestamp createdAt;
 
     public Payment() {
     }
 
     public Payment(Integer paymentid, Integer bookingid, BigDecimal amount, String paymentmethod, String paymentStatus, String transactionid, Timestamp createdat) {
-        this.paymentid = paymentid;
-        this.bookingid = bookingid;
+        this.paymentId = paymentid;
+        this.bookingId = bookingid;
         this.amount = amount;
-        this.paymentmethod = paymentmethod;
+        this.paymentMethod = paymentmethod;
         this.paymentStatus = paymentStatus;
-        this.transactionid = transactionid;
-        this.createdat = createdat;
+        this.transactionId = transactionid;
+        this.createdAt = createdat;
     }
 
-    public Integer getPaymentid() {
-        return paymentid;
+    public Integer getPaymentId() {
+        return paymentId;
     }
 
-    public void setPaymentid(Integer paymentid) {
-        this.paymentid = paymentid;
+    public void setPaymentId(Integer paymentId) {
+        this.paymentId = paymentId;
     }
 
-    public Integer getBookingid() {
-        return bookingid;
+    public Integer getBookingId() {
+        return bookingId;
     }
 
-    public void setBookingid(Integer bookingid) {
-        this.bookingid = bookingid;
+    public void setBookingId(Integer bookingId) {
+        this.bookingId = bookingId;
     }
 
     public BigDecimal getAmount() {
@@ -50,12 +50,12 @@ public class Payment {
         this.amount = amount;
     }
 
-    public String getPaymentmethod() {
-        return paymentmethod;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymentmethod(String paymentmethod) {
-        this.paymentmethod = paymentmethod;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public String getPaymentStatus() {
@@ -66,19 +66,19 @@ public class Payment {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getTransactionid() {
-        return transactionid;
+    public String getTransactionId() {
+        return transactionId;
     }
 
-    public void setTransactionid(String transactionid) {
-        this.transactionid = transactionid;
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }

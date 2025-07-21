@@ -38,6 +38,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation ("net.sourceforge.jtds:jtds:1.3.1")
+    implementation ("org.mindrot:jbcrypt:0.4")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

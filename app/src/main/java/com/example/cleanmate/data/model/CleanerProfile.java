@@ -2,27 +2,27 @@ package com.example.cleanmate.data.model;
 
 public class CleanerProfile {
 
-    private Integer cleanerid;
-    private String userid;
+    private Integer cleanerId;
+    private String userId;
     private Double rating;
     private Integer experienceYear;
     private Boolean available;
     private String area;
 
-    public Integer getCleanerid() {
-        return cleanerid;
+    public Integer getCleanerId() {
+        return cleanerId;
     }
 
-    public void setCleanerid(Integer cleanerid) {
-        this.cleanerid = cleanerid;
+    public void setCleanerId(Integer cleanerId) {
+        this.cleanerId = cleanerId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Double getRating() {
@@ -60,9 +60,9 @@ public class CleanerProfile {
     public CleanerProfile() {
     }
 
-    public CleanerProfile(Integer cleanerid, String userid, Double rating, Integer experienceYear, Boolean available, String area) {
-        this.cleanerid = cleanerid;
-        this.userid = userid;
+    public CleanerProfile(Integer cleanerId, String userid, Double rating, Integer experienceYear, Boolean available, String area) {
+        this.cleanerId = cleanerId;
+        this.userId = userid;
         this.rating = rating;
         this.experienceYear = experienceYear;
         this.available = available;

@@ -2,26 +2,25 @@ package com.example.cleanmate.data.model;
 
 public class Service {
 
-    private Integer serviceid;
+    private Integer serviceId;
     private String name;
-    private String
- description;
+    private String description;
 
     public Service() {
     }
 
     public Service(Integer serviceid, String name, String description) {
-        this.serviceid = serviceid;
+        this.serviceId = serviceid;
         this.name = name;
         this.description = description;
     }
 
-    public Integer getServiceid() {
-        return serviceid;
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    public void setServiceid(Integer serviceid) {
-        this.serviceid = serviceid;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getName() {

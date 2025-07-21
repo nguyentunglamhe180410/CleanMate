@@ -3,16 +3,16 @@ package com.example.cleanmate.data.model;
 public class Duration {
 
     private Integer durationid;
-    private Integer durationtime;
-    private String squaremeterspecific;
+    private Integer durationTime;
+    private String squareMeterSpecific;
 
     public Duration() {
     }
 
     public Duration(Integer durationid, Integer durationtime, String squaremeterspecific) {
         this.durationid = durationid;
-        this.durationtime = durationtime;
-        this.squaremeterspecific = squaremeterspecific;
+        this.durationTime = durationtime;
+        this.squareMeterSpecific = squaremeterspecific;
     }
 
     public Integer getDurationid() {
@@ -23,19 +23,19 @@ public class Duration {
         this.durationid = durationid;
     }
 
-    public Integer getDurationtime() {
-        return durationtime;
+    public Integer getDurationTime() {
+        return durationTime;
     }
 
-    public void setDurationtime(Integer durationtime) {
-        this.durationtime = durationtime;
+    public void setDurationTime(Integer durationTime) {
+        this.durationTime = durationTime;
     }
 
-    public String getSquaremeterspecific() {
-        return squaremeterspecific;
+    public String getSquareMeterSpecific() {
+        return squareMeterSpecific;
     }
 
-    public void setSquaremeterspecific(String squaremeterspecific) {
-        this.squaremeterspecific = squaremeterspecific;
+    public void setSquareMeterSpecific(String squareMeterSpecific) {
+        this.squareMeterSpecific = squareMeterSpecific;
     }
 }

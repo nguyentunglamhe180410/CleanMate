@@ -294,12 +294,13 @@ public class dto {
         public void setNote(String note) { this.note = note; }
         public int getAddressId() { return addressId; }
         public void setAddressId(int addressId) { this.addressId = addressId; }
-        public LocalDate getDate() { return date; }
+        public String getDate() { return String.valueOf(date); }
         public void setDate(LocalDate date) { this.date = date; }
         public LocalTime getStartTime() { return startTime; }
         public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
         public BigDecimal getTotalPrice() { return totalPrice; }
         public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
+
     }
 
     // 2. BookingDTO
@@ -326,8 +327,8 @@ public class dto {
         private LocalDate date;
         private LocalTime startTime;
         private BigDecimal totalPrice;
-        private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
+        private Timestamp createdAt;
+        private Timestamp updatedAt;
         private boolean hasFeedback;
 
         public BookingDTO() {}
@@ -339,7 +340,7 @@ public class dto {
                           Integer addressId, String addressFormatted, String addressNo,
                           String paymentMethod, String paymentStatus,
                           LocalDate date, LocalTime startTime, BigDecimal totalPrice,
-                          LocalDateTime createdAt, LocalDateTime updatedAt, boolean hasFeedback) {
+                          Timestamp createdAt, Timestamp updatedAt, boolean hasFeedback) {
             this.bookingId = bookingId;
             this.servicePriceId = servicePriceId;
             this.serviceName = serviceName;
@@ -543,7 +544,7 @@ public class dto {
             this.totalPrice = totalPrice;
         }
 
-        public LocalDateTime getCreatedAt() {
+        public Timestamp getCreatedAt() {
             return createdAt;
         }
 
@@ -551,7 +552,7 @@ public class dto {
             this.createdAt = createdAt;
         }
 
-        public LocalDateTime getUpdatedAt() {
+        public Timestamp getUpdatedAt() {
             return updatedAt;
         }
 
@@ -1624,5 +1625,6 @@ public class dto {
             this.createdAt = createdAt;
         }
     }
+
 
 }

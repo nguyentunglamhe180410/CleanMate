@@ -1,6 +1,6 @@
 package com.example.cleanmate.data.model;
 
-public class Aspnetuserlogins {
+public class UserLogins {
 
     private String loginprovider;
     private String providerkey;

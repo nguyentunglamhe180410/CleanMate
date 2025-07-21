@@ -23,11 +23,11 @@ public class FeedbackRepository implements AutoCloseable {
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) return null;
                 Feedback f = new Feedback();
-                f.setFeedbackid(rs.getInt("FeedbackId"));
-                f.setBookingid(rs.getInt("BookingId"));
+                f.setFeedbackId(rs.getInt("FeedbackId"));
+                f.setBookingId(rs.getInt("BookingId"));
                 f.setRating(rs.getDouble("Rating"));
                 f.setContent(rs.getString("Content"));
-                f.setCreatedat(rs.getTimestamp("CreatedAt"));
+                f.setCreatedAt(rs.getTimestamp("CreatedAt"));
                 return f;
             }
         }
@@ -38,7 +38,7 @@ public class FeedbackRepository implements AutoCloseable {
         String sql = "INSERT INTO Feedbacks (BookingId, Rating, Content, CreatedAt) " +
                 "VALUES (?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, feedback.getBookingid());
+            ps.setInt(1, feedback.getBookingId());
             ps.setDouble(2, feedback.getRating());
             ps.setString(3, feedback.getContent());
             ps.setTimestamp(4, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
@@ -46,7 +46,7 @@ public class FeedbackRepository implements AutoCloseable {
 
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
-                    feedback.setFeedbackid(keys.getInt(1));
+                    feedback.setFeedbackId(keys.getInt(1));
                 }
             }
         }
@@ -59,7 +59,7 @@ public class FeedbackRepository implements AutoCloseable {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setDouble(1, feedback.getRating());
             ps.setString(2, feedback.getContent());
-            ps.setInt(3, feedback.getFeedbackid());
+            ps.setInt(3, feedback.getFeedbackId());
             ps.executeUpdate();
         }
     }

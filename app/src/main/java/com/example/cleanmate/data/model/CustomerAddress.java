@@ -4,79 +4,79 @@ import java.math.BigDecimal;
 
 public class CustomerAddress {
 
-    private Integer addressid;
-    private String userid;
-    private String ggFormattedaddress;
-    private String ggDispalyname;
-    private String ggPlaceid;
-    private String addressno;
-    private Boolean isinuse;
-    private Boolean isdefault;
+    private Integer addressId;
+    private String userId;
+    private String ggFormattAdaddress;
+    private String ggDispalyName;
+    private String ggPlaceId;
+    private String addressNo;
+    private Boolean isInUse;
+    private Boolean isDefault;
     private java.math.BigDecimal latitude;
     private java.math.BigDecimal longitude;
 
-    public Integer getAddressid() {
-        return addressid;
+    public Integer getAddressId() {
+        return addressId;
     }
 
-    public void setAddressid(Integer addressid) {
-        this.addressid = addressid;
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getGgFormattedaddress() {
-        return ggFormattedaddress;
+    public String getGgFormattAdaddress() {
+        return ggFormattAdaddress;
     }
 
-    public void setGgFormattedaddress(String ggFormattedaddress) {
-        this.ggFormattedaddress = ggFormattedaddress;
+    public void setGgFormattAdaddress(String ggFormattAdaddress) {
+        this.ggFormattAdaddress = ggFormattAdaddress;
     }
 
-    public String getGgDispalyname() {
-        return ggDispalyname;
+    public String getGgDispalyName() {
+        return ggDispalyName;
     }
 
-    public void setGgDispalyname(String ggDispalyname) {
-        this.ggDispalyname = ggDispalyname;
+    public void setGgDispalyName(String ggDispalyName) {
+        this.ggDispalyName = ggDispalyName;
     }
 
-    public String getGgPlaceid() {
-        return ggPlaceid;
+    public String getGgPlaceId() {
+        return ggPlaceId;
     }
 
-    public void setGgPlaceid(String ggPlaceid) {
-        this.ggPlaceid = ggPlaceid;
+    public void setGgPlaceId(String ggPlaceId) {
+        this.ggPlaceId = ggPlaceId;
     }
 
-    public String getAddressno() {
-        return addressno;
+    public String getAddressNo() {
+        return addressNo;
     }
 
-    public void setAddressno(String addressno) {
-        this.addressno = addressno;
+    public void setAddressNo(String addressNo) {
+        this.addressNo = addressNo;
     }
 
-    public Boolean getIsinuse() {
-        return isinuse;
+    public Boolean getIsInUse() {
+        return isInUse;
     }
 
-    public void setIsinuse(Boolean isinuse) {
-        this.isinuse = isinuse;
+    public void setIsInUse(Boolean isInUse) {
+        this.isInUse = isInUse;
     }
 
-    public Boolean getIsdefault() {
-        return isdefault;
+    public Boolean getIsDefault() {
+        return isDefault;
     }
 
-    public void setIsdefault(Boolean isdefault) {
-        this.isdefault = isdefault;
+    public void setIsDefault(Boolean isDefault) {
+        this.isDefault = isDefault;
     }
 
     public BigDecimal getLatitude() {
@@ -99,14 +99,14 @@ public class CustomerAddress {
     }
 
     public CustomerAddress(Integer addressid, String userid, String ggFormattedaddress, String ggDispalyname, String ggPlaceid, String addressno, Boolean isinuse, Boolean isdefault, BigDecimal latitude, BigDecimal longitude) {
-        this.addressid = addressid;
-        this.userid = userid;
-        this.ggFormattedaddress = ggFormattedaddress;
-        this.ggDispalyname = ggDispalyname;
-        this.ggPlaceid = ggPlaceid;
-        this.addressno = addressno;
-        this.isinuse = isinuse;
-        this.isdefault = isdefault;
+        this.addressId = addressid;
+        this.userId = userid;
+        this.ggFormattAdaddress = ggFormattedaddress;
+        this.ggDispalyName = ggDispalyname;
+        this.ggPlaceId = ggPlaceid;
+        this.addressNo = addressno;
+        this.isInUse = isinuse;
+        this.isDefault = isdefault;
         this.latitude = latitude;
         this.longitude = longitude;
     }

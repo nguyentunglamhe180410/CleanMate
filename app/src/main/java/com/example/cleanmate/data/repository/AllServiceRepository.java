@@ -25,7 +25,7 @@ public class AllServiceRepository implements AutoCloseable {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Service s = new Service();
-                s.setServiceid(rs.getInt("ServiceId"));
+                s.setServiceId(rs.getInt("ServiceId"));
                 s.setName(rs.getString("Name"));
                 s.setDescription(rs.getString("Description"));
                 list.add(s);
@@ -48,9 +48,9 @@ public class AllServiceRepository implements AutoCloseable {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     ServicePrice sp = new ServicePrice();
-                    sp.setPriceid(rs.getInt("PriceId"));
-                    sp.setServiceid(rs.getInt("ServiceId"));
-                    sp.setDurationid(rs.getInt("DurationId"));
+                    sp.setPriceId(rs.getInt("PriceId"));
+                    sp.setServiceId(rs.getInt("ServiceId"));
+                    sp.setDurationId(rs.getInt("DurationId"));
                     sp.setPrice(rs.getBigDecimal("Price"));
                     list.add(sp);
                 }

@@ -4,35 +4,35 @@ import java.math.BigDecimal;
 
 public class UserWallet {
 
-    private Integer walletid;
-    private String userid;
+    private Integer walletId;
+    private String userId;
     private java.math.BigDecimal balance;
-    private String updatedat;
+    private String updatedAt;
 
     public UserWallet() {
     }
 
     public UserWallet(Integer walletid, String userid, BigDecimal balance, String updatedat) {
-        this.walletid = walletid;
-        this.userid = userid;
+        this.walletId = walletid;
+        this.userId = userid;
         this.balance = balance;
-        this.updatedat = updatedat;
+        this.updatedAt = updatedat;
     }
 
-    public Integer getWalletid() {
-        return walletid;
+    public Integer getWalletId() {
+        return walletId;
     }
 
-    public void setWalletid(Integer walletid) {
-        this.walletid = walletid;
+    public void setWalletId(Integer walletId) {
+        this.walletId = walletId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public BigDecimal getBalance() {
@@ -43,11 +43,11 @@ public class UserWallet {
         this.balance = balance;
     }
 
-    public String getUpdatedat() {
-        return updatedat;
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedat(String updatedat) {
-        this.updatedat = updatedat;
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

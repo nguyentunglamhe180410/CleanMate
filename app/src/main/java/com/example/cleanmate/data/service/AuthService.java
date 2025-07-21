@@ -1,65 +1,86 @@
-//package com.example.cleanmate.data.service;
-//
-//
-//import com.example.cleanmate.common.utils.DateTimeVN;
-//import com.example.cleanmate.data.repository.CustomerRepository;
-//import com.example.cleanmate.models.viewmodels.authen.RegisterModel;
-//import com.example.cleanmate.data.model.Aspnetusers;
-//
-//import java.sql.SQLException;
-//import java.util.List;
-//
-//public class AuthService {
-//    private final CustomerRepository userRepo;
-//    private final EmailService   emailSvc;
-//
-//    public AuthService(CustomerRepository userRepo,
-//                       EmailService emailSvc,
-//                       JwtProvider jwtProvider) {
-//        this.userRepo    = userRepo;
-//        this.emailSvc    = emailSvc;
-//        this.jwtProvider = jwtProvider;
-//    }
-//
-//    /**
-//     * Registers a new customer: checks duplicates, creates user, sends confirmation.
-//     */
-//    public boolean registerCustomer(RegisterModel m) throws SQLException {
-//        List<String> errs = userRepo.checkEmailPhone(m.getEmail(), m.getPhonenumber());
-//        if (!errs.isEmpty()) return AuthResult.fail(errs);
-//
-//        Aspnetusers u = new Aspnetusers();
-//        u.setEmail(m.getEmail());
-//        u.setPhonenumber(m.getPhoneNumber());
-//        u.setFullname(m.getFullName());
-//        u.setPasswordhash(userRepo.hashPassword(m.getPassword()));
-//        u.setCreateddate(DateTimeVN.getNow());
-//        u.setRole("Customer");
-//
-//        userRepo.insert(u);
-//        // generate token + send confirmation
-//        String token = userRepo.generateEmailToken(u.getUserid());
-//        String link  = "https://yourdomain.com/confirm?uid=" + u.getUserid() + "&t=" + token;
-//        emailSvc.sendConfirm(u.getEmail(), link);
-//
-//        return true;
-//    }
-//
-//    /**
-//     * Logs in and returns JWT on success, or error message.
-//     */
-//    public AuthResult login(LoginModel m) throws SQLException {
-//        User u = userRepo.findByEmail(m.getEmail());
-//        if (u == null)  return AuthResult.fail("Tài khoản không tồn tại.");
-//        if (!u.isEmailConfirmed())
-//            return AuthResult.fail("Email chưa được xác thực.");
-//        if (!userRepo.verifyPassword(u, m.getPassword()))
-//            return AuthResult.fail("Sai mật khẩu.");
-//
-//        String jwt = jwtProvider.createToken(u.getUserid(), u.getRole());
-//        return AuthResult.success(jwt);
-//    }
-//
-//    // ... forgotPassword, resetPassword, resendConfirmation similar patterns ...
-//}
-//
+package com.example.cleanmate.data.service;
+
+import com.example.cleanmate.data.model.viewmodels.authen.AuthResult;
+import com.example.cleanmate.data.model.viewmodels.authen.LoginModel;
+import com.example.cleanmate.data.model.viewmodels.authen.RegisterModel;
+import com.example.cleanmate.data.model.User;
+import com.example.cleanmate.data.repository.AuthRepository;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class AuthService {
+    public AuthResult registerCustomer(RegisterModel model) {
+        List<String> errors = new ArrayList<>();
+        try (AuthRepository repo = new AuthRepository()) {
+            if (repo.existsByEmail(model.getEmail())) {
+                errors.add("Email đã được sử dụng.");
+            }
+            if (repo.existsByPhone(model.getPhoneNumber())) {
+                errors.add("Số điện thoại đã được sử dụng.");
+            }
+            boolean ok = repo.register(model);
+            if (!errors.isEmpty()) {
+                return AuthResult.fail(errors);
+            }
+            if (ok) {
+                User u = repo.login( new LoginModel( model.getEmail(),model.getPassword()));
+                return AuthResult.success(u);
+            } else {
+                return AuthResult.fail("Đăng ký thất bại");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return AuthResult.fail("Lỗi: " + ex.getMessage());
+        }
+    }
+
+    public AuthResult login(LoginModel model) {
+        try (AuthRepository repo = new AuthRepository()) {
+            User u = repo.login(model);
+            if (u == null) {
+                return AuthResult.fail("Email hoặc mật khẩu không đúng.");
+            }
+            return AuthResult.success(u);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return AuthResult.fail("Lỗi: " + ex.getMessage());
+        }
+    }
+
+    public AuthResult registerEmployee(RegisterModel m) {
+        List<String> errors = new ArrayList<>();
+        try (AuthRepository repo = new AuthRepository()) {
+            if (repo.existsByEmail(m.getEmail())) {
+                errors.add("Email đã được sử dụng.");
+            }
+            if (repo.existsByPhone(m.getPhoneNumber())) {
+                errors.add("Số điện thoại đã được sử dụng.");
+            }
+            if (repo.existsByIdentification(m.getIdentification())) {
+                errors.add("Số định danh đã được sử dụng.");
+            }
+            if (m.getBank() == null || m.getBank().isEmpty()) {
+                errors.add("Mã ngân hàng không hợp lệ.");
+            }
+
+            if (!errors.isEmpty()) {
+                return AuthResult.fail(errors);
+            }
+
+            // perform the registration + role assignment
+            boolean ok = repo.registerEmployee(m);
+            if (!ok) {
+                return AuthResult.fail("Đăng ký nhân viên thất bại. Vui lòng thử lại.");
+            }
+
+            // load back the created user
+            User u = repo.login( new LoginModel( m.getEmail(),m.getPassword()));
+            return AuthResult.success(u);
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return AuthResult.fail("Lỗi hệ thống: " + ex.getMessage());
+        }
+    }
+}

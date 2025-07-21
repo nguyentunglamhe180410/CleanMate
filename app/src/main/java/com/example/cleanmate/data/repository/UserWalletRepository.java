@@ -19,13 +19,13 @@ public class UserWalletRepository implements AutoCloseable {
     public UserWallet addNewWallet(UserWallet wallet) throws SQLException {
         String sql = "INSERT INTO User_Wallet (UserId, Balance, UpdatedAt) VALUES (?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, wallet.getUserid());
+            ps.setString(1, wallet.getUserId());
             ps.setBigDecimal(2, wallet.getBalance());
             ps.setTimestamp(3, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
-                    wallet.setWalletid(keys.getInt(1));
+                    wallet.setWalletId(keys.getInt(1));
                 }
             }
         }
@@ -45,10 +45,10 @@ public class UserWalletRepository implements AutoCloseable {
                     throw new SQLException("Không tìm thấy ví cho người dùng này.");
                 }
                 UserWallet w = new UserWallet();
-                w.setWalletid(rs.getInt("WalletId"));
-                w.setUserid(rs.getString("UserId"));
+                w.setWalletId(rs.getInt("WalletId"));
+                w.setUserId(rs.getString("UserId"));
                 w.setBalance(rs.getBigDecimal("Balance"));
-                w.setUpdatedat(rs.getTimestamp("UpdatedAt").toLocaleString());
+                w.setUpdatedAt(rs.getTimestamp("UpdatedAt").toLocaleString());
                 return w;
             }
         }

@@ -22,17 +22,17 @@ public class PaymentRepository implements AutoCloseable {
                 + "(BookingId, Amount, PaymentMethod, PaymentStatus, TransactionId, CreatedAt) "
                 + "VALUES (?,?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, payment.getBookingid());
+            ps.setInt(1, payment.getBookingId());
             ps.setBigDecimal(2, payment.getAmount());
-            ps.setString(3, payment.getPaymentmethod());
+            ps.setString(3, payment.getPaymentMethod());
             ps.setString(4, payment.getPaymentStatus());
-            ps.setString(5, payment.getTransactionid());
+            ps.setString(5, payment.getTransactionId());
             ps.setTimestamp(6, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
             ps.executeUpdate();
 
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
-                    payment.setPaymentid(keys.getInt(1));
+                    payment.setPaymentId(keys.getInt(1));
                 }
             }
             return payment;
@@ -45,7 +45,7 @@ public class PaymentRepository implements AutoCloseable {
      */
     public Payment updatePayment(Payment newPayment) throws SQLException {
         // First, find existing by bookingid
-        Payment existing = getPaymentByBookingId(newPayment.getBookingid());
+        Payment existing = getPaymentByBookingId(newPayment.getBookingId());
         if (existing == null) return null;
 
         String sql = "UPDATE Payment SET "
@@ -54,16 +54,16 @@ public class PaymentRepository implements AutoCloseable {
                 + "WHERE BookingId = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setBigDecimal(1, newPayment.getAmount());
-            ps.setString(2, newPayment.getPaymentmethod());
+            ps.setString(2, newPayment.getPaymentMethod());
             ps.setString(3, newPayment.getPaymentStatus());
-            ps.setString(4, newPayment.getTransactionid());
-            ps.setInt(5, newPayment.getBookingid());
+            ps.setString(4, newPayment.getTransactionId());
+            ps.setInt(5, newPayment.getBookingId());
             ps.executeUpdate();
             // refresh fields on existing
             existing.setAmount(newPayment.getAmount());
-            existing.setPaymentmethod(newPayment.getPaymentmethod());
+            existing.setPaymentMethod(newPayment.getPaymentMethod());
             existing.setPaymentStatus(newPayment.getPaymentStatus());
-            existing.setTransactionid(newPayment.getTransactionid());
+            existing.setTransactionId(newPayment.getTransactionId());
             return existing;
         }
     }
@@ -101,13 +101,13 @@ public class PaymentRepository implements AutoCloseable {
     /** Maps a ResultSet row into your Payment model. */
     private Payment mapRow(ResultSet rs) throws SQLException {
         Payment p = new Payment();
-        p.setPaymentid(rs.getInt("PaymentId"));
-        p.setBookingid(rs.getInt("BookingId"));
+        p.setPaymentId(rs.getInt("PaymentId"));
+        p.setBookingId(rs.getInt("BookingId"));
         p.setAmount(rs.getBigDecimal("Amount"));
-        p.setPaymentmethod(rs.getString("PaymentMethod"));
+        p.setPaymentMethod(rs.getString("PaymentMethod"));
         p.setPaymentStatus(rs.getString("PaymentStatus"));
-        p.setTransactionid(rs.getString("TransactionId"));
-        p.setCreatedat(rs.getTimestamp("CreatedAt"));
+        p.setTransactionId(rs.getString("TransactionId"));
+        p.setCreatedAt(rs.getTimestamp("CreatedAt"));
         return p;
     }
 

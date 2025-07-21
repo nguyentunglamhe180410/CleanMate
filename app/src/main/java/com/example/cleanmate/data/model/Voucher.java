@@ -5,37 +5,37 @@ import java.sql.Timestamp;
 
 public class Voucher {
 
-    private Integer voucherid;
+    private Integer voucherId;
     private String description;
     private java.math.BigDecimal discountPercentage;
-    private java.sql.Timestamp createdat;
-    private String expiredate;
-    private String vouchercode;
-    private Boolean iseventvoucher;
-    private String createdby;
+    private java.sql.Timestamp createdAt;
+    private String expireDate;
+    private String voucherCode;
+    private Boolean isEventVoucher;
+    private String createdBy;
     private String status;
 
     public Voucher() {
     }
 
     public Voucher(Integer voucherid, String description, BigDecimal discountPercentage, Timestamp createdat, String expiredate, String vouchercode, Boolean iseventvoucher, String createdby, String status) {
-        this.voucherid = voucherid;
+        this.voucherId = voucherid;
         this.description = description;
         this.discountPercentage = discountPercentage;
-        this.createdat = createdat;
-        this.expiredate = expiredate;
-        this.vouchercode = vouchercode;
-        this.iseventvoucher = iseventvoucher;
-        this.createdby = createdby;
+        this.createdAt = createdat;
+        this.expireDate = expiredate;
+        this.voucherCode = vouchercode;
+        this.isEventVoucher = iseventvoucher;
+        this.createdBy = createdby;
         this.status = status;
     }
 
-    public Integer getVoucherid() {
-        return voucherid;
+    public Integer getVoucherId() {
+        return voucherId;
     }
 
-    public void setVoucherid(Integer voucherid) {
-        this.voucherid = voucherid;
+    public void setVoucherId(Integer voucherId) {
+        this.voucherId = voucherId;
     }
 
     public String getDescription() {
@@ -54,44 +54,44 @@ public class Voucher {
         this.discountPercentage = discountPercentage;
     }
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getExpiredate() {
-        return expiredate;
+    public String getExpireDate() {
+        return expireDate;
     }
 
-    public void setExpiredate(String expiredate) {
-        this.expiredate = expiredate;
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
     }
 
-    public String getVouchercode() {
-        return vouchercode;
+    public String getVoucherCode() {
+        return voucherCode;
     }
 
-    public void setVouchercode(String vouchercode) {
-        this.vouchercode = vouchercode;
+    public void setVoucherCode(String voucherCode) {
+        this.voucherCode = voucherCode;
     }
 
-    public Boolean getIseventvoucher() {
-        return iseventvoucher;
+    public Boolean getIsEventVoucher() {
+        return isEventVoucher;
     }
 
-    public void setIseventvoucher(Boolean iseventvoucher) {
-        this.iseventvoucher = iseventvoucher;
+    public void setIsEventVoucher(Boolean isEventVoucher) {
+        this.isEventVoucher = isEventVoucher;
     }
 
-    public String getCreatedby() {
-        return createdby;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getStatus() {

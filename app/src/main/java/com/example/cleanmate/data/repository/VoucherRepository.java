@@ -56,14 +56,14 @@ public class VoucherRepository implements AutoCloseable {
             ps.setString(1, v.getDescription());
             ps.setBigDecimal(2, v.getDiscountPercentage());
             ps.setTimestamp(3, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
-            ps.setDate(4, Date.valueOf(String.valueOf(LocalDate.parse(v.getExpiredate())))); // expect "YYYY-MM-DD"
-            ps.setString(5, v.getVouchercode());
-            ps.setBoolean(6, v.getIseventvoucher());
-            ps.setString(7, v.getCreatedby());
+            ps.setDate(4, Date.valueOf(String.valueOf(LocalDate.parse(v.getExpireDate())))); // expect "YYYY-MM-DD"
+            ps.setString(5, v.getVoucherCode());
+            ps.setBoolean(6, v.getIsEventVoucher());
+            ps.setString(7, v.getCreatedBy());
             ps.setString(8, v.getStatus());
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
-                if (keys.next()) v.setVoucherid(keys.getInt(1));
+                if (keys.next()) v.setVoucherId(keys.getInt(1));
             }
         }
     }
@@ -77,12 +77,12 @@ public class VoucherRepository implements AutoCloseable {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, v.getDescription());
             ps.setBigDecimal(2, v.getDiscountPercentage());
-            ps.setDate(3, Date.valueOf(String.valueOf(LocalDate.parse(v.getExpiredate()))));
-            ps.setString(4, v.getVouchercode());
-            ps.setBoolean(5, v.getIseventvoucher());
-            ps.setString(6, v.getCreatedby());
+            ps.setDate(3, Date.valueOf(String.valueOf(LocalDate.parse(v.getExpireDate()))));
+            ps.setString(4, v.getVoucherCode());
+            ps.setBoolean(5, v.getIsEventVoucher());
+            ps.setString(6, v.getCreatedBy());
             ps.setString(7, v.getStatus());
-            ps.setInt(8, v.getVoucherid());
+            ps.setInt(8, v.getVoucherId());
             ps.executeUpdate();
         }
     }
@@ -173,11 +173,11 @@ public class VoucherRepository implements AutoCloseable {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     UserVoucher uv = new UserVoucher();
-                    uv.setUservoucherid(rs.getInt("UserVoucherId"));
-                    uv.setUserid(rs.getString("UserId"));
-                    uv.setVoucherid(rs.getInt("VoucherId"));
+                    uv.setUserVoucherId(rs.getInt("UserVoucherId"));
+                    uv.setUserId(rs.getString("UserId"));
+                    uv.setVoucherId(rs.getInt("VoucherId"));
                     uv.setQuantity(rs.getInt("Quantity"));
-                    uv.setIsused(rs.getBoolean("IsUsed"));
+                    uv.setIsUsed(rs.getBoolean("IsUsed"));
                     list.add(uv);
                 }
             }
@@ -199,11 +199,11 @@ public class VoucherRepository implements AutoCloseable {
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) return null;
                 UserVoucher uv = new UserVoucher();
-                uv.setUservoucherid(rs.getInt("UserVoucherId"));
-                uv.setUserid(rs.getString("UserId"));
-                uv.setVoucherid(rs.getInt("VoucherId"));
+                uv.setUserVoucherId(rs.getInt("UserVoucherId"));
+                uv.setUserId(rs.getString("UserId"));
+                uv.setVoucherId(rs.getInt("VoucherId"));
                 uv.setQuantity(rs.getInt("Quantity"));
-                uv.setIsused(rs.getBoolean("IsUsed"));
+                uv.setIsUsed(rs.getBoolean("IsUsed"));
                 return uv;
             }
         }
@@ -214,22 +214,22 @@ public class VoucherRepository implements AutoCloseable {
         String sql = "UPDATE UserVoucher SET Quantity = ?, IsUsed = ? WHERE UserVoucherId = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, uv.getQuantity());
-            ps.setBoolean(2, uv.getIsused());
-            ps.setInt(3, uv.getUservoucherid());
+            ps.setBoolean(2, uv.getIsUsed());
+            ps.setInt(3, uv.getUserVoucherId());
             ps.executeUpdate();
         }
     }
 
     private Voucher mapVoucher(ResultSet rs) throws SQLException {
         Voucher v = new Voucher();
-        v.setVoucherid(rs.getInt("VoucherId"));
+        v.setVoucherId(rs.getInt("VoucherId"));
         v.setDescription(rs.getString("Description"));
         v.setDiscountPercentage(rs.getBigDecimal("DiscountPercentage"));
-        v.setCreatedat(rs.getTimestamp("CreatedAt"));
-        v.setExpiredate(rs.getDate("ExpireDate").toString());
-        v.setVouchercode(rs.getString("VoucherCode"));
-        v.setIseventvoucher(rs.getBoolean("IsEventVoucher"));
-        v.setCreatedby(rs.getString("CreatedBy"));
+        v.setCreatedAt(rs.getTimestamp("CreatedAt"));
+        v.setExpireDate(rs.getDate("ExpireDate").toString());
+        v.setVoucherCode(rs.getString("VoucherCode"));
+        v.setIsEventVoucher(rs.getBoolean("IsEventVoucher"));
+        v.setCreatedBy(rs.getString("CreatedBy"));
         v.setStatus(rs.getString("Status"));
         return v;
     }

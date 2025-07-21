@@ -4,45 +4,45 @@ import java.math.BigDecimal;
 
 public class Withdrawrequest {
 
-    private Integer requestid;
-    private String userid;
+    private Integer requestId;
+    private String userId;
     private java.math.BigDecimal amount;
     private String status;
-    private String requestedat;
-    private String processedat;
-    private String adminnote;
-    private Integer transactionid;
-    private String processedby;
+    private String requestedAt;
+    private String processedAt;
+    private String adminNote;
+    private Integer transactionId;
+    private String processedBy;
 
     public Withdrawrequest() {
     }
 
     public Withdrawrequest(Integer requestid, String userid, BigDecimal amount, String status, String requestedat, String processedat, String adminnote, Integer transactionid, String processedby) {
-        this.requestid = requestid;
-        this.userid = userid;
+        this.requestId = requestid;
+        this.userId = userid;
         this.amount = amount;
         this.status = status;
-        this.requestedat = requestedat;
-        this.processedat = processedat;
-        this.adminnote = adminnote;
-        this.transactionid = transactionid;
-        this.processedby = processedby;
+        this.requestedAt = requestedat;
+        this.processedAt = processedat;
+        this.adminNote = adminnote;
+        this.transactionId = transactionid;
+        this.processedBy = processedby;
     }
 
-    public Integer getRequestid() {
-        return requestid;
+    public Integer getRequestId() {
+        return requestId;
     }
 
-    public void setRequestid(Integer requestid) {
-        this.requestid = requestid;
+    public void setRequestId(Integer requestId) {
+        this.requestId = requestId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public BigDecimal getAmount() {
@@ -61,43 +61,43 @@ public class Withdrawrequest {
         this.status = status;
     }
 
-    public String getRequestedat() {
-        return requestedat;
+    public String getRequestedAt() {
+        return requestedAt;
     }
 
-    public void setRequestedat(String requestedat) {
-        this.requestedat = requestedat;
+    public void setRequestedAt(String requestedAt) {
+        this.requestedAt = requestedAt;
     }
 
-    public String getProcessedat() {
-        return processedat;
+    public String getProcessedAt() {
+        return processedAt;
     }
 
-    public void setProcessedat(String processedat) {
-        this.processedat = processedat;
+    public void setProcessedAt(String processedAt) {
+        this.processedAt = processedAt;
     }
 
-    public String getAdminnote() {
-        return adminnote;
+    public String getAdminNote() {
+        return adminNote;
     }
 
-    public void setAdminnote(String adminnote) {
-        this.adminnote = adminnote;
+    public void setAdminNote(String adminNote) {
+        this.adminNote = adminNote;
     }
 
-    public Integer getTransactionid() {
-        return transactionid;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setTransactionid(Integer transactionid) {
-        this.transactionid = transactionid;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public String getProcessedby() {
-        return processedby;
+    public String getProcessedBy() {
+        return processedBy;
     }
 
-    public void setProcessedby(String processedby) {
-        this.processedby = processedby;
+    public void setProcessedBy(String processedBy) {
+        this.processedBy = processedBy;
     }
 }

@@ -2,60 +2,54 @@ package com.example.cleanmate.data.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Booking {
 
-    private Integer bookingid;
-    private Integer servicePriceid;
-    private String cleanerid;
-    private String userid;
-    private Integer bookingstatusid;
+    private Integer bookingId;
+    private Integer servicePriceId;
+    private String cleanerId;
+    private String userId;
+    private Integer bookingStatusId;
     private String note;
-    private Integer addressid;
+    private Integer addressId;
     private String date;
-    private String starttime;
-    private java.math.BigDecimal totalprice;
-    private java.sql.Timestamp createdat;
-    private java.sql.Timestamp updatedat;
+    private String startTime;
+    private java.math.BigDecimal totalPrice;
+    private java.sql.Timestamp createdAt;
+    private java.sql.Timestamp updatedAt;
 
-    public Integer getBookingid() {
-        return bookingid;
+    public Integer getBookingId() {
+        return bookingId;
     }
 
-    public void setBookingid(Integer bookingid) {
-        this.bookingid = bookingid;
+    public void setBookingId(Integer bookingId) {
+        this.bookingId = bookingId;
     }
 
-    public Integer getServicePriceid() {
-        return servicePriceid;
+    public Integer getServicePriceId() {
+        return servicePriceId;
     }
 
-    public void setServicePriceid(Integer servicePriceid) {
-        this.servicePriceid = servicePriceid;
+    public void setServicePriceId(Integer servicePriceId) {
+        this.servicePriceId = servicePriceId;
     }
 
-    public String getCleanerid() {
-        return cleanerid;
+    public String getCleanerId() {
+        return cleanerId;
     }
 
-    public void setCleanerid(String cleanerid) {
-        this.cleanerid = cleanerid;
+    public void setCleanerId(String cleanerId) {
+        this.cleanerId = cleanerId;
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public Integer getBooking tatusid() {
-        return bookingstatusid;
-    }
-
-    public void setBooking tatusid(Integer bookingstatusid) {
-        this.bookingstatusid = bookingstatusid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getNote() {
@@ -66,12 +60,12 @@ public class Booking {
         this.note = note;
     }
 
-    public Integer getAddressid() {
-        return addressid;
+    public Integer getAddressId() {
+        return addressId;
     }
 
-    public void setAddressid(Integer addressid) {
-        this.addressid = addressid;
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
     }
 
     public String getDate() {
@@ -82,53 +76,63 @@ public class Booking {
         this.date = date;
     }
 
-    public String getStarttime() {
-        return starttime;
+    public LocalTime getStartTime() {
+        return LocalTime.parse(startTime);
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public BigDecimal getTotalprice() {
-        return totalprice;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotalprice(BigDecimal totalprice) {
-        this.totalprice = totalprice;
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public Timestamp getCreatedat() {
-        return createdat;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(Timestamp createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedat() {
-        return updatedat;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdatedat(Timestamp updatedat) {
-        this.updatedat = updatedat;
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Integer getBookingStatusId() {
+        return bookingStatusId;
+    }
+
+    public void setBookingStatusId(Integer bookingStatusId) {
+        this.bookingStatusId = bookingStatusId;
     }
 
     public Booking() {
     }
 
-    public Booking(Integer bookingid, Integer servicePriceid, String cleanerid, String userid, Integer bookingstatusid, String note, Integer addressid, String date, String starttime, BigDecimal totalprice, Timestamp createdat, Timestamp updatedat) {
-        this.bookingid = bookingid;
-        this.servicePriceid = servicePriceid;
-        this.cleanerid = cleanerid;
-        this.userid = userid;
-        this.bookingstatusid = bookingstatusid;
+    public Booking(Integer bookingId, Integer servicePriceId, String cleanerId, String userId, Integer bookingStatusId, String note, Integer addressId, String date, String startTime, BigDecimal totalPrice, Timestamp createdAt, Timestamp updatedAt) {
+        this.bookingId = bookingId;
+        this.servicePriceId = servicePriceId;
+        this.cleanerId = cleanerId;
+        this.userId = userId;
+        this.bookingStatusId = bookingStatusId;
         this.note = note;
-        this.addressid = addressid;
+        this.addressId = addressId;
         this.date = date;
-        this.starttime = starttime;
-        this.totalprice = totalprice;
-        this.createdat = createdat;
-        this.updatedat = updatedat;
+        this.startTime = startTime;
+        this.totalPrice = totalPrice;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
+
+
 }

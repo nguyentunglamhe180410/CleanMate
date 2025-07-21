@@ -4,41 +4,41 @@ import java.math.BigDecimal;
 
 public class WalletTransaction {
 
-    private Integer transactionid;
-    private Integer walletid;
+    private Integer transactionId;
+    private Integer walletId;
     private java.math.BigDecimal amount;
-    private String transactiontype;
+    private String transactionType;
     private String description;
-    private String createdat;
-    private Integer relatedbookingid;
+    private String createdAt;
+    private Integer relatedBookingId;
 
     public WalletTransaction() {
     }
 
     public WalletTransaction(Integer transactionid, Integer walletid, BigDecimal amount, String transactiontype, String description, String createdat, Integer relatedbookingid) {
-        this.transactionid = transactionid;
-        this.walletid = walletid;
+        this.transactionId = transactionid;
+        this.walletId = walletid;
         this.amount = amount;
-        this.transactiontype = transactiontype;
+        this.transactionType = transactiontype;
         this.description = description;
-        this.createdat = createdat;
-        this.relatedbookingid = relatedbookingid;
+        this.createdAt = createdat;
+        this.relatedBookingId = relatedbookingid;
     }
 
-    public Integer getTransactionid() {
-        return transactionid;
+    public Integer getTransactionId() {
+        return transactionId;
     }
 
-    public void setTransactionid(Integer transactionid) {
-        this.transactionid = transactionid;
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public Integer getWalletid() {
-        return walletid;
+    public Integer getWalletId() {
+        return walletId;
     }
 
-    public void setWalletid(Integer walletid) {
-        this.walletid = walletid;
+    public void setWalletId(Integer walletId) {
+        this.walletId = walletId;
     }
 
     public BigDecimal getAmount() {
@@ -49,12 +49,12 @@ public class WalletTransaction {
         this.amount = amount;
     }
 
-    public String getTransactiontype() {
-        return transactiontype;
+    public String getTransactionType() {
+        return transactionType;
     }
 
-    public void setTransactiontype(String transactiontype) {
-        this.transactiontype = transactiontype;
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
     }
 
     public String getDescription() {
@@ -65,19 +65,19 @@ public class WalletTransaction {
         this.description = description;
     }
 
-    public String getCreatedat() {
-        return createdat;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedat(String createdat) {
-        this.createdat = createdat;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Integer getRelatedbookingid() {
-        return relatedbookingid;
+    public Integer getRelatedBookingId() {
+        return relatedBookingId;
     }
 
-    public void setRelatedbookingid(Integer relatedbookingid) {
-        this.relatedbookingid = relatedbookingid;
+    public void setRelatedBookingId(Integer relatedBookingId) {
+        this.relatedBookingId = relatedBookingId;
     }
 }

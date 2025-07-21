@@ -4,43 +4,43 @@ import java.math.BigDecimal;
 
 public class ServicePrice {
 
-    private Integer priceid;
-    private Integer durationid;
-    private Integer serviceid;
+    private Integer priceId;
+    private Integer durationId;
+    private Integer serviceId;
     private java.math.BigDecimal price;
 
     public ServicePrice() {
     }
 
     public ServicePrice(Integer priceid, Integer durationid, Integer serviceid, BigDecimal price) {
-        this.priceid = priceid;
-        this.durationid = durationid;
-        this.serviceid = serviceid;
+        this.priceId = priceid;
+        this.durationId = durationid;
+        this.serviceId = serviceid;
         this.price = price;
     }
 
-    public Integer getPriceid() {
-        return priceid;
+    public Integer getPriceId() {
+        return priceId;
     }
 
-    public void setPriceid(Integer priceid) {
-        this.priceid = priceid;
+    public void setPriceId(Integer priceId) {
+        this.priceId = priceId;
     }
 
-    public Integer getDurationid() {
-        return durationid;
+    public Integer getDurationId() {
+        return durationId;
     }
 
-    public void setDurationid(Integer durationid) {
-        this.durationid = durationid;
+    public void setDurationId(Integer durationId) {
+        this.durationId = durationId;
     }
 
-    public Integer getServiceid() {
-        return serviceid;
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    public void setServiceid(Integer serviceid) {
-        this.serviceid = serviceid;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
     public BigDecimal getPrice() {

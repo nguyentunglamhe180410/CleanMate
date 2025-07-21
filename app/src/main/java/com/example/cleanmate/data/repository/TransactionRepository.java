@@ -4,7 +4,6 @@ import com.example.cleanmate.common.CommonConstants;
 import com.example.cleanmate.common.utils.DateTimeVN;
 import com.example.cleanmate.data.model.WalletTransaction;
 import com.example.cleanmate.data.model.*;
-import com.example.cleanmate.common.utils.*;
 import com.example.cleanmate.common.enums.*;
 
 
@@ -27,9 +26,9 @@ public class TransactionRepository implements AutoCloseable {
                 + "(WalletId, Amount, TransactionType, Description, CreatedAt) "
                 + "VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, tx.getWalletid());
+            ps.setInt(1, tx.getWalletId());
             ps.setBigDecimal(2, tx.getAmount());
-            ps.setString(3, tx.getTransactiontype());
+            ps.setString(3, tx.getTransactionType());
             ps.setString(4, tx.getDescription());
             ps.setTimestamp(5, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
             ps.executeUpdate();
@@ -74,7 +73,7 @@ public class TransactionRepository implements AutoCloseable {
                 + "(UserId, Amount, RequestedAt, Status) "
                 + "VALUES (?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, req.getUserid());
+            ps.setString(1, req.getUserId());
             ps.setBigDecimal(2, req.getAmount());
             ps.setTimestamp(3, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
             ps.setString(4, req.getStatus());
@@ -91,12 +90,12 @@ public class TransactionRepository implements AutoCloseable {
                 + "WHERE RequestId=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, updated.getStatus());
-            ps.setTimestamp(2, updated.getProcessedat() == null
+            ps.setTimestamp(2, updated.getProcessedAt() == null
                     ? null
-                    : Timestamp.valueOf(updated.getProcessedat().toLowerCase()));
-            ps.setString(3, updated.getAdminnote());
-            ps.setInt(4, updated.getTransactionid());
-            ps.setString(5, updated.getProcessedby());
+                    : Timestamp.valueOf(updated.getProcessedAt().toLowerCase()));
+            ps.setString(3, updated.getAdminNote());
+            ps.setInt(4, updated.getTransactionId());
+            ps.setString(5, updated.getProcessedBy());
             ps.setInt(6, requestId);
             return ps.executeUpdate() == 1;
         }
@@ -122,9 +121,9 @@ public class TransactionRepository implements AutoCloseable {
 
             // b) Record negative transaction
             WalletTransaction wt = new WalletTransaction();
-            wt.setWalletid(getWalletIdByUser(userId));
+            wt.setWalletId(getWalletIdByUser(userId));
             wt.setAmount(amount.negate());
-            wt.setTransactiontype(TransactionType.DEBIT.name());
+            wt.setTransactionType(TransactionType.DEBIT.name());
             wt.setDescription("Withdraw request #" + requestId);
             int txId = addTransaction(wt);
 
@@ -178,16 +177,16 @@ public class TransactionRepository implements AutoCloseable {
 
     private Withdrawrequest mapWithdrawRequest(ResultSet rs) throws SQLException {
         Withdrawrequest r = new Withdrawrequest();
-        r.setRequestid(rs.getInt("RequestId"));
-        r.setUserid(rs.getString("UserId"));
-        r.setUserid(rs.getString("ProcessedBy"));
-        r.setTransactionid(rs.getInt("TransactionId"));
+        r.setRequestId(rs.getInt("RequestId"));
+        r.setUserId(rs.getString("UserId"));
+        r.setUserId(rs.getString("ProcessedBy"));
+        r.setTransactionId(rs.getInt("TransactionId"));
         r.setAmount(rs.getBigDecimal("Amount"));
-        r.setRequestedat(rs.getTimestamp("RequestedAt").toLocaleString());
+        r.setRequestedAt(rs.getTimestamp("RequestedAt").toLocaleString());
         Timestamp p = rs.getTimestamp("ProcessedAt");
-        r.setProcessedat(p == null ? null : p.toLocaleString());
+        r.setProcessedAt(p == null ? null : p.toLocaleString());
         r.setStatus(String.valueOf(WithdrawStatus.valueOf(rs.getString("Status"))));
-        r.setAdminnote(rs.getString("AdminNote"));
+        r.setAdminNote(rs.getString("AdminNote"));
         return r;
     }
 

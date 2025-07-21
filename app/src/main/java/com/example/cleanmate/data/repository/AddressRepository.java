@@ -24,20 +24,20 @@ public class AddressRepository {
                 + "  AddressNo, Latitude, Longitude, IsInUse, IsDefault)"
                 + " VALUES (?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, addr.getUserid());
-            ps.setString(2, addr.getGgFormattedaddress());
-            ps.setString(3, addr.getGgDispalyname());
-            ps.setString(4, addr.getGgPlaceid());
-            ps.setString(5, addr.getAddressno());
+            ps.setString(1, addr.getUserId());
+            ps.setString(2, addr.getGgFormattAdaddress());
+            ps.setString(3, addr.getGgDispalyName());
+            ps.setString(4, addr.getGgPlaceId());
+            ps.setString(5, addr.getAddressNo());
             ps.setBigDecimal(6, addr.getLatitude());
             ps.setBigDecimal(7, addr.getLongitude());
-            ps.setBoolean(8, addr.getIsinuse());
-            ps.setBoolean(9, addr.getIsdefault());
+            ps.setBoolean(8, addr.getIsInUse());
+            ps.setBoolean(9, addr.getIsDefault());
             ps.executeUpdate();
 
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
-                    addr.setAddressid(keys.getInt(1));
+                    addr.setAddressId(keys.getInt(1));
                 }
             }
             return addr;
@@ -51,15 +51,15 @@ public class AddressRepository {
                 + " AddressNo=?, Latitude=?, Longitude=?, IsInUse=?, IsDefault=?"
                 + " WHERE AddressId=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, addr.getGgFormattedaddress());
-            ps.setString(2, addr.getGgDispalyname());
-            ps.setString(3, addr.getGgPlaceid());
-            ps.setString(4, addr.getAddressno());
+            ps.setString(1, addr.getGgFormattAdaddress());
+            ps.setString(2, addr.getGgDispalyName());
+            ps.setString(3, addr.getGgPlaceId());
+            ps.setString(4, addr.getAddressNo());
             ps.setBigDecimal(5, addr.getLatitude());
             ps.setBigDecimal(6, addr.getLongitude());
-            ps.setBoolean(7, addr.getIsinuse());
-            ps.setBoolean(8, addr.getIsdefault());
-            ps.setInt(9, addr.getAddressid());
+            ps.setBoolean(7, addr.getIsInUse());
+            ps.setBoolean(8, addr.getIsDefault());
+            ps.setInt(9, addr.getAddressId());
             int updated = ps.executeUpdate();
             return (updated == 1) ? addr : null;
         }
@@ -94,16 +94,16 @@ public class AddressRepository {
     /** Helper: map a ResultSet row into your model */
     private CustomerAddress mapRow(ResultSet rs) throws SQLException {
         CustomerAddress a = new CustomerAddress();
-        a.setAddressid(rs.getInt("AddressId"));
-        a.setUserid(rs.getString("UserId"));
-        a.setGgFormattedaddress(rs.getString("GG_FormattedAddress"));
-        a.setGgDispalyname(rs.getString("GG_DispalyName"));
-        a.setGgPlaceid(rs.getString("GG_PlaceId"));
-        a.setAddressno(rs.getString("AddressNo"));
+        a.setAddressId(rs.getInt("AddressId"));
+        a.setUserId(rs.getString("UserId"));
+        a.setGgFormattAdaddress(rs.getString("GG_FormattedAddress"));
+        a.setGgDispalyName(rs.getString("GG_DispalyName"));
+        a.setGgPlaceId(rs.getString("GG_PlaceId"));
+        a.setAddressNo(rs.getString("AddressNo"));
         a.setLatitude(rs.getBigDecimal("Latitude"));
         a.setLongitude(rs.getBigDecimal("Longitude"));
-        a.setIsinuse(rs.getBoolean("IsInUse"));
-        a.setIsdefault(rs.getBoolean("IsDefault"));
+        a.setIsInUse(rs.getBoolean("IsInUse"));
+        a.setIsDefault(rs.getBoolean("IsDefault"));
         return a;
     }
 

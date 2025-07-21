@@ -2,16 +2,16 @@ package com.example.cleanmate.data.model;
 
 public class BookingStatus {
 
-    private Integer bookingstatusid;
+    private Integer bookingStatusId;
     private String status;
-    private String statusdescription;
+    private String statusDescription;
 
-    public Integer getBooking tatusid() {
-        return bookingstatusid;
+    public Integer getBookingStatusid() {
+        return bookingStatusId;
     }
 
-    public void setBooking tatusid(Integer bookingstatusid) {
-        this.bookingstatusid = bookingstatusid;
+    public void setBookingStatusid(Integer bookingstatusid) {
+        this.bookingStatusId = bookingstatusid;
     }
 
     public String getStatus() {
@@ -22,12 +22,12 @@ public class BookingStatus {
         this.status = status;
     }
 
-    public String getStatusdescription() {
-        return statusdescription;
+    public String getStatusDescription() {
+        return statusDescription;
     }
 
-    public void setStatusdescription(String statusdescription) {
-        this.statusdescription = statusdescription;
+    public void setStatusDescription(String statusDescription) {
+        this.statusDescription = statusDescription;
     }
 
 }

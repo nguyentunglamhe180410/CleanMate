@@ -2,7 +2,7 @@ package com.example.cleanmate.data.repository;
 
 import com.example.cleanmate.common.CommonConstants;
 import com.example.cleanmate.common.enums.TransactionType;
-import com.example.cleanmate.data.model.*;
+import com.example.cleanmate.data.model.User;
 import com.example.cleanmate.data.model.dto.*;
 
 import java.sql.*;
@@ -46,37 +46,45 @@ public class CustomerRepository implements AutoCloseable {
     }
 
     /** 2) Lock a user account */
-    public void lockUserAccount(String userId) throws SQLException {
+    public boolean lockUserAccount(String userId) throws SQLException {
         String sql = "UPDATE AspNetUsers SET LockoutEnabled = 1 WHERE Id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, userId);
             ps.executeUpdate();
+            return true;
+        }
+        catch(SQLException e){
+            return false;
         }
     }
 
     /** 3) Unlock a user account */
-    public void unlockUserAccount(String userId) throws SQLException {
+    public boolean unlockUserAccount(String userId) throws SQLException {
         String sql = "UPDATE AspNetUsers SET LockoutEnabled = 0 WHERE Id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, userId);
             ps.executeUpdate();
+            return true;
+        }
+        catch(SQLException e){
+            return false;
         }
     }
 
     /** 4) Get a single user (minimal) */
-    public Aspnetusers getUserById(String userId) throws SQLException {
+    public User getUserById(String userId) throws SQLException {
         String sql = "SELECT Id, FullName, Email, PhoneNumber, CreatedDate, LockoutEnabled " +
                 "FROM AspNetUsers WHERE Id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) return null;
-                Aspnetusers u = new Aspnetusers();
-                u.setId(rs.getString("Id"));
-                u.setFullname(rs.getString("FullName"));
+                User u = new User();
+                u.setUserId(rs.getString("Id"));
+                u.setFullName(rs.getString("FullName"));
                 u.setEmail(rs.getString("Email"));
-                u.setPhonenumber(rs.getString("PhoneNumber"));
-                u.setCreateddate(rs.getTimestamp("CreatedDate").toLocaleString());
+                u.setPhoneNumber(rs.getString("PhoneNumber"));
+                u.setCreatedDate(rs.getTimestamp("CreatedDate").toLocaleString());
                 return u;
             }
         }
@@ -183,6 +191,23 @@ public class CustomerRepository implements AutoCloseable {
         detail.setBooking (books);
 
         return detail;
+    }
+    public boolean updateUser(User user) throws SQLException {
+        String sql = ""
+                + "UPDATE AspNetUsers SET "
+                + " FullName     = ?,"
+                + " Email        = ?,"
+                + " PhoneNumber  = ?,"
+                + " ProfileImage = ?"
+                + " WHERE Id     = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getFullName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPhoneNumber());
+            ps.setString(4, user.getProfileImage());
+            ps.setString(5, user.getUserId());
+            return ps.executeUpdate() == 1;
+        }
     }
 
     @Override
