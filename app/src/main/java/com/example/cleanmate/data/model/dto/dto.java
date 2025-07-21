@@ -1090,7 +1090,7 @@ public class dto {
     }
 
     // 10. PaymentDTO
-    public class PaymentDTO {
+    public static class PaymentDTO {
         private Integer paymentId;
         private int bookingId;
         private BigDecimal amount;
@@ -1408,7 +1408,7 @@ public class dto {
     }
 
     // 16. UserWalletDTO
-    public class UserWalletDTO {
+    public static class UserWalletDTO {
         private int walletId;
         private String userId;
         private String userFullName;

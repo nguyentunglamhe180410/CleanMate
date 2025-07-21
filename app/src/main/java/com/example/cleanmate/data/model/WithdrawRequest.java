@@ -2,7 +2,7 @@ package com.example.cleanmate.data.model;
 
 import java.math.BigDecimal;
 
-public class Withdrawrequest {
+public class WithdrawRequest {
 
     private Integer requestId;
     private String userId;
@@ -14,10 +14,10 @@ public class Withdrawrequest {
     private Integer transactionId;
     private String processedBy;
 
-    public Withdrawrequest() {
+    public WithdrawRequest() {
     }
 
-    public Withdrawrequest(Integer requestid, String userid, BigDecimal amount, String status, String requestedat, String processedat, String adminnote, Integer transactionid, String processedby) {
+    public WithdrawRequest(Integer requestid, String userid, BigDecimal amount, String status, String requestedat, String processedat, String adminnote, Integer transactionid, String processedby) {
         this.requestId = requestid;
         this.userId = userid;
         this.amount = amount;
