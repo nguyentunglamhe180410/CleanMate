@@ -1,4 +1,4 @@
-package com.example.cleanmate;
+package com.example.cleanmate.adapter;
 
 
 import android.content.Context;

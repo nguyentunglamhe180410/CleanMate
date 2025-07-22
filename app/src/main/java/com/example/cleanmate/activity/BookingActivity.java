@@ -1,8 +1,6 @@
-package com.example.cleanmate;
+package com.example.cleanmate.activity;
 
-import android.app.DownloadManager;
 import android.content.SharedPreferences;
-import android.view.PixelCopy;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -11,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cleanmate.adapter.BookingAdapter;
 import com.example.cleanmate.R;
 import com.example.cleanmate.data.model.Booking;
 import com.google.gson.Gson;
