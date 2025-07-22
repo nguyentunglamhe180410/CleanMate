@@ -1,4 +1,4 @@
-package com.example.cleanmate.ui;
+package com.example.cleanmate.data.ui;
 
 import android.os.Bundle;
 import android.text.Editable;
