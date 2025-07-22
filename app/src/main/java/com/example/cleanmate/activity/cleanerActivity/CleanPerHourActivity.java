@@ -1,4 +1,4 @@
-package com.example.cleanmate.activity;
+package com.example.cleanmate.activity.cleanerActivity;
 
 import android.os.Bundle;
 import android.widget.Toast;

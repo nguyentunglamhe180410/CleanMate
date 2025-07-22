@@ -1,4 +1,4 @@
-package com.example.cleanmate.data.ui;
+package com.example.cleanmate.activity.cleanerActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.cleanmate.R;
+import com.example.cleanmate.data.ui.FeedbackDetailsDialog;
 import com.example.cleanmate.data.ui.FeedbackWorkUI;
 import com.example.cleanmate.data.ui.FeedbackAdapter;
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class CleanerViewFeedbackActivity extends AppCompatActivity {
         paginate();
 
         adapter = new FeedbackAdapter(displayedFeedback, work -> {
-            // TODO: Open FeedbackDetailsDialog with "work"
+            FeedbackDetailsDialog dialog = FeedbackDetailsDialog.newInstance(work);
+            dialog.show(getSupportFragmentManager(), "FeedbackDetails");
         });
 
         recyclerView.setAdapter(adapter);

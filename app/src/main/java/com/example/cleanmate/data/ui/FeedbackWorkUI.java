@@ -1,6 +1,8 @@
 package com.example.cleanmate.data.ui;
 
-public class FeedbackWorkUI {
+import java.io.Serializable;
+
+public class FeedbackWorkUI implements Serializable {
     private String customerFullName;
     private String startTime;
     private String date;

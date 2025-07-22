@@ -1,4 +1,4 @@
-package com.example.cleanmate.data.ui;
+package com.example.cleanmate.activity.cleanerActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cleanmate.R;
+import com.example.cleanmate.data.ui.CleanerAdapter;
+import com.example.cleanmate.data.ui.CleanerDetailsDialog;
 import com.example.cleanmate.data.ui.CleanerUI;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CleanerListActivity extends AppCompatActivity implements CleanerAdapter.CleanerClickListener {
-
     private RecyclerView recyclerView;
     private CleanerAdapter adapter;
     private EditText searchInput;

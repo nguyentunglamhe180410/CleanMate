@@ -1,17 +1,15 @@
-package com.example.cleanmate.activity;
+package com.example.cleanmate.data.service;
 
 import com.example.cleanmate.data.model.Service;
 import com.example.cleanmate.data.model.ServicePrice;
-import com.example.cleanmate.data.model.dto.dto;
-import com.example.cleanmate.data.service.AllServiceService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CleanMateServiceActivity {
+public class CleanMateService {
     private final AllServiceService allService;
 
-    public CleanMateServiceActivity(AllServiceService allService) {
+    public CleanMateService(AllServiceService allService) {
         this.allService = allService;
     }
 

@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.cleanmate.R;
-import com.example.cleanmate.data.ui.CleanerUI;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
