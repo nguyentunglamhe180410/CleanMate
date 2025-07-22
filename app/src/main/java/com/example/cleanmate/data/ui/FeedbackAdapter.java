@@ -1,4 +1,4 @@
-package com.example.cleanmate.data.ui.;
+package com.example.cleanmate.data.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
