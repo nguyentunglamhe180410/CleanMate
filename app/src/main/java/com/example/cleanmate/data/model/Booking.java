@@ -2,6 +2,7 @@ package com.example.cleanmate.data.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -68,8 +69,8 @@ public class Booking {
         this.addressId = addressId;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDate getDate() {
+        return LocalDate.parse(date);
     }
 
     public void setDate(String date) {

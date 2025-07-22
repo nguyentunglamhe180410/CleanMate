@@ -29,7 +29,7 @@ public class BookingRepository implements AutoCloseable {
             ps.setInt(4, booking.getBookingStatusId());
             ps.setString(5, booking.getNote());
             ps.setInt(6, booking.getAddressId());
-            ps.setDate(7, Date.valueOf(booking.getDate()));
+            ps.setDate(7, Date.valueOf(String.valueOf(booking.getDate())));
             ps.setTime(8, Time.valueOf(String.valueOf(booking.getStartTime())));
             ps.setBigDecimal(9, booking.getTotalPrice());
             ps.setTimestamp(10, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));

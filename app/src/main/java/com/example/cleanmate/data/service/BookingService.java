@@ -70,7 +70,7 @@ public class BookingService {
         d.setBookingStatusId(b.getBookingStatusId());
         d.setNote(b.getNote());
         d.setAddressId(b.getAddressId());
-        d.setDate(LocalDate.parse(b.getDate()));
+        d.setDate(b.getDate());
         d.setStartTime(b.getStartTime());
         d.setTotalPrice(b.getTotalPrice());
         d.setCreatedAt(b.getCreatedAt());

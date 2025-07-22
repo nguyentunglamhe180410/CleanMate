@@ -39,15 +39,15 @@ public class TransactionRepository implements AutoCloseable {
     }
 
     /** 2) Get all withdraw requests (joined with user/admin/transaction if needed) */
-    public List<Withdrawrequest> getAllWithdrawRequests() throws SQLException {
+    public List<WithdrawRequest> getAllWithdrawRequests() throws SQLException {
         String sql = "SELECT RequestId, UserId, ProcessedBy, TransactionId, Amount, RequestedAt, "
                 + "ProcessedAt, Status, AdminNote "
                 + "FROM WithdrawRequests";
-        List<Withdrawrequest> list = new ArrayList<>();
+        List<WithdrawRequest> list = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                Withdrawrequest r = mapWithdrawRequest(rs);
+                WithdrawRequest r = mapWithdrawRequest(rs);
                 list.add(r);
             }
         }
@@ -55,7 +55,7 @@ public class TransactionRepository implements AutoCloseable {
     }
 
     /** 3) Get a single withdraw request by its ID */
-    public Withdrawrequest getWithdrawRequestById(int requestId) throws SQLException {
+    public WithdrawRequest getWithdrawRequestById(int requestId) throws SQLException {
         String sql = "SELECT RequestId, UserId, ProcessedBy, TransactionId, Amount, RequestedAt, "
                 + "ProcessedAt, Status, AdminNote "
                 + "FROM WithdrawRequests WHERE RequestId = ?";
@@ -68,7 +68,7 @@ public class TransactionRepository implements AutoCloseable {
     }
 
     /** 4) Create a new withdraw request, return its generated ID */
-    public int createWithdrawRequest(Withdrawrequest req) throws SQLException {
+    public int createWithdrawRequest(WithdrawRequest req) throws SQLException {
         String sql = "INSERT INTO WithdrawRequests "
                 + "(UserId, Amount, RequestedAt, Status) "
                 + "VALUES (?,?,?,?)";
@@ -84,7 +84,7 @@ public class TransactionRepository implements AutoCloseable {
         }
     }
     /** 5) Update the fields of an existing withdraw request */
-    public boolean updateWithdrawRequest(int requestId, Withdrawrequest updated) throws SQLException {
+    public boolean updateWithdrawRequest(int requestId, WithdrawRequest updated) throws SQLException {
         String sql = "UPDATE WithdrawRequests SET "
                 + "Status=?, ProcessedAt=?, AdminNote=?, TransactionId=?, ProcessedBy=? "
                 + "WHERE RequestId=?";
@@ -175,8 +175,8 @@ public class TransactionRepository implements AutoCloseable {
         }
     }
 
-    private Withdrawrequest mapWithdrawRequest(ResultSet rs) throws SQLException {
-        Withdrawrequest r = new Withdrawrequest();
+    private WithdrawRequest mapWithdrawRequest(ResultSet rs) throws SQLException {
+        WithdrawRequest r = new WithdrawRequest();
         r.setRequestId(rs.getInt("RequestId"));
         r.setUserId(rs.getString("UserId"));
         r.setUserId(rs.getString("ProcessedBy"));

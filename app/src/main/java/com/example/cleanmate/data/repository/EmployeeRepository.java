@@ -16,9 +16,12 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
+
 
 public class EmployeeRepository implements AutoCloseable {
     private final Connection conn;
@@ -296,56 +299,6 @@ public class EmployeeRepository implements AutoCloseable {
         }
     }
 
-    /**
-     * 10. getEarningsSummary
-     */
-    public EarningsSummaryViewModel getEarningsSummary(String employeeId) throws SQLException {
-        // totalEarnings
-        String earnSql =
-                "SELECT SUM(FLOOR(b.TotalPrice * (1-?/100) / 1000) * 1000) AS TotalEarnings " +
-                        "FROM Booking b WHERE b.CleanerId=? AND b.BookingStatusId=?";
-        BigDecimal totalEarnings = BigDecimal.ZERO;
-        try (PreparedStatement ps = conn.prepareStatement(earnSql)) {
-            ps.setBigDecimal(1, BigDecimal.valueOf(CommonConstants.COMMISSION_PERCENTAGE));
-            ps.setString(2, employeeId);
-            ps.setInt(3, CommonConstants.BookingStatus.DONE);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) totalEarnings = rs.getBigDecimal("TotalEarnings");
-            }
-        }
-
-        // wallet balance
-        String balSql = "SELECT Balance FROM UserWallets WHERE UserId=?";
-        BigDecimal balance = BigDecimal.ZERO;
-        try (PreparedStatement ps = conn.prepareStatement(balSql)) {
-            ps.setString(1, employeeId);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) balance = rs.getBigDecimal("Balance");
-            }
-        }
-
-        // transactions
-        String txSql =
-                "SELECT TransactionId, Amount, TransactionType, Description, CreatedAt FROM WalletTransactions " +
-                        "WHERE WalletId=(SELECT WalletId FROM UserWallets WHERE UserId=?)";
-        List<dto.WalletTransactionDTO> txs = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement(txSql)) {
-            ps.setString(1, employeeId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    dto.WalletTransactionDTO t = new dto.WalletTransactionDTO();
-                    t.setTransactionId(rs.getInt("TransactionId"));
-                    t.setAmount(rs.getBigDecimal("Amount"));
-                    t.setTransactionType(TransactionType.valueOf(rs.getString("TransactionType")));
-                    t.setDescription(rs.getString("Description"));
-                    t.setCreatedAt(LocalDateTime.parse(rs.getTimestamp("CreatedAt").toLocaleString()));
-                    txs.add(t);
-                }
-            }
-        }
-
-        return new EarningsSummaryViewModel(totalEarnings, balance, txs);
-    }
 
 
     public BigDecimal getMonthlyEarnings(String employeeId) throws SQLException {
@@ -473,8 +426,34 @@ public class EmployeeRepository implements AutoCloseable {
             ps.setString(1, cleanerId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    cd.getBooking().add( /* map to your BookingDTO viewmodel */ );
-                }
+                    dto.BookingDTO b = new dto.BookingDTO(
+                            rs.getInt("BookingId"),
+                            rs.getInt("ServicePriceId"),
+                            rs.getString("ServiceName"),
+                            rs.getInt("DurationTime"),
+                            rs.getString("SquareMeterSpecific"),
+                            rs.getBigDecimal("Price"),
+                            rs.getString("CleanerId"),
+                            rs.getString("CleanerName"),
+                            rs.getString("UserId"),
+                            rs.getString("UserName"),
+                            rs.getInt("BookingStatusId"),
+                            rs.getString("Status"),
+                            rs.getString("StatusDescription"),
+                            rs.getString("Note"),
+                            rs.getObject("AddressId") != null ? rs.getInt("AddressId") : null,
+                            rs.getString("AddressFormatted"),
+                            rs.getString("AddressNo"),
+                            rs.getString("PaymentMethod"),
+                            rs.getString("PaymentStatus"),
+                            DateTimeVN.convertToLocalDate(rs.getDate("Date")) ,
+                            DateTimeVN.convertToLocalTime(rs.getTime("StartTime")),
+                            rs.getBigDecimal("TotalPrice"),
+                            rs.getTimestamp("CreatedAt"),
+                            rs.getTimestamp("UpdatedAt"),
+                            rs.getInt("HasFeedback") == 1
+                    );
+                    cd.getBooking().add(b);                }
             }
         }
         return cd;

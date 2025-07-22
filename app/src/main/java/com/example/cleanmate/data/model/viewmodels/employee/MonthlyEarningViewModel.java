@@ -2,7 +2,7 @@ package com.example.cleanmate.data.model.viewmodels.employee;
 import java.math.BigDecimal;
 
 public class MonthlyEarningViewModel {
-    private String month;
+    private int month;
     private BigDecimal earnings;
 
     public MonthlyEarningViewModel() {}
@@ -12,11 +12,11 @@ public class MonthlyEarningViewModel {
         this.earnings = earnings;
     }
 
-    public String getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 
