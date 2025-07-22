@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Avatar -->
+        <ImageView
+            android:id="@+id/cleanerAvatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/user_image"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_mask" />
+
+        <!-- Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="12dp">
+
+            <TextView
+                android:id="@+id/cleanerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên nhân viên"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/cleanerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email@example.com"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/cleanerStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khả dụng"
+                android:textSize="14sp"
+                android:textColor="#4CAF50" />
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <ImageButton
+            android:id="@+id/btnDetails"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_view"
+            android:contentDescription="Xem chi tiết" />
+
+        <ImageButton
+            android:id="@+id/btnToggle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_edit"
+            android:contentDescription="Thay đổi trạng thái" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
