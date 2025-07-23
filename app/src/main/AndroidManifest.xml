@@ -18,7 +18,7 @@
 
         <!-- The app's launcher -->
         <activity
-            android:name=".activity.BookingActivity"
+            android:name=".activity.customerActivity.BookingActivity"
             android:exported="true" >
 
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.cleanmate.activity;
+package com.example.cleanmate.activity.customerActivity;
 
 import android.content.SharedPreferences;
 

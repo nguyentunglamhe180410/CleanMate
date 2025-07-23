@@ -25,7 +25,7 @@ public final class CommonConstants {
     public static final String SQL_SERVER_PORT     = "1433";
     public static final String SQL_SERVER_DATABASE = "CleanMateDB_PRM";
     public static final String SQL_SERVER_USER     = "cleanmateadmin@cleanmate-server";
-    public static final String SQL_SERVER_PASSWORD = "shinnosuke04@";
+    public static final String SQL_SERVER_PASSWORD = "CleanmateServer@";
 
 
     public static final String JDBC_URL = String.format(
