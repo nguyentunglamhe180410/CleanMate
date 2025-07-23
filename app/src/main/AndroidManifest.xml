@@ -18,11 +18,7 @@
 
         <!-- The app's launcher -->
         <activity
-<<<<<<< Updated upstream
-            android:name=".activity.customerActivity.BookingActivity"
-=======
             android:name=".MainActivity"
->>>>>>> Stashed changes
             android:exported="true" >
 
             <intent-filter>

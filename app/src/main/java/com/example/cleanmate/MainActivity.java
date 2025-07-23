@@ -22,6 +22,7 @@ import com.example.cleanmate.activity.CustomerProfileActivity;
 import com.example.cleanmate.activity.CustomerVoucherActivity;
 import com.example.cleanmate.activity.CustomerFeedbackActivity;
 import com.example.cleanmate.activity.cleanerActivity.CleanerListActivity;
+import com.example.cleanmate.activity.customerActivity.BookingActivity;
 import com.example.cleanmate.data.repository.CustomerRepository;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,18 +47,28 @@ public class MainActivity extends AppCompatActivity {
         // Initialize repository
         try {
             customerRepository = new CustomerRepository();
+            System.out.println("DEBUG: CustomerRepository initialized successfully");
         } catch (Exception e) {
             System.err.println("ERROR: Failed to initialize CustomerRepository: " + e.getMessage());
             e.printStackTrace();
-            Toast.makeText(this, "Lỗi kết nối database", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Không thể kết nối database, sử dụng dữ liệu mẫu", Toast.LENGTH_LONG).show();
             // Set to null, will use fallback in loadUsersFromDatabase
             customerRepository = null;
         }
+        
+        System.out.println("DEBUG: Repository status - customerRepository = " + (customerRepository != null ? "initialized" : "null"));
 
         // Initialize user selection spinner
         spinnerUserSelect = findViewById(R.id.spinner_user_select);
         tvLoadingUsers = findViewById(R.id.tv_loading_users);
-        loadUsersFromDatabase();
+        
+        // Load users - if repository is null, use fallback immediately
+        if (customerRepository == null) {
+            System.out.println("DEBUG: Repository is null, using fallback immediately");
+            forceLoadFallbackUsers();
+        } else {
+            loadUsersFromDatabase();
+        }
 
         // Initialize buttons
         Button btnCustomerProfile = findViewById(R.id.btn_customer_profile);
@@ -91,10 +102,18 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("DEBUG: Loading users from database...");
                     List<String> userIds = customerRepository.getAllCustomerIds();
                     System.out.println("DEBUG: Found " + userIds.size() + " users: " + userIds);
+                    
+                    // Kiểm tra nếu danh sách rỗng
+                    if (userIds == null || userIds.isEmpty()) {
+                        System.out.println("DEBUG: Database returned empty list, using fallback");
+                        throw new Exception("No users found in database");
+                    }
+                    
                     return userIds;
                 } catch (Exception e) {
                     System.out.println("ERROR: Failed to load users: " + e.getMessage());
                     e.printStackTrace();
+                    
                     // Fallback to hardcoded list if database fails
                     List<String> fallbackUsers = new ArrayList<>();
                     fallbackUsers.add("user-001");
@@ -102,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     fallbackUsers.add("user-003");
                     fallbackUsers.add("user-004");
                     fallbackUsers.add("user-005");
+                    System.out.println("DEBUG: Using fallback users: " + fallbackUsers);
                     return fallbackUsers;
                 }
             }
@@ -111,7 +131,14 @@ public class MainActivity extends AppCompatActivity {
                 // Hide loading indicator
                 tvLoadingUsers.setVisibility(View.GONE);
                 spinnerUserSelect.setEnabled(true);
+                
+                if (userIds == null || userIds.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Không thể tải danh sách người dùng", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                
                 setupUserSpinner(userIds);
+                Toast.makeText(MainActivity.this, "Đã tải " + userIds.size() + " người dùng", Toast.LENGTH_SHORT).show();
             }
         }.execute();
     }
@@ -122,17 +149,21 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        System.out.println("DEBUG: Setting up spinner with " + userIds.size() + " users: " + userIds);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, userIds);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUserSelect.setAdapter(adapter);
         
         // Set default selection
         selectedUserId = userIds.get(0);
+        System.out.println("DEBUG: Default selected user: " + selectedUserId);
         
         spinnerUserSelect.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
                 selectedUserId = userIds.get(position);
+                System.out.println("DEBUG: User selected: " + selectedUserId);
                 Toast.makeText(MainActivity.this, "Đã chọn user: " + selectedUserId, Toast.LENGTH_SHORT).show();
             }
 
@@ -140,9 +171,12 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(android.widget.AdapterView<?> parent) {
                 if (!userIds.isEmpty()) {
                     selectedUserId = userIds.get(0);
+                    System.out.println("DEBUG: No user selected, using default: " + selectedUserId);
                 }
             }
         });
+        
+        System.out.println("DEBUG: Spinner setup completed");
     }
 
     private void openCustomerProfile() {
@@ -172,12 +206,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openBooking() {
-        Intent intent = new Intent(this, com.example.cleanmate.activity.BookingActivity.class);
+        Intent intent = new Intent(this, BookingActivity.class);
         startActivity(intent);
     }
     
     // Method để refresh user list (có thể dùng để test)
     public void refreshUserList() {
         loadUsersFromDatabase();
+    }
+    
+    // Method để test database connection
+    public void testDatabaseConnection() {
+        if (customerRepository != null) {
+            try {
+                customerRepository.debugTableStructure();
+                Toast.makeText(this, "Database connection successful", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Database connection failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "CustomerRepository is null", Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    // Method để force load fallback users
+    public void forceLoadFallbackUsers() {
+        System.out.println("DEBUG: Force loading fallback users");
+        List<String> fallbackUsers = new ArrayList<>();
+        fallbackUsers.add("user-001");
+        fallbackUsers.add("user-002");
+        fallbackUsers.add("user-003");
+        fallbackUsers.add("user-004");
+        fallbackUsers.add("user-005");
+        
+        tvLoadingUsers.setVisibility(View.GONE);
+        spinnerUserSelect.setEnabled(true);
+        setupUserSpinner(fallbackUsers);
+        Toast.makeText(this, "Đã tải " + fallbackUsers.size() + " người dùng mẫu", Toast.LENGTH_SHORT).show();
+    }
+    
+    // Method để kiểm tra trạng thái spinner
+    public void checkSpinnerStatus() {
+        System.out.println("DEBUG: Checking spinner status");
+        System.out.println("DEBUG: spinnerUserSelect = " + (spinnerUserSelect != null ? "not null" : "null"));
+        if (spinnerUserSelect != null) {
+            System.out.println("DEBUG: spinnerUserSelect.isEnabled() = " + spinnerUserSelect.isEnabled());
+            System.out.println("DEBUG: spinnerUserSelect.getAdapter() = " + (spinnerUserSelect.getAdapter() != null ? "not null" : "null"));
+            if (spinnerUserSelect.getAdapter() != null) {
+                System.out.println("DEBUG: spinnerUserSelect.getAdapter().getCount() = " + spinnerUserSelect.getAdapter().getCount());
+            }
+        }
+        System.out.println("DEBUG: selectedUserId = " + selectedUserId);
     }
 }

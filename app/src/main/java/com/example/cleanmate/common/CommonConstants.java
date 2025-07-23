@@ -24,15 +24,11 @@ public final class CommonConstants {
     // Database Local
     public static final String SQL_SERVER_HOST     = "DESKTOP-8PA8VP5"; // Thay bằng IP máy tính của bạn
     public static final String SQL_SERVER_PORT     = "1433";
-<<<<<<< Updated upstream
-    public static final String SQL_SERVER_DATABASE = "CleanMateDB_PRM";
-    public static final String SQL_SERVER_USER     = "cleanmateadmin@cleanmate-server";
-    public static final String SQL_SERVER_PASSWORD = "CleanmateServer@";
-=======
+
     public static final String SQL_SERVER_DATABASE = "CleanMateDB_Main";
     public static final String SQL_SERVER_USER     = "sa";
     public static final String SQL_SERVER_PASSWORD = "123";
->>>>>>> Stashed changes
+
 
 
     public static final String JDBC_URL = String.format(

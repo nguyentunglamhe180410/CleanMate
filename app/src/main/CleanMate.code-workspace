@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../cleanmate_main.client"
+		},
+		{
+			"path": "../../../../CleanMate_Main.Server"
+		},
+		{
+			"path": "../../../../node_modules"
+		}
+	]
+}
