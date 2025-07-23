@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cleanmate.adapter.BookingAdapter;
 import com.example.cleanmate.R;
 import com.example.cleanmate.data.model.Booking;
+import com.example.cleanmate.data.repository.BookingRepository;
+import com.example.cleanmate.data.service.BookingService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -30,74 +32,72 @@ public class BookingActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BookingAdapter adapter;
-    private final OkHttpClient client = new OkHttpClient();
-    private final String BASE_URL = "https://localhost:60391/api";
+
+    // 1. Khởi tạo service/repo
+    private BookingService bookingService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
 
+        // 2. Khởi tạo repo và service
+        try {
+            BookingRepository repo = new BookingRepository(); // kết nối trực tiếp đến Azure DB
+            bookingService = new BookingService(repo);
+        } catch (Exception e) {
+            Toast.makeText(this, "Không khởi tạo được service: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
+
         recyclerView = findViewById(R.id.recyclerViewBookings);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new BookingAdapter(this, booking -> confirmComplete(booking.getBookingId()));
+        adapter = new BookingAdapter(this, id -> confirmComplete(id));
         recyclerView.setAdapter(adapter);
-        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-        String userId = prefs.getString("userId", null);
+
+        String userId = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                .getString("userId", null);
         if (userId != null) {
             loadBookings(userId);
         } else {
             Toast.makeText(this, "Không tìm thấy người dùng", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void loadBookings(String userId) {
-        String url = BASE_URL + "/bookings/get-bookings?userId=" + userId;
-
-        Request request = new Request.Builder().url(url).get().build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException e) {
+        // 3. Chạy trên background thread
+        new Thread(() -> {
+            try {
+                List<Booking> bookings = bookingService.getBookingsByUser(userId);
+                runOnUiThread(() -> adapter.setData(bookings));
+            } catch (SQLException e) {
                 e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(this,
+                        "Load thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
             }
-
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String json = response.body().string();
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<Booking>>() {}.getType();
-                    List<Booking> bookings = gson.fromJson(json, listType);
-
-                    runOnUiThread(() -> adapter.setData(bookings));
-                }
-            }
-        });
+        }).start();
     }
 
     private void confirmComplete(int bookingId) {
-        String url = BASE_URL + "/bookings/" + bookingId + "/confirm-complete-work";
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(RequestBody.create("", null))
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException e) {
+        new Thread(() -> {
+            try {
+                boolean ok = bookingService.confirmComplete(bookingId);
+                runOnUiThread(() -> {
+                    if (ok) {
+                        Toast.makeText(this, "Đã xác nhận hoàn thành!", Toast.LENGTH_SHORT).show();
+                        // reload danh sách
+                        String userId = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                                .getString("userId", null);
+                        if (userId != null) loadBookings(userId);
+                    } else {
+                        Toast.makeText(this, "Xác nhận thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    runOnUiThread(() -> {
-                        Toast.makeText(BookingActivity.this, "Đã xác nhận hoàn thành!", Toast.LENGTH_SHORT).show();
-                        loadBookings("user-id-abc"); // reload lại danh sách
-                    });
-                }
-            }
-        });
+        }).start();
     }
 }
+
 

@@ -12,80 +12,83 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cleanmate.R;
-import com.example.cleanmate.data.model.Booking;
+import com.example.cleanmate.common.CommonConstants;
+import com.example.cleanmate.data.model.viewmodels.employee.WorkDetailsViewModel;
 
 import java.util.List;
 
-public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder> {
+public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
 
-    private List<Booking> bookingList;
-    private Context context;
-    private OnBookingActionListener listener;
-
-    public interface OnBookingActionListener {
-        void onConfirmComplete(Booking booking);
+    public interface OnConfirmListener {
+        void onConfirmComplete(WorkDetailsViewModel work);
     }
 
-    public BookingAdapter(Context context, OnBookingActionListener listener) {
-        this.context = context;
-        this.listener = listener;
+    private final Context context;
+    private final OnConfirmListener listener;
+    private List<WorkDetailsViewModel> data;
+
+    public BookingAdapter(Context ctx, OnConfirmListener l) {
+        this.context = ctx;
+        this.listener = l;
     }
 
-    public void setData(List<Booking> bookings) {
-        this.bookingList = bookings;
+    public void setData(List<WorkDetailsViewModel> list) {
+        this.data = list;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public BookingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_booking, parent, false);
-        return new BookingViewHolder(view);
+    public BookingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context)
+                .inflate(R.layout.item_booking, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
-        Booking booking = bookingList.get(position);
-        holder.txtService.setText("Dịch vụ ID: " + booking.getServicePriceId());
-        holder.txtDate.setText("Ngày: " + booking.getDate());
-        holder.txtStatus.setText("Trạng thái: " + getStatusName(booking.getBookingStatusId()));
+    public void onBindViewHolder(@NonNull BookingAdapter.ViewHolder h, int pos) {
+        WorkDetailsViewModel w = data.get(pos);
+        h.txtServiceName.setText(w.getServiceName());
+        h.txtServiceDescription.setText(w.getServiceDescription());
+        h.txtDateTime.setText("Ngày: " + w.getDate() + "  |  Giờ: " + w.getStartTime());
+        h.txtPriceCommission.setText("Giá: " + w.getPrice() +
+                "  |  Hoa hồng: " + w.getCommission());
+        h.txtAddress.setText("Địa chỉ: " + w.getAddress() + " (số: " + w.getAddressNo() + ")");
+        h.txtCustomer.setText("Khách: " + w.getCustomerFullName() +
+                " (" + w.getCustomerPhoneNumber() + ")");
 
-        // Nếu trạng thái chưa hoàn thành (ví dụ: ID 3 là "Chờ xác nhận hoàn thành")
-        if (booking.getBookingStatusId() != 4) {
-            holder.btnConfirmDone.setVisibility(View.VISIBLE);
-            holder.btnConfirmDone.setOnClickListener(v -> {
-                listener.onConfirmComplete(booking);
-            });
+        // Nếu chưa hoàn thành
+        if (w.getStatusId() != CommonConstants.BookingStatus.DONE) {
+            h.btnConfirmDone.setVisibility(View.VISIBLE);
+            h.btnConfirmDone.setOnClickListener(v -> listener.onConfirmComplete(w));
         } else {
-            holder.btnConfirmDone.setVisibility(View.GONE);
+            h.btnConfirmDone.setVisibility(View.GONE);
         }
     }
 
     @Override
     public int getItemCount() {
-        return bookingList != null ? bookingList.size() : 0;
+        return data == null ? 0 : data.size();
     }
 
-    public static class BookingViewHolder extends RecyclerView.ViewHolder {
-        TextView txtService, txtDate, txtStatus;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txtServiceName,
+                txtServiceDescription,
+                txtDateTime,
+                txtPriceCommission,
+                txtAddress,
+                txtCustomer;
         Button btnConfirmDone;
 
-        public BookingViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtService = itemView.findViewById(R.id.txtService);
-            txtDate = itemView.findViewById(R.id.txtDate);
-            txtStatus = itemView.findViewById(R.id.txtStatus);
-            btnConfirmDone = itemView.findViewById(R.id.btnConfirmDone);
-        }
-    }
-
-    private String getStatusName(int statusId) {
-        switch (statusId) {
-            case 1: return "Đang chờ xử lý";
-            case 2: return "Đã xác nhận";
-            case 3: return "Chờ xác nhận hoàn thành";
-            case 4: return "Hoàn thành";
-            default: return "Không xác định";
+            txtServiceName        = itemView.findViewById(R.id.txtServiceName);
+            txtServiceDescription = itemView.findViewById(R.id.txtServiceDescription);
+            txtDateTime           = itemView.findViewById(R.id.txtDateTime);
+            txtPriceCommission    = itemView.findViewById(R.id.txtPriceCommission);
+            txtAddress            = itemView.findViewById(R.id.txtAddress);
+            txtCustomer           = itemView.findViewById(R.id.txtCustomer);
+            btnConfirmDone        = itemView.findViewById(R.id.btnConfirmDone);
         }
     }
 }
