@@ -306,130 +306,43 @@ public class dto {
     // 2. BookingDTO
     public static class BookingDTO {
         private int bookingId;
-        private int servicePriceId;
         private String serviceName;
-        private int durationTime;
-        private String durationSquareMeter;
-        private BigDecimal price;
-        private String cleanerId;
-        private String cleanerName;
-        private String userId;
-        private String userName;
-        private int bookingStatusId;
-        private String status;
-        private String statusDescription;
-        private String note;
-        private Integer addressId;
-        private String addressFormatted;
-        private String addressNo;
-        private String paymentMethod;
-        private String paymentStatus;
+        private String serviceDescription;
         private LocalDate date;
         private LocalTime startTime;
-        private BigDecimal totalPrice;
-        private Timestamp createdAt;
-        private Timestamp updatedAt;
-        private boolean hasFeedback;
+        private BigDecimal price;
+        private BigDecimal commission;        // thêm nếu cần
+        private String address;
+        private String addressNo;
+        private String customerFullName;
+        private String customerPhoneNumber;
+        private int bookingStatusId;
+        private String userId;
+        private String cleanerId;
+
 
         public BookingDTO() {}
 
-        public BookingDTO(int bookingId, int servicePriceId, String serviceName,
-                          int durationTime, String durationSquareMeter, BigDecimal price,
-                          String cleanerId, String cleanerName, String userId, String userName,
-                          int bookingStatusId, String status, String statusDescription, String note,
-                          Integer addressId, String addressFormatted, String addressNo,
-                          String paymentMethod, String paymentStatus,
-                          LocalDate date, LocalTime startTime, BigDecimal totalPrice,
-                          Timestamp createdAt, Timestamp updatedAt, boolean hasFeedback) {
+
+        public BookingDTO(int bookingId, String serviceName, String serviceDescription, LocalDate date, LocalTime startTime, BigDecimal price, BigDecimal commission, String address, String addressNo, String customerFullName, String customerPhoneNumber, int bookingStatusId, String userId, String cleanerId) {
             this.bookingId = bookingId;
-            this.servicePriceId = servicePriceId;
             this.serviceName = serviceName;
-            this.durationTime = durationTime;
-            this.durationSquareMeter = durationSquareMeter;
-            this.price = price;
-            this.cleanerId = cleanerId;
-            this.cleanerName = cleanerName;
-            this.userId = userId;
-            this.userName = userName;
-            this.bookingStatusId = bookingStatusId;
-            this.status = status;
-            this.statusDescription = statusDescription;
-            this.note = note;
-            this.addressId = addressId;
-            this.addressFormatted = addressFormatted;
-            this.addressNo = addressNo;
-            this.paymentMethod = paymentMethod;
-            this.paymentStatus = paymentStatus;
+            this.serviceDescription = serviceDescription;
             this.date = date;
             this.startTime = startTime;
-            this.totalPrice = totalPrice;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
-            this.hasFeedback = hasFeedback;
+            this.price = price;
+            this.commission = commission;
+            this.address = address;
+            this.addressNo = addressNo;
+            this.customerFullName = customerFullName;
+            this.customerPhoneNumber = customerPhoneNumber;
+            this.bookingStatusId = bookingStatusId;
+            this.userId = userId;
+            this.cleanerId = cleanerId;
         }
 
         public int getBookingId() {
             return bookingId;
-        }
-
-        public void setBookingId(int bookingId) {
-            this.bookingId = bookingId;
-        }
-
-        public int getServicePriceId() {
-            return servicePriceId;
-        }
-
-        public void setServicePriceId(int servicePriceId) {
-            this.servicePriceId = servicePriceId;
-        }
-
-        public String getServiceName() {
-            return serviceName;
-        }
-
-        public void setServiceName(String serviceName) {
-            this.serviceName = serviceName;
-        }
-
-        public int getDurationTime() {
-            return durationTime;
-        }
-
-        public void setDurationTime(int durationTime) {
-            this.durationTime = durationTime;
-        }
-
-        public String getDurationSquareMeter() {
-            return durationSquareMeter;
-        }
-
-        public void setDurationSquareMeter(String durationSquareMeter) {
-            this.durationSquareMeter = durationSquareMeter;
-        }
-
-        public BigDecimal getPrice() {
-            return price;
-        }
-
-        public void setPrice(BigDecimal price) {
-            this.price = price;
-        }
-
-        public String getCleanerId() {
-            return cleanerId;
-        }
-
-        public void setCleanerId(String cleanerId) {
-            this.cleanerId = cleanerId;
-        }
-
-        public String getCleanerName() {
-            return cleanerName;
-        }
-
-        public void setCleanerName(String cleanerName) {
-            this.cleanerName = cleanerName;
         }
 
         public String getUserId() {
@@ -440,84 +353,32 @@ public class dto {
             this.userId = userId;
         }
 
-        public String getUserName() {
-            return userName;
+        public String getCleanerId() {
+            return cleanerId;
         }
 
-        public void setUserName(String userName) {
-            this.userName = userName;
+        public void setCleanerId(String cleanerId) {
+            this.cleanerId = cleanerId;
         }
 
-        public int getBookingStatusId() {
-            return bookingStatusId;
+        public void setBookingId(int bookingId) {
+            this.bookingId = bookingId;
         }
 
-        public void setBookingStatusId(int bookingStatusId) {
-            this.bookingStatusId = bookingStatusId;
+        public String getServiceName() {
+            return serviceName;
         }
 
-        public String getStatus() {
-            return status;
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
         }
 
-        public void setStatus(String status) {
-            this.status = status;
+        public String getServiceDescription() {
+            return serviceDescription;
         }
 
-        public String getStatusDescription() {
-            return statusDescription;
-        }
-
-        public void setStatusDescription(String statusDescription) {
-            this.statusDescription = statusDescription;
-        }
-
-        public String getNote() {
-            return note;
-        }
-
-        public void setNote(String note) {
-            this.note = note;
-        }
-
-        public Integer getAddressId() {
-            return addressId;
-        }
-
-        public void setAddressId(Integer addressId) {
-            this.addressId = addressId;
-        }
-
-        public String getAddressFormatted() {
-            return addressFormatted;
-        }
-
-        public void setAddressFormatted(String addressFormatted) {
-            this.addressFormatted = addressFormatted;
-        }
-
-        public String getAddressNo() {
-            return addressNo;
-        }
-
-        public void setAddressNo(String addressNo) {
-            this.addressNo = addressNo;
-        }
-
-        public String getPaymentMethod() {
-            return paymentMethod;
-        }
-
-        public void setPaymentMethod(String paymentMethod) {
-            this.paymentMethod = paymentMethod;
-        }
-
-        public String getPaymentStatus() {
-            return paymentStatus;
-        }
-
-        public void setPaymentStatus(String paymentStatus) {
-            this.paymentStatus = paymentStatus;
+        public void setServiceDescription(String serviceDescription) {
+            this.serviceDescription = serviceDescription;
         }
 
         public LocalDate getDate() {
@@ -536,39 +397,60 @@ public class dto {
             this.startTime = startTime;
         }
 
-        public BigDecimal getTotalPrice() {
-            return totalPrice;
+        public BigDecimal getPrice() {
+            return price;
         }
 
-        public void setTotalPrice(BigDecimal totalPrice) {
-            this.totalPrice = totalPrice;
+        public void setPrice(BigDecimal price) {
+            this.price = price;
         }
 
-        public Timestamp getCreatedAt() {
-            return createdAt;
+        public BigDecimal getCommission() {
+            return commission;
         }
 
-        public void setCreatedAt(Timestamp createdAt) {
-            this.createdAt = createdAt;
+        public void setCommission(BigDecimal commission) {
+            this.commission = commission;
         }
 
-        public Timestamp getUpdatedAt() {
-            return updatedAt;
+        public String getAddress() {
+            return address;
         }
 
-        public void setUpdatedAt(Timestamp updatedAt) {
-            this.updatedAt = updatedAt;
+        public void setAddress(String address) {
+            this.address = address;
         }
 
-        public boolean isHasFeedback() {
-            return hasFeedback;
+        public String getAddressNo() {
+            return addressNo;
         }
 
-        public void setHasFeedback(boolean hasFeedback) {
-            this.hasFeedback = hasFeedback;
+        public void setAddressNo(String addressNo) {
+            this.addressNo = addressNo;
         }
 
-        public void setBookingid(int bookingId) {
+        public String getCustomerFullName() {
+            return customerFullName;
+        }
+
+        public void setCustomerFullName(String customerFullName) {
+            this.customerFullName = customerFullName;
+        }
+
+        public String getCustomerPhoneNumber() {
+            return customerPhoneNumber;
+        }
+
+        public void setCustomerPhoneNumber(String customerPhoneNumber) {
+            this.customerPhoneNumber = customerPhoneNumber;
+        }
+
+        public int getBookingStatusId() {
+            return bookingStatusId;
+        }
+
+        public void setBookingStatusId(int bookingStatusId) {
+            this.bookingStatusId = bookingStatusId;
         }
     }
 

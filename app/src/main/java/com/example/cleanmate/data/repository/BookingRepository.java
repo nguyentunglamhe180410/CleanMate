@@ -3,8 +3,12 @@ package com.example.cleanmate.data.repository;
 import com.example.cleanmate.common.CommonConstants;
 import com.example.cleanmate.common.utils.DateTimeVN;
 import com.example.cleanmate.data.model.Booking;
+import com.example.cleanmate.data.model.dto.dto;
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
@@ -55,6 +59,138 @@ public class BookingRepository implements AutoCloseable {
             }
         }
     }
+    public dto.BookingDTO getBookingDtoById(int bookingId) throws SQLException {
+        String sql =
+                "SELECT " +
+                        "  b.BookingId, " +
+                        "  s.Name AS ServiceName, " +
+                        "  s.Description AS ServiceDescription, " +
+                        "  b.Date, " +
+                        "  b.StartTime, " +
+                        "  sp.Price, " +
+                        "  sp.Commission, " +
+                        "  a.GG_FormattedAddress AS Address, " +
+                        "  a.AddressNo, " +
+                        "  u.FullName AS CustomerFullName, " +
+                        "  u.PhoneNumber AS CustomerPhoneNumber, " +
+                        "  b.BookingStatusId, " +
+                        "  b.UserId, " +
+                        "  b.CleanerId " +
+                        "FROM Service s " +
+                        "  JOIN Service_Price sp ON s.ServiceId = sp.ServiceId " +
+                        "  JOIN Booking b       ON b.Service_PriceId = sp.PriceId " +
+                        "  JOIN Customer_Address a ON a.UserId = b.UserId " +
+                        "  JOIN AspNetUsers u   ON u.Id = b.UserId " +
+                        "WHERE b.BookingId = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+
+                // parse date/time strings
+                String dateStr = rs.getString("Date");
+                LocalDate date = dateStr == null
+                        ? null
+                        : LocalDate.parse(dateStr);                // ISO_LOCAL_DATE
+
+                String timeStr = rs.getString("StartTime");
+                LocalTime time = timeStr == null
+                        ? null
+                        : LocalTime.parse(timeStr);                // ISO_LOCAL_TIME
+
+                return new dto.BookingDTO(
+                        rs.getInt       ("BookingId"),
+                        rs.getString    ("ServiceName"),
+                        rs.getString    ("ServiceDescription"),
+                        date,
+                        time,
+                        rs.getBigDecimal("Price"),
+                        rs.getBigDecimal("Commission"),
+                        rs.getString    ("Address"),
+                        rs.getString    ("AddressNo"),
+                        rs.getString    ("CustomerFullName"),
+                        rs.getString    ("CustomerPhoneNumber"),
+                        rs.getInt       ("BookingStatusId"),
+                        rs.getString    ("UserId"),
+                        rs.getString    ("CleanerId")
+                );
+            }
+        }
+    }
+
+    public List<dto.BookingDTO> getBookingByUserIdDto(String userId,
+                                                   Integer statusId) throws SQLException {
+        StringBuilder sql = new StringBuilder(
+                "SELECT " +
+                        "  b.BookingId, " +
+                        "  s.Name AS ServiceName, " +
+                        "  s.Description AS ServiceDescription, " +
+                        "  b.Date, " +
+                        "  b.StartTime, " +
+                        "  sp.Price, " +
+                        "  sp.Commission, " +
+                        "  a.GG_FormattedAddress AS Address, " +
+                        "  a.AddressNo, " +
+                        "  u.FullName AS CustomerFullName, " +
+                        "  u.PhoneNumber AS CustomerPhoneNumber, " +
+                        "  b.BookingStatusId, " +
+                        "  b.UserId, " +
+                        "  b.CleanerId " +
+                        "FROM Service s " +
+                        "  JOIN Service_Price sp ON s.ServiceId = sp.ServiceId " +
+                        "  JOIN Booking b       ON b.Service_PriceId = sp.PriceId " +
+                        "  JOIN Customer_Address a ON a.UserId = b.UserId " +
+                        "  JOIN AspNetUsers u   ON u.Id = b.UserId " +
+                        "WHERE b.UserId = ?"
+        );
+        if (statusId != null) {
+            sql.append(" AND b.BookingStatusId = ?");
+        }
+        sql.append(" ORDER BY b.CreatedAt DESC");
+
+        try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+            // bind parameters
+            ps.setString(1, userId);
+            if (statusId != null) {
+                ps.setInt(2, statusId);
+            }
+
+            List<dto.BookingDTO> results = new ArrayList<>();
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    java.sql.Date sqlDate = rs.getDate("Date");
+                    String dateStr = rs.getString("Date");          // e.g. "2025-06-13"
+                    LocalDate date = dateStr == null
+                            ? null
+                            : LocalDate.parse(dateStr);                // ISO_LOCAL_DATE
+
+                    String timeStr = rs.getString("StartTime");     // e.g. "17:00:00"
+                    LocalTime time = timeStr == null
+                            ? null
+                            : LocalTime.parse(timeStr);                        results.add(new dto.BookingDTO(
+                            rs.getInt   ("BookingId"),
+                            rs.getString("ServiceName"),
+                            rs.getString("ServiceDescription"),
+                            date,time,
+                            rs.getBigDecimal("Price"),
+                            rs.getBigDecimal("Commission"),
+                            rs.getString("Address"),
+                            rs.getString("AddressNo"),
+                            rs.getString("CustomerFullName"),
+                            rs.getString("CustomerPhoneNumber"),
+                            rs.getInt   ("BookingStatusId"),
+                            rs.getString("UserId"),
+                            rs.getString("CleanerId")
+                    ));
+                }
+            }
+            return results;
+        }
+    }
 
     /** Lấy danh sách booking của user, có thể filter statusid */
     public List<Booking> getBookingByUserId(String userid, Integer statusid) throws SQLException {
@@ -73,6 +209,7 @@ public class BookingRepository implements AutoCloseable {
             }
         }
     }
+
 
     /** Lấy tất cả booking cho admin, có thể filter statusid */
     public List<Booking> getBookingForAdmin(Integer statusid) throws SQLException {
@@ -108,7 +245,7 @@ public class BookingRepository implements AutoCloseable {
     }
 
     /** Hủy booking; chỉ cho phép nếu hiện tại NEW hoặc ACCEPT */
-    public boolean cancelBooking(int bookingid) throws SQLException {
+    public boolean changeBookingStatus(int bookingid, int status) throws SQLException {
         Booking booking = getBookingById(bookingid);
         if (booking == null) throw new SQLException("Booking not found");
         int st = booking.getBookingStatusId();
@@ -117,7 +254,7 @@ public class BookingRepository implements AutoCloseable {
         }
         String sql = "UPDATE Booking SET BookingStatusId=?, UpdatedAt=? WHERE BookingId=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, CommonConstants.BookingStatus.CANCEL);
+            ps.setInt(1, status);
             ps.setTimestamp(10, Timestamp.valueOf(String.valueOf(DateTimeVN.getNow().toLocalDateTime())));
             ps.setInt(3, bookingid);
             return ps.executeUpdate() == 1;

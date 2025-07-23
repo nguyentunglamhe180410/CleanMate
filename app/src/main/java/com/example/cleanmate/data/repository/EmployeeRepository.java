@@ -48,8 +48,8 @@ public class EmployeeRepository implements AutoCloseable {
                 .append("JOIN CustomerAddresses a ON b.AddressId    = a.AddressId ")
                 .append("JOIN BookingStatuses bs ON b.BookingStatusId = bs.BookingStatusId ")
                 .append("WHERE 1=1 ");
-        if (status != null)       sql.append(" AND b.BookingStatusId = ").append(status);
-        if (employeeId != null)   sql.append(" AND b.CleanerId = '").append(employeeId).append("'");
+        if (status != null) sql.append(" AND b.BookingStatusId = ").append(status);
+        if (employeeId != null) sql.append(" AND b.CleanerId = '").append(employeeId).append("'");
         sql.append(" ORDER BY b.CreatedAt DESC");
 
         List<WorkListViewModel> list = new ArrayList<>();
@@ -139,6 +139,7 @@ public class EmployeeRepository implements AutoCloseable {
             }
         }
     }
+
     public List<WorkListViewModel> findWorkByEmployeeId(String employeeId) throws SQLException {
         return findAllWork(null, employeeId);
     }
@@ -148,10 +149,10 @@ public class EmployeeRepository implements AutoCloseable {
         String sql = "UPDATE Booking SET BookingStatusId=?, CleanerId=? WHERE BookingId=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, newStatus);
-            if (cleanerId!=null) ps.setString(2, cleanerId);
-            else               ps.setNull(2, Types.VARCHAR);
+            if (cleanerId != null) ps.setString(2, cleanerId);
+            else ps.setNull(2, Types.VARCHAR);
             ps.setInt(3, bookingId);
-            return ps.executeUpdate()==1;
+            return ps.executeUpdate() == 1;
         }
     }
 
@@ -172,13 +173,13 @@ public class EmployeeRepository implements AutoCloseable {
 
         // get target booking
         WorkDetailsViewModel target = findWorkById(bookingId);
-        if (target==null || (target.getEmployeeId()!=null && !target.getEmployeeId().equals(employeeId)))
+        if (target == null || (target.getEmployeeId() != null && !target.getEmployeeId().equals(employeeId)))
             return false;
 
         LocalDateTime start = LocalDate.parse(target.getDate(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                 .atTime(LocalTime.parse(target.getStartTime()));
-        long duration = Integer.parseInt(target.getDuration().replaceAll("\\D",""));
+        long duration = Integer.parseInt(target.getDuration().replaceAll("\\D", ""));
         LocalDateTime end = start.plusHours(duration);
 
         // fetch existing
@@ -250,6 +251,7 @@ public class EmployeeRepository implements AutoCloseable {
             ps.executeUpdate();
         }
     }
+
     public List<WorkHistoryViewModel> getWorkHistory(String employeeId) throws SQLException {
         String sql =
                 "SELECT b.BookingId, s.Name AS ServiceName, u.FullName AS CustomerFullName, " +
@@ -300,7 +302,6 @@ public class EmployeeRepository implements AutoCloseable {
     }
 
 
-
     public BigDecimal getMonthlyEarnings(String employeeId) throws SQLException {
         LocalDate now = DateTimeVN.getNow().toLocalDateTime().toLocalDate();
         String sql =
@@ -308,7 +309,7 @@ public class EmployeeRepository implements AutoCloseable {
                         "FROM Booking b WHERE b.CleanerId=? AND b.BookingStatusId=? " +
                         " AND b.Date BETWEEN ? AND ?";
         LocalDate start = now.withDayOfMonth(1);
-        LocalDate end   = now.withDayOfMonth(now.lengthOfMonth());
+        LocalDate end = now.withDayOfMonth(now.lengthOfMonth());
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setBigDecimal(1, BigDecimal.valueOf(CommonConstants.COMMISSION_PERCENTAGE));
             ps.setString(2, employeeId);
@@ -336,7 +337,7 @@ public class EmployeeRepository implements AutoCloseable {
                         "GROUP BY MONTH(b.Date)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setBigDecimal(1, BigDecimal.valueOf(1 - CommonConstants.COMMISSION_PERCENTAGE/100.0));
+            ps.setBigDecimal(1, BigDecimal.valueOf(1 - CommonConstants.COMMISSION_PERCENTAGE / 100.0));
             ps.setString(2, employeeId);
             ps.setInt(3, CommonConstants.BookingStatus.DONE);
             ps.setInt(4, year);
@@ -426,34 +427,34 @@ public class EmployeeRepository implements AutoCloseable {
             ps.setString(1, cleanerId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    dto.BookingDTO b = new dto.BookingDTO(
+                    String dateStr = rs.getString("Date");
+                    LocalDate date = dateStr == null
+                            ? null
+                            : LocalDate.parse(dateStr);                // ISO_LOCAL_DATE
+
+                    String timeStr = rs.getString("StartTime");
+                    LocalTime time = timeStr == null
+                            ? null
+                            : LocalTime.parse(timeStr);               // ISO_LOCAL_TIME
+
+                    dto.BookingDTO bookingDTO = new dto.BookingDTO(
                             rs.getInt("BookingId"),
-                            rs.getInt("ServicePriceId"),
                             rs.getString("ServiceName"),
-                            rs.getInt("DurationTime"),
-                            rs.getString("SquareMeterSpecific"),
+                            rs.getString("ServiceDescription"),
+                            date,
+                            time,
                             rs.getBigDecimal("Price"),
-                            rs.getString("CleanerId"),
-                            rs.getString("CleanerName"),
-                            rs.getString("UserId"),
-                            rs.getString("UserName"),
-                            rs.getInt("BookingStatusId"),
-                            rs.getString("Status"),
-                            rs.getString("StatusDescription"),
-                            rs.getString("Note"),
-                            rs.getObject("AddressId") != null ? rs.getInt("AddressId") : null,
-                            rs.getString("AddressFormatted"),
+                            rs.getBigDecimal("Commission"),
+                            rs.getString("Address"),
                             rs.getString("AddressNo"),
-                            rs.getString("PaymentMethod"),
-                            rs.getString("PaymentStatus"),
-                            DateTimeVN.convertToLocalDate(rs.getDate("Date")) ,
-                            DateTimeVN.convertToLocalTime(rs.getTime("StartTime")),
-                            rs.getBigDecimal("TotalPrice"),
-                            rs.getTimestamp("CreatedAt"),
-                            rs.getTimestamp("UpdatedAt"),
-                            rs.getInt("HasFeedback") == 1
+                            rs.getString("CustomerFullName"),
+                            rs.getString("CustomerPhoneNumber"),
+                            rs.getInt("BookingStatusId"),
+                            rs.getString("UserId"),
+                            rs.getString("CleanerId")
                     );
-                    cd.getBooking().add(b);                }
+                    cd.getBooking().add(bookingDTO);
+                }
             }
         }
         return cd;
@@ -467,9 +468,10 @@ public class EmployeeRepository implements AutoCloseable {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setBoolean(1, isAvailable);
             ps.setString(2, cleanerId);
-            return ps.executeUpdate()==1;
+            return ps.executeUpdate() == 1;
         }
     }
+
     @Override
     public void close() throws SQLException {
         if (conn != null && !conn.isClosed()) conn.close();

@@ -1,4 +1,4 @@
-package com.example.cleanmate.authen;
+package com.example.cleanmate.activity.authen;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

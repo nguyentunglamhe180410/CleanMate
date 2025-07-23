@@ -13,32 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cleanmate.R;
 import com.example.cleanmate.common.CommonConstants;
-import com.example.cleanmate.data.model.viewmodels.employee.WorkDetailsViewModel;
+import com.example.cleanmate.data.model.dto.dto;
 
 import java.util.List;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
 
     public interface OnConfirmListener {
-        void onConfirmComplete(WorkDetailsViewModel work);
+        void onConfirmComplete(dto.BookingDTO booking);
     }
 
     private final Context context;
     private final OnConfirmListener listener;
-    private List<WorkDetailsViewModel> data;
+    private List<dto.BookingDTO> data;
 
     public BookingAdapter(Context ctx, OnConfirmListener l) {
         this.context = ctx;
         this.listener = l;
     }
 
-    public void setData(List<WorkDetailsViewModel> list) {
+    public void setData(List<dto.BookingDTO> list) {
         this.data = list;
         notifyDataSetChanged();
     }
 
-    @NonNull
-    @Override
+    @NonNull @Override
     public BookingAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context)
                 .inflate(R.layout.item_booking, parent, false);
@@ -47,18 +46,17 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull BookingAdapter.ViewHolder h, int pos) {
-        WorkDetailsViewModel w = data.get(pos);
+        dto.BookingDTO w = data.get(pos);
         h.txtServiceName.setText(w.getServiceName());
         h.txtServiceDescription.setText(w.getServiceDescription());
         h.txtDateTime.setText("Ngày: " + w.getDate() + "  |  Giờ: " + w.getStartTime());
-        h.txtPriceCommission.setText("Giá: " + w.getPrice() +
-                "  |  Hoa hồng: " + w.getCommission());
+        h.txtPriceCommission.setText("Giá: " + w.getPrice()
+                + "  |  Hoa hồng: " + w.getCommission());
         h.txtAddress.setText("Địa chỉ: " + w.getAddress() + " (số: " + w.getAddressNo() + ")");
-        h.txtCustomer.setText("Khách: " + w.getCustomerFullName() +
-                " (" + w.getCustomerPhoneNumber() + ")");
+        h.txtCustomer.setText("Khách: " + w.getCustomerFullName()
+                + " (" + w.getCustomerPhoneNumber() + ")");
 
-        // Nếu chưa hoàn thành
-        if (w.getStatusId() != CommonConstants.BookingStatus.DONE) {
+        if (w.getBookingStatusId() != CommonConstants.BookingStatus.DONE) {
             h.btnConfirmDone.setVisibility(View.VISIBLE);
             h.btnConfirmDone.setOnClickListener(v -> listener.onConfirmComplete(w));
         } else {
@@ -72,12 +70,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtServiceName,
-                txtServiceDescription,
-                txtDateTime,
-                txtPriceCommission,
-                txtAddress,
-                txtCustomer;
+        TextView txtServiceName, txtServiceDescription, txtDateTime,
+                txtPriceCommission, txtAddress, txtCustomer;
         Button btnConfirmDone;
 
         public ViewHolder(@NonNull View itemView) {

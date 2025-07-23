@@ -1,10 +1,8 @@
 package com.example.cleanmate.activity.customerActivity;
 
-import android.content.SharedPreferences;
-
 import android.os.Bundle;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,21 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cleanmate.adapter.BookingAdapter;
 import com.example.cleanmate.R;
 import com.example.cleanmate.data.model.Booking;
+import com.example.cleanmate.data.model.dto.dto;
+import com.example.cleanmate.data.model.viewmodels.employee.WorkDetailsViewModel;
 import com.example.cleanmate.data.repository.BookingRepository;
+import com.example.cleanmate.data.repository.CustomerRepository;
 import com.example.cleanmate.data.service.BookingService;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.List;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -36,6 +27,7 @@ public class BookingActivity extends AppCompatActivity {
     // 1. Khởi tạo service/repo
     private BookingService bookingService;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +36,7 @@ public class BookingActivity extends AppCompatActivity {
         // 2. Khởi tạo repo và service
         try {
             BookingRepository repo = new BookingRepository(); // kết nối trực tiếp đến Azure DB
-            bookingService = new BookingService(repo);
+            bookingService = new BookingService(repo, new CustomerRepository());
         } catch (Exception e) {
             Toast.makeText(this, "Không khởi tạo được service: " + e.getMessage(), Toast.LENGTH_LONG).show();
             return;
@@ -52,7 +44,7 @@ public class BookingActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewBookings);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new BookingAdapter(this, id -> confirmComplete(id));
+        adapter = new BookingAdapter(this, id -> confirmComplete(id.getBookingId()));
         recyclerView.setAdapter(adapter);
 
         String userId = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
@@ -68,7 +60,7 @@ public class BookingActivity extends AppCompatActivity {
         // 3. Chạy trên background thread
         new Thread(() -> {
             try {
-                List<Booking> bookings = bookingService.getBookingsByUser(userId);
+                List<dto.BookingDTO> bookings = bookingService.getBookingsByUserIdDto(userId, null);
                 runOnUiThread(() -> adapter.setData(bookings));
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -81,7 +73,7 @@ public class BookingActivity extends AppCompatActivity {
     private void confirmComplete(int bookingId) {
         new Thread(() -> {
             try {
-                boolean ok = bookingService.confirmComplete(bookingId);
+                boolean ok = bookingService.doneCustomerAccept(bookingId);
                 runOnUiThread(() -> {
                     if (ok) {
                         Toast.makeText(this, "Đã xác nhận hoàn thành!", Toast.LENGTH_SHORT).show();

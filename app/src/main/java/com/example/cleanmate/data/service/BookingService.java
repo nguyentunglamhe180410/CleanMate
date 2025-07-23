@@ -3,19 +3,25 @@ package com.example.cleanmate.data.service;
 import com.example.cleanmate.common.CommonConstants;
 import com.example.cleanmate.common.utils.DateTimeVN;
 import com.example.cleanmate.data.model.Booking;
+import com.example.cleanmate.data.model.User;
 import com.example.cleanmate.data.model.dto.*;
 import com.example.cleanmate.data.repository.BookingRepository;
+import com.example.cleanmate.data.repository.CustomerRepository;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 public class BookingService {
     private final BookingRepository repo;
+    private final CustomerRepository crepo;
 
-    public BookingService(BookingRepository repo) {
+    public BookingService(BookingRepository repo, CustomerRepository crepo) {
         this.repo = repo;
+        this.crepo = crepo;
     }
 
     public Booking addNewBooking(dto.BookingCreateDTO dto) throws SQLException {
@@ -38,47 +44,35 @@ public class BookingService {
         return repo.getBookingById(bookingId);
     }
 
-    public List<dto.BookingDTO> getBookingsByUserId(String userId, Integer statusId) throws SQLException {
-        return repo.getBookingByUserId(userId, statusId)
-                .stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
+    public List<dto.BookingDTO> getBookingsByUserIdDto(String userId, Integer statusId) throws SQLException {
+        return repo.getBookingByUserIdDto(userId,statusId);
     }
 
-    public List<dto.BookingDTO> getBookingsForAdmin(Integer statusId) throws SQLException {
-        return repo.getBookingForAdmin(statusId)
-                .stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
-    }
+
 
     public boolean assignCleaner(int bookingId, String cleanerId) throws SQLException {
         return repo.processBookingAfterAssigningCleaner(bookingId, cleanerId);
     }
 
     public boolean cancelBooking(int bookingId) throws SQLException {
-        return repo.cancelBooking(bookingId);
+        return repo.changeBookingStatus(bookingId, CommonConstants.BookingStatus.CANCEL);
+    }
+    public boolean acceptWork(int bookingId) throws SQLException {
+        return repo.changeBookingStatus(bookingId, CommonConstants.BookingStatus.ACCEPT);
+    }
+    public boolean doneWork(int bookingId) throws SQLException {
+        return repo.changeBookingStatus(bookingId, CommonConstants.BookingStatus.PENDING_DONE);
+    }
+    public boolean doneCustomerAccept(int bookingId) throws SQLException {
+        return repo.changeBookingStatus(bookingId, CommonConstants.BookingStatus.DONE);
     }
 
     // --- helper to map Booking → BookingDTO ---
-    private dto.BookingDTO toDto(Booking b) {
-        dto.BookingDTO d = new dto.BookingDTO();
-        d.setBookingId(b.getBookingId());
-        d.setServicePriceId(b.getServicePriceId());
-        d.setCleanerId(b.getCleanerId());
-        d.setUserId(b.getUserId());
-        d.setBookingStatusId(b.getBookingStatusId());
-        d.setNote(b.getNote());
-        d.setAddressId(b.getAddressId());
-        d.setDate(b.getDate());
-        d.setStartTime(b.getStartTime());
-        d.setTotalPrice(b.getTotalPrice());
-        d.setCreatedAt(b.getCreatedAt());
-        d.setUpdatedAt(b.getUpdatedAt());
-        // derived fields
-        d.setStatus(CommonConstants.getStatusString(b.getBookingStatusId()));
-        d.setHasFeedback(false);
-        return d;
+    private dto.BookingDTO toDto(Booking b) throws SQLException {
+        User u = crepo.getUserById(b.getUserId());
+        dto.BookingDTO d = new dto.BookingDTO( b.getBookingId(), "Dọn nhà theo giờ", "Dịch vụ dọn nhà theo giờ chuyên nghiệp, linh hoạt theo nhu cầu của bạn. Nhân viên được đào tạo kỹ lưỡng, đảm bảo sạch sẽ, gọn gàng và tiết kiệm thời gian. Phù hợp cho nhà ở, căn hộ, văn phòng nhỏ hoặc phòng trọ",b.getDate(),b.getStartTime(),b.getTotalPrice(),b.getTotalPrice(),"Hoa lac","No 1",u.getFullName(),u.getPhoneNumber(),b.getBookingStatusId(),b.getUserId(),b.getCleanerId());
+            return d;
     }
+
 }
 

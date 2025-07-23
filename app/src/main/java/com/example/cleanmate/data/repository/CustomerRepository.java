@@ -6,7 +6,9 @@ import com.example.cleanmate.data.model.User;
 import com.example.cleanmate.data.model.dto.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,23 +170,64 @@ public class CustomerRepository implements AutoCloseable {
         // d) Booking 
         List<dto.BookingDTO> books = new ArrayList<>();
         String sqlBook =
-                "SELECT BookingId, ServicePriceId, CleanerId, AddressId, TotalPrice, Note, CreatedAt, UpdatedAt, BookingStatusId " +
-                        "FROM Booking  WHERE UserId = ?";
+                "SELECT " +
+                        "  b.BookingId, " +
+                        "  sp.PriceId        AS ServicePriceId, " +
+                        "  s.ServiceId       AS ServiceId, " +
+                        "  s.Name            AS ServiceName, " +
+                        "  s.Description     AS ServiceDescription, " +
+                        "  sp.Price, " +
+                        "  sp.Commission, " +
+                        "  b.CleanerId, " +
+                        "  b.UserId, " +
+                        "  b.BookingStatusId, " +
+                        "  b.Note, " +
+                        "  b.TotalPrice, " +
+                        "  b.CreatedAt, " +
+                        "  b.UpdatedAt, " +
+                        "  b.AddressId, " +
+                        "  b.Date, " +
+                        "  b.StartTime, " +
+                        "  a.GG_FormattedAddress AS Address, " +
+                        "  a.AddressNo, " +
+                        "  u.FullName        AS CustomerFullName, " +
+                        "  u.PhoneNumber     AS CustomerPhoneNumber " +
+                        "FROM Booking b " +
+                        "  JOIN Service_Price sp    ON b.Service_PriceId   = sp.PriceId " +
+                        "  JOIN Service s           ON sp.ServiceId        = s.ServiceId " +
+                        "  JOIN Customer_Address a  ON b.UserId            = a.UserId " +
+                        "  JOIN AspNetUsers u       ON b.UserId            = u.Id " +
+                        "WHERE b.UserId = ?";
         try (PreparedStatement ps = conn.prepareStatement(sqlBook)) {
             ps.setString(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    dto.BookingDTO b = new dto.BookingDTO();
-                    b.setBookingid(rs.getInt("BookingId"));
-                    b.setServicePriceId(rs.getInt("ServicePriceId"));
-                    b.setCleanerId(rs.getString("CleanerId"));
-                    b.setAddressId(rs.getInt("AddressId"));
-                    b.setTotalPrice(rs.getBigDecimal("TotalPrice"));
-                    b.setNote(rs.getString("Note"));
-                    b.setCreatedAt(rs.getTimestamp("CreatedAt"));
-                    b.setUpdatedAt(rs.getTimestamp("UpdatedAt"));
-                    b.setBookingStatusId(rs.getInt("BookingStatusId"));
-                    books.add(b);
+                    // parse date/time strings
+                    String dateStr = rs.getString("Date");
+                    LocalDate date = dateStr == null
+                            ? null
+                            : LocalDate.parse(dateStr);                // ISO_LOCAL_DATE
+
+                    String timeStr = rs.getString("StartTime");
+                    LocalTime time = timeStr == null
+                            ? null
+                            : LocalTime.parse(timeStr);                // ISO_LOCAL_TIME
+                    dto.BookingDTO bookingDTO = new dto.BookingDTO(
+                            rs.getInt       ("BookingId"),
+                            rs.getString    ("ServiceName"),
+                            rs.getString    ("ServiceDescription"),
+                            date,
+                            time,
+                            rs.getBigDecimal("Price"),
+                            rs.getBigDecimal("Commission"),
+                            rs.getString    ("Address"),
+                            rs.getString    ("AddressNo"),
+                            rs.getString    ("CustomerFullName"),
+                            rs.getString    ("CustomerPhoneNumber"),
+                            rs.getInt       ("BookingStatusId"),
+                            rs.getString    ("UserId"),
+                            rs.getString    ("CleanerId")
+                    );
                 }
             }
         }
