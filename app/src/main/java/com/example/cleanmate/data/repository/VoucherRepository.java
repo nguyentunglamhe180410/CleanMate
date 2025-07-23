@@ -4,6 +4,7 @@ import com.example.cleanmate.common.CommonConstants;
 import com.example.cleanmate.common.utils.DateTimeVN;
 import com.example.cleanmate.data.model.UserVoucher;
 import com.example.cleanmate.data.model.Voucher;
+import com.example.cleanmate.data.model.UserVoucherDisplay;
 import com.example.cleanmate.data.model.viewmodels.employee.UserVoucherViewModel;
 
 import java.sql.*;
@@ -15,20 +16,50 @@ public class VoucherRepository implements AutoCloseable {
     private final Connection conn;
 
     public VoucherRepository() throws SQLException, ClassNotFoundException {
-        Class.forName("net.sourceforge.jtds.jdbc.Driver");
-        this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
+        try {
+            System.out.println("VoucherRepository: Đang load JDBC driver...");
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            System.out.println("VoucherRepository: Đã load JDBC driver thành công");
+            
+            System.out.println("VoucherRepository: Đang kết nối database...");
+            System.out.println("VoucherRepository: Host = " + CommonConstants.SQL_SERVER_HOST);
+            System.out.println("VoucherRepository: Database = " + CommonConstants.SQL_SERVER_DATABASE);
+            System.out.println("VoucherRepository: User = " + CommonConstants.SQL_SERVER_USER);
+            System.out.println("VoucherRepository: JDBC_URL = " + CommonConstants.JDBC_URL);
+            this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
+            System.out.println("VoucherRepository: Đã kết nối database thành công");
+            
+        } catch (ClassNotFoundException e) {
+            System.err.println("VoucherRepository: Lỗi load JDBC driver: " + e.getMessage());
+            throw e;
+        } catch (SQLException e) {
+            System.err.println("VoucherRepository: Lỗi kết nối database: " + e.getMessage());
+            System.err.println("VoucherRepository: Error Code: " + e.getErrorCode());
+            System.err.println("VoucherRepository: SQL State: " + e.getSQLState());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.err.println("VoucherRepository: Lỗi không xác định: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     /** 1) Get all vouchers */
     public List<Voucher> getAllVoucher() throws SQLException {
-        String sql = "SELECT VoucherId, Description, DiscountPercentage, CreatedAt, ExpireDate, "
+        // Debug: Kiểm tra cấu trúc bảng trước
+        debugTableStructure();
+        
+        String discountColumn = getDiscountColumnName();
+        String sql = "SELECT VoucherId, Description, " + discountColumn + ", CreatedAt, ExpireDate, "
                 + "VoucherCode, IsEventVoucher, CreatedBy, Status "
                 + "FROM Voucher";
+        System.out.println("DEBUG: getAllVoucher SQL = " + sql);
         List<Voucher> list = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                list.add(mapVoucher(rs));
+                list.add(mapVoucher(rs, discountColumn));
             }
         }
         return list;
@@ -36,13 +67,14 @@ public class VoucherRepository implements AutoCloseable {
 
     /** 2) Get one voucher by ID */
     public Voucher getVoucherById(int voucherid) throws SQLException {
-        String sql = "SELECT VoucherId, Description, DiscountPercentage, CreatedAt, ExpireDate, "
+        String discountColumn = getDiscountColumnName();
+        String sql = "SELECT VoucherId, Description, " + discountColumn + ", CreatedAt, ExpireDate, "
                 + "VoucherCode, IsEventVoucher, CreatedBy, Status "
                 + "FROM Voucher WHERE VoucherId = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, voucherid);
             try (ResultSet rs = ps.executeQuery()) {
-                return rs.next() ? mapVoucher(rs) : null;
+                return rs.next() ? mapVoucher(rs, discountColumn) : null;
             }
         }
     }
@@ -99,8 +131,8 @@ public class VoucherRepository implements AutoCloseable {
     /** 6) Get user vouchers by userId (including voucher info) */
     public List<UserVoucherViewModel> getUserVoucherByUserId(String userid) throws SQLException {
         String sql = "SELECT uv.UserVoucherId, uv.UserId, uv.VoucherId, uv.Quantity, uv.IsUsed, "
-                + "v.VoucherId AS VId, v.Description, v.DiscountPercentage, v.ExpireDate, v.VoucherCode, v.Status "
-                + "FROM User_Voucher uv "
+                + "v.Description, v.DiscountPercentage, v.ExpireDate, v.Status as VoucherStatus "
+                + "FROM UserVoucher uv "
                 + "JOIN Voucher v ON uv.VoucherId = v.VoucherId "
                 + "WHERE uv.UserId = ?";
         List<UserVoucherViewModel> list = new ArrayList<>();
@@ -108,18 +140,30 @@ public class VoucherRepository implements AutoCloseable {
             ps.setString(1, userid);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    UserVoucherViewModel uv = new UserVoucherViewModel();
-                    uv.setUservoucherid(rs.getInt("UserVoucherId"));
-                    uv.setUserid(rs.getString("UserId"));
-                    uv.setVoucherid(rs.getInt("VoucherId"));
-                    uv.setQuantity(rs.getInt("Quantity"));
-                    uv.setUsed(rs.getBoolean("IsUsed"));
-                    uv.setVoucherid(rs.getInt("VoucherId"));
-                    uv.setDescription(rs.getString("Description"));
-                    uv.setDiscountPercentage(rs.getDouble("DiscountPercentage"));
-                    uv.setExpiredate(Date.valueOf(rs.getDate("ExpireDate").toString()));
-                    uv.setVoucherStatus(rs.getString("Status"));
-                    list.add(uv);
+                    list.add(mapUserVoucherViewModel(rs));
+                }
+            }
+        }
+        return list;
+    }
+
+    /** 6b) Get user vouchers display by userId (including voucher code) */
+    public List<UserVoucherDisplay> getUserVoucherDisplayByUserId(String userid) throws SQLException {
+        // Debug: In ra SQL query
+        String discountColumn = getDiscountColumnName();
+        String sql = "SELECT uv.UserVoucherId, uv.UserId, uv.VoucherId, uv.Quantity, uv.IsUsed, uv.UsedAt, "
+                + "v.VoucherCode, v.Description, v." + discountColumn + ", v.ExpireDate, v.Status "
+                + "FROM UserVoucher uv "
+                + "JOIN Voucher v ON uv.VoucherId = v.VoucherId "
+                + "WHERE uv.UserId = ?";
+        System.out.println("DEBUG: SQL Query = " + sql);
+        System.out.println("DEBUG: UserId = " + userid);
+        List<UserVoucherDisplay> list = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userid);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapUserVoucherDisplay(rs, discountColumn));
                 }
             }
         }
@@ -220,11 +264,67 @@ public class VoucherRepository implements AutoCloseable {
         }
     }
 
-    private Voucher mapVoucher(ResultSet rs) throws SQLException {
+    /** Debug: Check table structure */
+    public void debugTableStructure() throws SQLException {
+        System.out.println("=== DEBUG: Checking Voucher table structure ===");
+        String sql = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Voucher' ORDER BY ORDINAL_POSITION";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                String dataType = rs.getString("DATA_TYPE");
+                System.out.println("Column: " + columnName + " (" + dataType + ")");
+            }
+        }
+        
+        System.out.println("=== DEBUG: Checking UserVoucher table structure ===");
+        sql = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'UserVoucher' ORDER BY ORDINAL_POSITION";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                String dataType = rs.getString("DATA_TYPE");
+                System.out.println("Column: " + columnName + " (" + dataType + ")");
+            }
+        }
+    }
+    
+    /** Get correct column name for discount */
+    private String getDiscountColumnName() throws SQLException {
+        String sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Voucher' AND COLUMN_NAME LIKE '%discount%'";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                System.out.println("DEBUG: Found discount column: " + columnName);
+                return columnName;
+            }
+        }
+        
+        // Thử các tên column khác có thể có
+        String[] possibleNames = {"Discount", "DiscountAmount", "DiscountValue", "DiscountPercent"};
+        for (String name : possibleNames) {
+            sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Voucher' AND COLUMN_NAME = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, name);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        System.out.println("DEBUG: Found discount column: " + name);
+                        return name;
+                    }
+                }
+            }
+        }
+        
+        System.out.println("DEBUG: No discount column found, using default: DiscountPercentage");
+        return "DiscountPercentage";
+    }
+
+    private Voucher mapVoucher(ResultSet rs, String discountColumn) throws SQLException {
         Voucher v = new Voucher();
         v.setVoucherId(rs.getInt("VoucherId"));
         v.setDescription(rs.getString("Description"));
-        v.setDiscountPercentage(rs.getBigDecimal("DiscountPercentage"));
+        v.setDiscountPercentage(rs.getBigDecimal(discountColumn));
         v.setCreatedAt(rs.getTimestamp("CreatedAt"));
         v.setExpireDate(rs.getDate("ExpireDate").toString());
         v.setVoucherCode(rs.getString("VoucherCode"));
@@ -232,6 +332,46 @@ public class VoucherRepository implements AutoCloseable {
         v.setCreatedBy(rs.getString("CreatedBy"));
         v.setStatus(rs.getString("Status"));
         return v;
+    }
+    
+    // Overload method for backward compatibility
+    private Voucher mapVoucher(ResultSet rs) throws SQLException {
+        return mapVoucher(rs, "DiscountPercentage");
+    }
+
+    private UserVoucherViewModel mapUserVoucherViewModel(ResultSet rs) throws SQLException {
+        UserVoucherViewModel uv = new UserVoucherViewModel();
+        uv.setUservoucherid(rs.getInt("UserVoucherId"));
+        uv.setUserid(rs.getString("UserId"));
+        uv.setVoucherid(rs.getInt("VoucherId"));
+        uv.setQuantity(rs.getInt("Quantity"));
+        uv.setUsed(rs.getBoolean("IsUsed"));
+        uv.setDescription(rs.getString("Description"));
+        uv.setDiscountPercentage(rs.getDouble("DiscountPercentage"));
+        uv.setExpiredate(Date.valueOf(rs.getDate("ExpireDate").toString()));
+        uv.setVoucherStatus(rs.getString("VoucherStatus"));
+        return uv;
+    }
+
+    private UserVoucherDisplay mapUserVoucherDisplay(ResultSet rs, String discountColumn) throws SQLException {
+        UserVoucherDisplay uv = new UserVoucherDisplay();
+        uv.setUserVoucherId(rs.getInt("UserVoucherId"));
+        uv.setUserId(rs.getString("UserId"));
+        uv.setVoucherId(rs.getInt("VoucherId"));
+        uv.setQuantity(rs.getInt("Quantity"));
+        uv.setIsUsed(rs.getBoolean("IsUsed"));
+        uv.setUsedAt(rs.getTimestamp("UsedAt"));
+        uv.setVoucherCode(rs.getString("VoucherCode"));
+        uv.setDescription(rs.getString("Description"));
+        uv.setDiscountPercentage(rs.getDouble(discountColumn));
+        uv.setExpireDate(rs.getDate("ExpireDate").toString());
+        uv.setStatus(rs.getString("Status"));
+        return uv;
+    }
+    
+    // Overload method for backward compatibility
+    private UserVoucherDisplay mapUserVoucherDisplay(ResultSet rs) throws SQLException {
+        return mapUserVoucherDisplay(rs, "DiscountPercentage");
     }
 
     @Override

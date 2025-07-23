@@ -14,12 +14,67 @@ public class CustomerRepository implements AutoCloseable {
     private final Connection conn;
 
     public CustomerRepository() throws SQLException, ClassNotFoundException {
-        Class.forName("net.sourceforge.jtds.jdbc.Driver");
-        this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
+        try {
+            System.out.println("CustomerRepository: Đang load JDBC driver...");
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            System.out.println("CustomerRepository: Đã load JDBC driver thành công");
+            
+            System.out.println("CustomerRepository: Đang kết nối database...");
+            System.out.println("CustomerRepository: JDBC_URL = " + CommonConstants.JDBC_URL);
+            this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
+            System.out.println("CustomerRepository: Đã kết nối database thành công");
+            
+        } catch (ClassNotFoundException e) {
+            System.err.println("CustomerRepository: Lỗi load JDBC driver: " + e.getMessage());
+            throw e;
+        } catch (SQLException e) {
+            System.err.println("CustomerRepository: Lỗi kết nối database: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    /** Debug: Check table structure */
+    public void debugTableStructure() throws SQLException {
+        System.out.println("=== DEBUG: Checking AspNetUsers table structure ===");
+        String sql = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'AspNetUsers' ORDER BY ORDINAL_POSITION";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                String dataType = rs.getString("DATA_TYPE");
+                System.out.println("Column: " + columnName + " (" + dataType + ")");
+            }
+        }
+        
+        System.out.println("=== DEBUG: Checking AspNetRoles table structure ===");
+        sql = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'AspNetRoles' ORDER BY ORDINAL_POSITION";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                String dataType = rs.getString("DATA_TYPE");
+                System.out.println("Column: " + columnName + " (" + dataType + ")");
+            }
+        }
+        
+        System.out.println("=== DEBUG: Checking AspNetUserRoles table structure ===");
+        sql = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'AspNetUserRoles' ORDER BY ORDINAL_POSITION";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                String dataType = rs.getString("DATA_TYPE");
+                System.out.println("Column: " + columnName + " (" + dataType + ")");
+            }
+        }
     }
 
     /** 1) Get all customers in role 'Customer' */
     public List<dto.CustomerListItemDTO> getCustomerList() throws SQLException {
+        // Debug: Kiểm tra cấu trúc bảng trước
+        debugTableStructure();
+        
         String sql =
                 "SELECT Id, FullName, Email, PhoneNumber, CreatedDate, LockoutEnabled " +
                         "FROM AspNetUsers u " +
@@ -27,6 +82,7 @@ public class CustomerRepository implements AutoCloseable {
                         "JOIN AspNetRoles r     ON ur.RoleId = r.Id " +
                         "WHERE r.Name = 'Customer' " +
                         "ORDER BY u.UserName";
+        System.out.println("DEBUG: getCustomerList SQL = " + sql);
 
         List<dto.CustomerListItemDTO> list = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql);
@@ -208,6 +264,30 @@ public class CustomerRepository implements AutoCloseable {
             ps.setString(5, user.getUserId());
             return ps.executeUpdate() == 1;
         }
+    }
+
+    /** Get all customer IDs for spinner */
+    public List<String> getAllCustomerIds() throws SQLException {
+        String sql = "SELECT u.Id FROM AspNetUsers u " +
+                    "JOIN AspNetUserRoles ur ON u.Id = ur.UserId " +
+                    "JOIN AspNetRoles r ON ur.RoleId = r.Id " +
+                    "WHERE r.Name = 'Customer' " +
+                    "ORDER BY u.Id";
+        
+        System.out.println("DEBUG: getAllCustomerIds SQL = " + sql);
+        
+        List<String> userIds = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String userId = rs.getString("Id");
+                userIds.add(userId);
+                System.out.println("DEBUG: Found user ID: " + userId);
+            }
+        }
+        
+        System.out.println("DEBUG: Total customer IDs found: " + userIds.size());
+        return userIds;
     }
 
     @Override

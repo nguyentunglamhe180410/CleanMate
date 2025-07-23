@@ -18,7 +18,11 @@
 
         <!-- The app's launcher -->
         <activity
+<<<<<<< Updated upstream
             android:name=".activity.customerActivity.BookingActivity"
+=======
+            android:name=".MainActivity"
+>>>>>>> Stashed changes
             android:exported="true" >
 
             <intent-filter>
@@ -47,6 +51,30 @@
         <activity android:name=".activity.cleanerActivity.CleanPerHourActivity"
             android:exported="true"
             android:label="Clean Per Hours"/>
+
+        <!-- Customer Profile Activity -->
+        <activity
+            android:name=".activity.CustomerProfileActivity"
+            android:exported="true"
+            android:label="Customer Profile" />
+
+        <!-- Booking Activity -->
+        <activity
+            android:name=".activity.BookingActivity"
+            android:exported="true"
+            android:label="Booking" />
+
+        <!-- Customer Voucher Activity -->
+        <activity
+            android:name=".activity.CustomerVoucherActivity"
+            android:exported="true"
+            android:label="Customer Voucher" />
+
+        <!-- Customer Feedback Activity -->
+        <activity
+            android:name=".activity.CustomerFeedbackActivity"
+            android:exported="true"
+            android:label="Customer Feedback" />
 
     </application>
 </manifest>

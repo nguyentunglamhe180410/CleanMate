@@ -10,14 +10,49 @@ public class FeedbackRepository implements AutoCloseable {
     private final Connection conn;
 
     public FeedbackRepository() throws SQLException, ClassNotFoundException {
-        Class.forName("net.sourceforge.jtds.jdbc.Driver");
-        this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
+        try {
+            System.out.println("FeedbackRepository: Đang load JDBC driver...");
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            System.out.println("FeedbackRepository: Đã load JDBC driver thành công");
+            
+            System.out.println("FeedbackRepository: Đang kết nối database...");
+            System.out.println("FeedbackRepository: JDBC_URL = " + CommonConstants.JDBC_URL);
+            this.conn = DriverManager.getConnection(CommonConstants.JDBC_URL);
+            System.out.println("FeedbackRepository: Đã kết nối database thành công");
+            
+        } catch (ClassNotFoundException e) {
+            System.err.println("FeedbackRepository: Lỗi load JDBC driver: " + e.getMessage());
+            throw e;
+        } catch (SQLException e) {
+            System.err.println("FeedbackRepository: Lỗi kết nối database: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    /** Debug: Check table structure */
+    public void debugTableStructure() throws SQLException {
+        System.out.println("=== DEBUG: Checking Feedbacks table structure ===");
+        String sql = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Feedbacks' ORDER BY ORDINAL_POSITION";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME");
+                String dataType = rs.getString("DATA_TYPE");
+                System.out.println("Column: " + columnName + " (" + dataType + ")");
+            }
+        }
     }
 
     /** 1) Get one Feedback by its ID */
     public Feedback getFeedbackById(int feedbackid) throws SQLException {
+        // Debug: Kiểm tra cấu trúc bảng trước
+        debugTableStructure();
+        
         String sql = "SELECT FeedbackId, BookingId, Rating, Content, CreatedAt " +
                 "FROM Feedbacks WHERE FeedbackId = ?";
+        System.out.println("DEBUG: getFeedbackById SQL = " + sql);
+        System.out.println("DEBUG: FeedbackId = " + feedbackid);
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, feedbackid);
             try (ResultSet rs = ps.executeQuery()) {

@@ -21,15 +21,22 @@ public final class CommonConstants {
     public static final String DEFAULT_ADMIN    = "";
     public static final String DEFAULT_CUSTOMER = "";
     public static final String DEFAULT_CLEANER  = "";
-    public static final String SQL_SERVER_HOST     = "cleanmate-server.database.windows.net";
+    // Database Local
+    public static final String SQL_SERVER_HOST     = "DESKTOP-8PA8VP5"; // Thay bằng IP máy tính của bạn
     public static final String SQL_SERVER_PORT     = "1433";
+<<<<<<< Updated upstream
     public static final String SQL_SERVER_DATABASE = "CleanMateDB_PRM";
     public static final String SQL_SERVER_USER     = "cleanmateadmin@cleanmate-server";
     public static final String SQL_SERVER_PASSWORD = "CleanmateServer@";
+=======
+    public static final String SQL_SERVER_DATABASE = "CleanMateDB_Main";
+    public static final String SQL_SERVER_USER     = "sa";
+    public static final String SQL_SERVER_PASSWORD = "123";
+>>>>>>> Stashed changes
 
 
     public static final String JDBC_URL = String.format(
-            "jdbc:jtds:sqlserver://%s:%s/%s;ssl=require;user=%s;password=%s;",
+            "jdbc:jtds:sqlserver://%s:%s/%s;user=%s;password=%s;loginTimeout=30;socketTimeout=30;",
             SQL_SERVER_HOST,
             SQL_SERVER_PORT,
             SQL_SERVER_DATABASE,

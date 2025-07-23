@@ -1,19 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="@color/white"
     tools:context=".MainActivity">
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Hello World!"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- App Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CleanMate"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginBottom="48dp" />
+
+    <!-- Welcome Text -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chào mừng bạn đến với CleanMate!"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
+
+    <!-- User Selection -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn User:"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_user_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tv_loading_users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang tải..."
+            android:textSize="12sp"
+            android:textColor="@color/primary"
+            android:layout_marginStart="8dp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <!-- Navigation Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Customer Profile Button -->
+        <Button
+            android:id="@+id/btn_customer_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👤 Thông Tin Cá Nhân"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Customer Voucher Button -->
+        <Button
+            android:id="@+id/btn_customer_voucher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎫 Quản Lý Voucher"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_info"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Customer Feedback Button -->
+        <Button
+            android:id="@+id/btn_customer_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💬 Quản Lý Feedback"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_success"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Cleaner List Button -->
+        <Button
+            android:id="@+id/btn_cleaner_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🧹 Danh Sách Cleaner"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_secondary"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Booking Button -->
+        <Button
+            android:id="@+id/btn_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📅 Đặt Lịch Dọn Dẹp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_primary"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+
+    <!-- Footer Text -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn tính năng bạn muốn sử dụng"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:gravity="center"
+        android:layout_marginTop="32dp" />
+
+</LinearLayout>
