@@ -6,9 +6,7 @@ import android.content.SharedPreferences;
 
 import com.example.MovieInABox.common.CommonConstants;
 
-
-public class MainActivity extends Application {
-
+public class MyApp extends Application {
     private static SharedPreferences sharedPreferences;
     private static final String SHARED_PREFS_NAME = "MyPrefs";
 
@@ -16,7 +14,6 @@ public class MainActivity extends Application {
     public void onCreate() {
         super.onCreate();
         sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-
     }
 
     public static SharedPreferences getSharedPreferences() {

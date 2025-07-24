@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".MainActivity"
+        android:name=".MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_background"
         android:label="@string/app_name"
@@ -38,7 +38,7 @@
             android:name=".activity.movie.MoviesInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.main.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.admin.AddMoviesActivity"

@@ -1,6 +1,6 @@
 package com.example.MovieInABox.service;
 
-import com.example.MovieInABox.MainActivity;
+import com.example.MovieInABox.MyApp;
 import com.google.firebase.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,11 +16,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
-    public static final String BASE_URL = "http://192.168.110.14:3000/api/v1/";
+    public static final String BASE_URL = "http://103.216.117.180:3000/api/v1/";
 
     public static <S> S createService(Class<S> serviceClass) {
 
-        String token = MainActivity.getToken();
+        String token = MyApp.getToken();
 
         Interceptor interceptor = chain -> {
             Request originalRequest = chain.request();
