@@ -121,7 +121,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity() , MoviesActivity.class);
-                intent.putExtra("key", CommonConstants.MOVIE_FAVORITE);
+                intent.putExtra("key", Constants.MOVIE_FAVORITE);
                 startActivity(intent);
             }
         });
@@ -131,7 +131,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity() , MoviesActivity.class);
-                intent.putExtra("key", CommonConstants.MOVIE_COMMENT);
+                intent.putExtra("key", Constants.MOVIE_COMMENT);
                 startActivity(intent);
             }
         });
@@ -142,7 +142,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity() , MoviesActivity.class);
-                intent.putExtra("key", CommonConstants.MOVIE_STAR);
+                intent.putExtra("key", Constants.MOVIE_STAR);
                 startActivity(intent);
             }
         });
