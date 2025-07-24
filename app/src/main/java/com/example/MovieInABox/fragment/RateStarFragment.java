@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.os.Bundle;
 
@@ -13,14 +13,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.RealFilm.R;
-import com.example.RealFilm.model.ApiResponse;
-import com.example.RealFilm.model.Movie;
-import com.example.RealFilm.model.Rate;
-import com.example.RealFilm.model.Status;
-import com.example.RealFilm.service.ApiService;
-import com.example.RealFilm.service.MovieService;
-import com.example.RealFilm.service.RatingService;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Movie;
+import com.example.MovieInABox.model.Rate;
+import com.example.MovieInABox.model.Status;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.MovieService;
+import com.example.MovieInABox.service.RatingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

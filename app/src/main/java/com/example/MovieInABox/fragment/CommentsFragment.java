@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -20,12 +20,12 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.RealFilm.R;
-import com.example.RealFilm.model.ApiResponse;
-import com.example.RealFilm.model.Comment;
-import com.example.RealFilm.model.Status;
-import com.example.RealFilm.service.ApiService;
-import com.example.RealFilm.service.CommentService;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Comment;
+import com.example.MovieInABox.model.Status;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.CommentService;
 import com.google.firebase.database.DatabaseReference;
 
 import java.text.DateFormat;

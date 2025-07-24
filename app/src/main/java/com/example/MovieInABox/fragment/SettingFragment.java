@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +10,14 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.RealFilm.R;
-import com.example.RealFilm.activity.AddMoviesActivity;
-import com.example.RealFilm.activity.ManagerMovies;
-import com.example.RealFilm.model.ApiResponse;
-import com.example.RealFilm.model.Status;
-import com.example.RealFilm.model.User;
-import com.example.RealFilm.service.ApiService;
-import com.example.RealFilm.service.UserService;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.activity.AddMoviesActivity;
+import com.example.MovieInABox.activity.ManagerMovies;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Status;
+import com.example.MovieInABox.model.User;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.UserService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

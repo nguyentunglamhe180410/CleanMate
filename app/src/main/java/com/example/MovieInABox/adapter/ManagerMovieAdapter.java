@@ -1,4 +1,4 @@
-package com.example.movieInABox.adapter;
+package com.example.MovieInABox.adapter;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,10 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.RealFilm.R;
-import com.example.RealFilm.activity.EditMovieActivity;
-import com.example.RealFilm.listerner.MovieDeleteListener;
-import com.example.RealFilm.model.Movie;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.activity.admin.EditMovieActivity;
+import com.example.MovieInABox.listerner.MovieDeleteListener;
+import com.example.MovieInABox.model.Movie;
 
 import java.util.List;
 

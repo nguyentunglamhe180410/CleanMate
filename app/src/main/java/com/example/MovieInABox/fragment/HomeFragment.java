@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,19 +26,19 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.RealFilm.R;
-import com.example.RealFilm.activity.LoginActivity;
-import com.example.RealFilm.activity.MainActivity;
-import com.example.RealFilm.activity.MoviesActivity;
-import com.example.RealFilm.activity.MoviesInformationActivity;
-import com.example.RealFilm.model.ApiResponse;
-import com.example.RealFilm.model.Country;
-import com.example.RealFilm.model.Genre;
-import com.example.RealFilm.model.Movie;
-import com.example.RealFilm.service.ApiService;
-import com.example.RealFilm.service.CommonService;
-import com.example.RealFilm.service.MovieService;
-import com.example.RealFilm.utils.Constants;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.activity.LoginActivity;
+import com.example.MovieInABox.activity.MainActivity;
+import com.example.MovieInABox.activity.MoviesActivity;
+import com.example.MovieInABox.activity.MoviesInformationActivity;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Country;
+import com.example.MovieInABox.model.Genre;
+import com.example.MovieInABox.model.Movie;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.CommonService;
+import com.example.MovieInABox.service.MovieService;
+import com.example.MovieInABox.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;

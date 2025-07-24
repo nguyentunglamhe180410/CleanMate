@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.os.Bundle;
 
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.RealFilm.R;
+import com.example.MovieInABox.R;
 
 public class ChangePasswordFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,12 +19,12 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.RealFilm.activity.MoviesInformationActivity;
-import com.example.RealFilm.R;
-import com.example.RealFilm.model.ApiResponse;
-import com.example.RealFilm.model.Movie;
-import com.example.RealFilm.service.ApiService;
-import com.example.RealFilm.service.MovieService;
+import com.example.MovieInABox.activity.MoviesInformationActivity;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Movie;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.MovieService;
 
 import java.util.List;
 

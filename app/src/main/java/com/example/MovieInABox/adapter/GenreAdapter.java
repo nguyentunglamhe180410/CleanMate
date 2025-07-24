@@ -1,4 +1,4 @@
-package com.example.movieInABox.adapter;
+package com.example.MovieInABox.adapter;
 
 
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.RealFilm.R;
-import com.example.RealFilm.model.Genre;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.model.Genre;
 
 import java.util.ArrayList;
 import java.util.List;

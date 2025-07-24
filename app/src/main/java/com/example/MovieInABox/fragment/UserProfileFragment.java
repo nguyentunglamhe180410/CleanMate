@@ -1,4 +1,4 @@
-package com.example.movieInABox.fragment;
+package com.example.MovieInABox.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,15 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.RealFilm.activity.ChangeInformationActivity;
-import com.example.RealFilm.activity.LoginActivity;
-import com.example.RealFilm.activity.MoviesActivity;
-import com.example.RealFilm.R;
-import com.example.RealFilm.model.ApiResponse;
-import com.example.RealFilm.model.User;
-import com.example.RealFilm.service.ApiService;
-import com.example.RealFilm.service.UserService;
-import com.example.RealFilm.utils.Constants;
+import com.example.MovieInABox.activity.ChangeInformationActivity;
+import com.example.MovieInABox.activity.LoginActivity;
+import com.example.MovieInABox.activity.MoviesActivity;
+import com.example.MovieInABox.R;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.User;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.UserService;
+import com.example.MovieInABox.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
