@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.cleanmate"
+    namespace = "com.example.MovieInABox"
     compileSdk = 35
 
     defaultConfig {
