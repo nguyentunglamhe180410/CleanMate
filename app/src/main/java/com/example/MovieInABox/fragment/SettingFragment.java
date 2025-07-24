@@ -11,8 +11,8 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.MovieInABox.R;
-import com.example.MovieInABox.activity.AddMoviesActivity;
-import com.example.MovieInABox.activity.ManagerMovies;
+import com.example.MovieInABox.activity.admin.AddMoviesActivity;
+import com.example.MovieInABox.activity.admin.ManagerMovies;
 import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.Status;
 import com.example.MovieInABox.model.User;

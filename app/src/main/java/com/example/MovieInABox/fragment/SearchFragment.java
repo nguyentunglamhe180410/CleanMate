@@ -19,7 +19,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.MovieInABox.activity.MoviesInformationActivity;
+import com.example.MovieInABox.activity.movie.MoviesInformationActivity;
 import com.example.MovieInABox.R;
 import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.Movie;
