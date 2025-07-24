@@ -5,6 +5,17 @@ import java.time.Duration;
 public final class CommonConstants {
     private CommonConstants() {} // utility class
 
+    // Key movie
+    String MOVIE_FAVORITE ="favorite";
+    String MOVIE_COMMENT ="comment";
+    String MOVIE_STAR ="star";
+    String MOVIE_LATEST ="latest";
+    String MOVIE_GENRE ="genre";
+    String MOVIE_COUNTRY ="country";
+
+    // Key authen
+    String ACCESS_TOKEN ="access_token";
+
     public static final int DEFAULT_PAGE_SIZE = 9;
 
     /** Khoảng thời gian giữa mỗi ca (20 phút). */
