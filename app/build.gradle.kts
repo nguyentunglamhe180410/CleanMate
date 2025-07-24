@@ -39,6 +39,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation ("net.sourceforge.jtds:jtds:1.3.1")
     implementation ("org.mindrot:jbcrypt:0.4")
+    implementation ("com.google.gms:google-services:4.3.14")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
