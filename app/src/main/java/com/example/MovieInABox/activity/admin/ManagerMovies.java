@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.MovieInABox.R;
 import com.example.MovieInABox.adapter.ManagerMovieAdapter;
 import com.example.MovieInABox.listerner.MovieDeleteListener;
-import com.example.MovieInABox.data.model.ApiResponse;
-import com.example.MovieInABox.data.model.Movie;
-import com.example.MovieInABox.data.service.ApiService;
-import com.example.MovieInABox.data.service.MovieService;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Movie;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.MovieService;
 
 import java.util.List;
 

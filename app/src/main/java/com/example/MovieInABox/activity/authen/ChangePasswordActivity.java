@@ -11,9 +11,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.MovieInABox.R;
-import com.example.MovieInABox.data.model.ApiResponse;
-import com.example.MovieInABox.data.service.ApiService;
-import com.example.MovieInABox.data.service.UserService;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.UserService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

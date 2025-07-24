@@ -18,11 +18,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.MovieInABox.R;
-import com.example.MovieInABox.data.model.ApiResponse;
-import com.example.MovieInABox.data.model.Movie;
-import com.example.MovieInABox.data.service.ApiService;
-import com.example.MovieInABox.data.service.MovieService;
-import com.example.MovieInABox.common.utils.Constants;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Movie;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.MovieService;
+import com.example.MovieInABox.common.CommonConstants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -80,27 +80,27 @@ public class MoviesActivity extends AppCompatActivity {
         Call<ApiResponse<List<Movie>>> call = null;
 
         switch (str){
-            case Constants.MOVIE_LATEST:
+            case CommonConstants.MOVIE_LATEST:
                 call = movieService.getMoviesLatest();
                 textView_top.setText("Phim mới");
                 break;
-            case Constants.MOVIE_GENRE:
+            case CommonConstants.MOVIE_GENRE:
                 call = movieService.getMoviesByGenre(idIntent);
                 textView_top.setText(headerTitle);
                 break;
-            case Constants.MOVIE_COUNTRY:
+            case CommonConstants.MOVIE_COUNTRY:
                 call = movieService.getMoviesByCountry(idIntent);
                 textView_top.setText(headerTitle);
                 break;
-            case Constants.MOVIE_FAVORITE:
+            case CommonConstants.MOVIE_FAVORITE:
                 call = movieService.getFavoriteMovies();
                 textView_top.setText("Danh sách phim yêu thích");
                 break;
-            case Constants.MOVIE_COMMENT:
+            case CommonConstants.MOVIE_COMMENT:
                 call = movieService.getCommentedMovies();
                 textView_top.setText("Danh sách phim đã bình luận");
                 break;
-            case Constants.MOVIE_STAR:
+            case CommonConstants.MOVIE_STAR:
                 call = movieService.getRatedMovies();
                 textView_top.setText("Danh sách phim đã đánh giá");
                 break;
