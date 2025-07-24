@@ -369,7 +369,7 @@ public class HomeFragment extends Fragment {
         btn_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendData(Constants.MOVIE_GENRE, genreCode, genreName);
+                sendData(CommonConstants.MOVIE_GENRE, genreCode, genreName);
             }
         });
 
@@ -389,7 +389,7 @@ public class HomeFragment extends Fragment {
         textView_new_movies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendData(Constants.MOVIE_LATEST, null, null);
+                sendData(CommonConstants.MOVIE_LATEST, null, null);
             }
         });
 
@@ -408,7 +408,7 @@ public class HomeFragment extends Fragment {
                     Genre selectedGenre = genres.get(position);
                     String code = selectedGenre.getCode();
                     String name = selectedGenre.getName();
-                    sendData(Constants.MOVIE_GENRE, code, name);
+                    sendData(CommonConstants.MOVIE_GENRE, code, name);
                     return true;
                 });
 
@@ -431,7 +431,7 @@ public class HomeFragment extends Fragment {
                     Country selectedCountry = countries.get(position);
                     String code = selectedCountry.getCode();
                     String name = selectedCountry.getName();
-                    sendData(Constants.MOVIE_COUNTRY, code, name);
+                    sendData(CommonConstants.MOVIE_COUNTRY, code, name);
                     return true;
                 });
 
