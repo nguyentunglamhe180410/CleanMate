@@ -1,26 +1,45 @@
 {
   "project_info": {
-    "project_number": "44398247498",
-    "project_id": "cleanmate-3625b",
-    "storage_bucket": "cleanmate-3625b.firebasestorage.app"
+    "project_number": "873982770651",
+    "firebase_url": "https://moviewnew-642c2-default-rtdb.firebaseio.com",
+    "project_id": "moviewnew-642c2",
+    "storage_bucket": "moviewnew-642c2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:44398247498:android:452c52d4edb39712d7f0b3",
+        "mobilesdk_app_id": "1:873982770651:android:72f85ecc773f0528df3bfe",
         "android_client_info": {
-          "package_name": "com.example.cleanmate"
+          "package_name": "com.example.MovieInABox"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "873982770651-nm0ur1etes3sfaaooggkjf10q3ts9h3j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.MovieInABox",
+            "certificate_hash": "592a8deb2681b356b1b9d9f04ab659dcf7ff6ffe"
+          }
+        },
+        {
+          "client_id": "873982770651-rf4sr65oh4gn9d8ukphekp4k55bvhghu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBwkbkVohZQoX_d6bQIxH1b5eKUx8nn2EQ"
+          "current_key": "AIzaSyDBXrxcEqyxocFilzhcFp452vWKOimc-MI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873982770651-rf4sr65oh4gn9d8ukphekp4k55bvhghu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
