@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,14 +20,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.MovieInABox.R;
-import com.example.MovieInABox.activity.authen.LoginActivity;
-import com.example.MovieInABox.activity.main.MainActivity;
 import com.example.MovieInABox.activity.movie.MoviesActivity;
 import com.example.MovieInABox.activity.movie.MoviesInformationActivity;
 import com.example.MovieInABox.model.ApiResponse;
@@ -38,10 +34,7 @@ import com.example.MovieInABox.model.Movie;
 import com.example.MovieInABox.service.ApiService;
 import com.example.MovieInABox.service.CommonService;
 import com.example.MovieInABox.service.MovieService;
-import com.example.MovieInABox.common.CommonConstants;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
+import com.example.MovieInABox.common.Constants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
