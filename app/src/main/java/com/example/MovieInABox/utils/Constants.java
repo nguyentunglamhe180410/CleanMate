@@ -9,6 +9,5 @@ public interface Constants {
     String MOVIE_GENRE ="genre";
     String MOVIE_COUNTRY ="country";
 
-    // Key authen
     String ACCESS_TOKEN ="access_token";
 }
