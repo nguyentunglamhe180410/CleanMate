@@ -15,12 +15,4 @@ public final class CommonConstants {
 
     public static final String ACCESS_TOKEN ="access_token";
 
-    public static final int DEFAULT_PAGE_SIZE = 9;
-
-    public static final Duration TIME_INTERVAL = Duration.ofMinutes(20);
-
-
-    public static final String DEFAULT_ADMIN    = "";
-    public static final String DEFAULT_CUSTOMER = "";
-
 }
