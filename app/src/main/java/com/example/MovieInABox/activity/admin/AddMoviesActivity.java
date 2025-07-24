@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.example.MovieInABox.R;
 import com.example.MovieInABox.adapter.GenreAdapter;
 import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.Country;

@@ -111,11 +111,13 @@ public class ChangeInformationActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
                     imageView_avatar.setImageURI(selectedImageUri);
+                    ImageUri = selectedImageUri;
                 }
             }
         }
@@ -129,73 +131,74 @@ public class ChangeInformationActivity extends AppCompatActivity {
             }
         });
     }
-
     private String convertBitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        String base64Image = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return "data:image/png;base64," + base64Image;
     }
-
     private void updateUserProfile() {
-        BitmapDrawable drawable = (BitmapDrawable) imageView_avatar.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        String base64Image = convertBitmapToBase64(bitmap);
 
-        String name = Edittext_change_infor_name.getText().toString();
-        String birthday = Edittext_change_infor_birthday.getText().toString();
-
-        progressDialog.setMessage("Đang cập nhật thông tin...");
-        progressDialog.show();
+        String photoURL = convertBitmapToBase64(((BitmapDrawable) imageView_avatar.getDrawable()).getBitmap());
+        String emailUpdate = Edittext_change_infor_email.getText().toString().trim();
+        String nameUpdate = Edittext_change_infor_name.getText().toString().trim();
+        String birthdaylUpdate = Edittext_change_infor_birthday.getText().toString().trim();
 
         UserService userService = ApiService.createService(UserService.class);
-        Call<ApiResponse<User>> call = userService.updateProfile(name, birthday, base64Image);
+        Call<ApiResponse<User>> call = userService.updateUser(nameUpdate, emailUpdate, birthdaylUpdate, photoURL);
 
         call.enqueue(new Callback<ApiResponse<User>>() {
             @Override
             public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
-                progressDialog.dismiss();
                 if (response.isSuccessful()) {
-                    Toast.makeText(ChangeInformationActivity.this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ChangeInformationActivity.this, "Cập nhật thông tin thất bại", Toast.LENGTH_SHORT).show();
+                    ApiResponse<User> res = response.body();
+                    Toast.makeText(ChangeInformationActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
+
+
             }
 
             @Override
             public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
-                progressDialog.dismiss();
-                Toast.makeText(ChangeInformationActivity.this, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
     private void getUserInfor() {
+        progressDialog.setMessage("Đang xử lý...");
+        progressDialog.show();
+
         UserService userService = ApiService.createService(UserService.class);
-        Call<ApiResponse<User>> call = userService.getUserProfile();
+        Call<ApiResponse<User>> call = userService.getUser();
 
         call.enqueue(new Callback<ApiResponse<User>>() {
             @Override
             public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
                 if (response.isSuccessful()) {
-                    User user = response.body().getData();
-                    if (user != null) {
-                        Edittext_change_infor_name.setText(user.getName());
-                        Edittext_change_infor_email.setText(user.getEmail());
-                        Edittext_change_infor_birthday.setText(user.getBirthday());
-                        
-                        if (user.getAvatar() != null && !user.getAvatar().isEmpty()) {
-                            Glide.with(ChangeInformationActivity.this)
-                                    .load(user.getAvatar())
-                                    .into(imageView_avatar);
-                        }
-                    }
+                    ApiResponse<User> res = response.body();
+                    User user = res.getData();
+
+                    name = user.getName();
+                    email = user.getEmail();
+                    birthday = user.getBirthday();
+                    String avatar = user.getPhotoURL();
+                    Glide.with(ChangeInformationActivity.this).load(avatar).into(imageView_avatar);
+
+                    Edittext_change_infor_name.setText(name);
+                    Edittext_change_infor_email.setText(email);
+                    Edittext_change_infor_birthday.setText(birthday);
+
                 }
+                progressDialog.dismiss();
+
             }
 
             @Override
             public void onFailure(Call<ApiResponse<User>> call, Throwable t) {
-                Toast.makeText(ChangeInformationActivity.this, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }
@@ -223,4 +226,4 @@ public class ChangeInformationActivity extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         Edittext_change_infor_birthday.setText(dateFormat.format(myCalendar.getTime()));
     }
-} 
+}

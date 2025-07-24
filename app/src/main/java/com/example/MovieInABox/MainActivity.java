@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.MovieInABox.utils.Constants;
+import com.example.MovieInABox.common.Constants;
 
 
 public class MainActivity extends Application {
