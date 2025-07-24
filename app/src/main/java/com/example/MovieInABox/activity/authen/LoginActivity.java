@@ -23,7 +23,7 @@ import com.example.MovieInABox.model.Status;
 import com.example.MovieInABox.model.User;
 import com.example.MovieInABox.service.ApiService;
 import com.example.MovieInABox.service.UserService;
-import com.example.MovieInABox.common.Constants;
+import com.example.MovieInABox.common.CommonConstants;
 import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
         if (CheckBox_rememberlogin.isChecked()) {
             editor.putString("email", strEmail);
             editor.putString("password", strPass);
-            editor.putString(Constants.ACCESS_TOKEN, token);
+            editor.putString(CommonConstants.ACCESS_TOKEN, token);
             // MyApplication.saveToken(token); // Comment out for now
             editor.commit();
         } else {

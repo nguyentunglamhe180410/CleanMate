@@ -34,7 +34,7 @@ import com.example.MovieInABox.model.Movie;
 import com.example.MovieInABox.service.ApiService;
 import com.example.MovieInABox.service.CommonService;
 import com.example.MovieInABox.service.MovieService;
-import com.example.MovieInABox.common.Constants;
+import com.example.MovieInABox.common.CommonConstants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

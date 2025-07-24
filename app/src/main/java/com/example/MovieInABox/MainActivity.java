@@ -2,17 +2,9 @@ package com.example.MovieInABox;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.MovieInABox.common.Constants;
+import com.example.MovieInABox.common.CommonConstants;
 
 
 public class MainActivity extends Application {
@@ -33,11 +25,11 @@ public class MainActivity extends Application {
 
     public static void saveToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Constants.ACCESS_TOKEN, token);
+        editor.putString(CommonConstants.ACCESS_TOKEN, token);
         editor.apply();
     }
 
     public static String getToken() {
-        return sharedPreferences.getString(Constants.ACCESS_TOKEN, null);
+        return sharedPreferences.getString(CommonConstants.ACCESS_TOKEN, null);
     }
 }

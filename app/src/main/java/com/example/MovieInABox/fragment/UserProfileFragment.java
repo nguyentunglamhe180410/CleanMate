@@ -24,7 +24,7 @@ import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.User;
 import com.example.MovieInABox.service.ApiService;
 import com.example.MovieInABox.service.UserService;
-import com.example.MovieInABox.common.Constants;
+import com.example.MovieInABox.common.CommonConstants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

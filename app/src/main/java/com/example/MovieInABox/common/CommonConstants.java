@@ -1,7 +1,7 @@
 package com.example.MovieInABox.common;
 
-public final class Constants {
-    private Constants() {} // utility class
+public final class CommonConstants {
+    private CommonConstants() {} // utility class
 
     // Key movie
     public static final String MOVIE_FAVORITE ="favorite";
