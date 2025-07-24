@@ -23,13 +23,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.MovieInABox.adapter.GenreAdapter;
-import com.example.MovieInABox.data.model.ApiResponse;
-import com.example.MovieInABox.data.model.Country;
-import com.example.MovieInABox.data.model.Genre;
-import com.example.MovieInABox.data.model.Status;
-import com.example.MovieInABox.data.service.ApiService;
-import com.example.MovieInABox.data.service.CommonService;
-import com.example.MovieInABox.data.service.MovieService;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.Country;
+import com.example.MovieInABox.model.Genre;
+import com.example.MovieInABox.model.Status;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.CommonService;
+import com.example.MovieInABox.service.MovieService;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
