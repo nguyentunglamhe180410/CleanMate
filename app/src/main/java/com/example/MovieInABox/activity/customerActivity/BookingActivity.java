@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.MovieInABox.adapter.BookingAdapter;
 import com.example.MovieInABox.R;
 import com.example.MovieInABox.data.model.dto.dto;
 import com.example.MovieInABox.data.repository.BookingRepository;
