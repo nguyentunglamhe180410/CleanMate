@@ -2,6 +2,7 @@ package com.example.MovieInABox.activity.movie;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.media3.exoplayer.ExoPlaybackException;
 
 import android.content.Context;
 import android.content.Intent;
@@ -97,8 +98,7 @@ public class WatchMoviesActivity extends AppCompatActivity {
         });
     }
 
-    // Additional methods would be implemented here
-    // For brevity, I'm including the basic structure
+
     private void initUi() {
         // Initialize UI components
     }

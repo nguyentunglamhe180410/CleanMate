@@ -12,9 +12,6 @@ import java.util.TimeZone;
 public final class DateTimeVN {
     private DateTimeVN() {}
 
-    /**
-     * Trả về thời điểm hiện tại theo múi giờ Việt Nam.
-     */
     public static ZonedDateTime getNow() {
         String tzId = TimeZone.getDefault().getID().equals("Asia/Ho_Chi_Minh")
                 ? "Asia/Ho_Chi_Minh"
