@@ -52,7 +52,7 @@
     <string name="tv_login">Đăng nhập</string>
     <string name="tv_register">Đăng ký</string>
     <string name="btn_confirm">Xác nhận</string>
-    <string name="error_not_be_empty">Chỗ này không được bỏ trống</string>
+    <string name="error_not_be_empty">Không được bỏ trống</string>
     <string name="error_password_more_chr">Mật khẩu phải >6 ký tự</string>
 
     <!-- login -->
