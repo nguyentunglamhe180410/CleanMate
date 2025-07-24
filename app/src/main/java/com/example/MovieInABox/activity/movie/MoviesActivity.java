@@ -22,7 +22,7 @@ import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.Movie;
 import com.example.MovieInABox.service.ApiService;
 import com.example.MovieInABox.service.MovieService;
-import com.example.MovieInABox.common.CommonConstants;
+import com.example.MovieInABox.common.Constants;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -80,27 +80,27 @@ public class MoviesActivity extends AppCompatActivity {
         Call<ApiResponse<List<Movie>>> call = null;
 
         switch (str){
-            case CommonConstants.MOVIE_LATEST:
+            case Constants.MOVIE_LATEST:
                 call = movieService.getMoviesLatest();
                 textView_top.setText("Phim mới");
                 break;
-            case CommonConstants.MOVIE_GENRE:
+            case Constants.MOVIE_GENRE:
                 call = movieService.getMoviesByGenre(idIntent);
                 textView_top.setText(headerTitle);
                 break;
-            case CommonConstants.MOVIE_COUNTRY:
+            case Constants.MOVIE_COUNTRY:
                 call = movieService.getMoviesByCountry(idIntent);
                 textView_top.setText(headerTitle);
                 break;
-            case CommonConstants.MOVIE_FAVORITE:
+            case Constants.MOVIE_FAVORITE:
                 call = movieService.getFavoriteMovies();
                 textView_top.setText("Danh sách phim yêu thích");
                 break;
-            case CommonConstants.MOVIE_COMMENT:
+            case Constants.MOVIE_COMMENT:
                 call = movieService.getCommentedMovies();
                 textView_top.setText("Danh sách phim đã bình luận");
                 break;
-            case CommonConstants.MOVIE_STAR:
+            case Constants.MOVIE_STAR:
                 call = movieService.getRatedMovies();
                 textView_top.setText("Danh sách phim đã đánh giá");
                 break;

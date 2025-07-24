@@ -1,9 +1,7 @@
 package com.example.MovieInABox.common;
 
-import java.time.Duration;
-
-public final class CommonConstants {
-    private CommonConstants() {} // utility class
+public final class Constants {
+    private Constants() {} // utility class
 
     // Key movie
     public static final String MOVIE_FAVORITE ="favorite";
