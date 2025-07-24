@@ -9,13 +9,13 @@ import java.util.Map;
 
 public class GenerateModels {
     // Thông tin kết nối cố định
-    private static final String HOST     = "cleanmate-server.database.windows.net";
+    private static final String HOST     = "movie-server.database.windows.net";
     private static final String PORT     = "1433";
-    private static final String DATABASE = "CleanMateDB_PRM";
-    private static final String USER     = "cleanmateadmin@cleanmate-server";
+    private static final String DATABASE = "movieDB_PRM";
+    private static final String USER     = "moviedmin@movieDB-server";
 
     // Package đầu ra cho các class model
-    private static final String OUTPUT_PACKAGE = "com.example.cleanmate.data.model";
+    private static final String OUTPUT_PACKAGE = "com.example.movieInABox.data.model";
     // Thư mục gốc để lưu .java, đồng bộ với PACKAGE trên
     private static final String OUTPUT_DIR =
             "app/src/main/java/" + OUTPUT_PACKAGE.replace('.', '/') + "/";

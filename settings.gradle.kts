@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CleanMate"
+rootProject.name = "MovieInABox"
 include(":app")
 include(":model-generator")
