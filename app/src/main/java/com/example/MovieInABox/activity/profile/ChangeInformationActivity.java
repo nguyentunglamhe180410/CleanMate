@@ -20,10 +20,10 @@ import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.example.MovieInABox.R;
-import com.example.MovieInABox.data.model.ApiResponse;
-import com.example.MovieInABox.data.model.User;
-import com.example.MovieInABox.data.service.ApiService;
-import com.example.MovieInABox.data.service.UserService;
+import com.example.MovieInABox.model.ApiResponse;
+import com.example.MovieInABox.model.User;
+import com.example.MovieInABox.service.ApiService;
+import com.example.MovieInABox.service.UserService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
