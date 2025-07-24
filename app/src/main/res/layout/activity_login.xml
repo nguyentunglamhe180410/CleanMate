@@ -23,7 +23,7 @@
         android:layout_marginRight="30dp"
         android:text="@string/tv_login"
         android:textAlignment="center"
-        android:textColor="@color/red"
+        android:textColor="@color/dark_yellow"
         android:textSize="40sp"
         android:fontFamily="@font/baloo"
         android:textStyle="bold" />
@@ -35,13 +35,13 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="30dp"
         android:theme="@style/AppTheme"
-        app:errorTextColor="@color/red_100">
+        app:errorTextColor="@color/dark_yellow_40">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edittext_login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/dark_yellow"
             android:elegantTextHeight="false"
             android:hint="Email"
             android:textColor="@color/white"
@@ -59,11 +59,11 @@
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/white_50"
         android:theme="@style/AppTheme"
-        app:errorTextColor="@color/red_100">
+        app:errorTextColor="@color/dark_yellow_40">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/dark_yellow"
             android:elegantTextHeight="false"
             android:textColor="@color/white"
             android:id="@+id/edittext_login_password"
@@ -79,7 +79,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/dark_yellow"
         android:text="@string/btn_confirm"
         android:fontFamily="@font/baloo"
         android:textColor="#FFFFFF"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tv_register"
             android:textAlignment="center"
-            android:textColor="@color/red"
+            android:textColor="@color/dark_yellow"
             android:textStyle="bold"
             android:textSize="19sp" />
     </LinearLayout>

@@ -39,7 +39,7 @@
             android:id="@+id/btn_send_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/dark_yellow"
             android:text="Gửi"/>
     </LinearLayout>
 

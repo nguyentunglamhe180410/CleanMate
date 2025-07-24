@@ -27,7 +27,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:textColor="@color/red" />
+        android:textColor="@color/dark_yellow" />
 
     <!-- OTP Input -->
     <com.google.android.material.textfield.TextInputLayout
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:textColor="@color/white"
-            android:backgroundTint="@color/red" />
+            android:backgroundTint="@color/dark_yellow" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Verify Button -->
@@ -54,7 +54,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/dark_yellow"
         android:text="Xác nhận"
         android:textColor="@color/white"
         android:textSize="20sp" />

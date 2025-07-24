@@ -32,7 +32,7 @@
                 android:fontFamily="@font/baloo"
                 android:text="Thêm phim"
                 android:textAlignment="center"
-                android:textColor="@color/red"
+                android:textColor="@color/dark_yellow"
                 android:textSize="23dp" />
         </LinearLayout>
 
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/red_40" />
+            android:background="@color/dark_yellow_40" />
 
         <TextView
             android:layout_width="match_parent"
@@ -237,7 +237,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:background="@color/red"
+            android:background="@color/dark_yellow"
             android:fontFamily="@font/baloo"
             android:text="Thêm"
             android:textAllCaps="false"

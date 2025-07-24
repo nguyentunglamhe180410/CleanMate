@@ -9,7 +9,7 @@
         android:color="#424242">
     </stroke>
     <gradient
-        android:startColor="@color/red_40"
+        android:startColor="@color/dark_yellow_40"
         android:endColor="@color/black"
         android:angle="2" />
     <corners

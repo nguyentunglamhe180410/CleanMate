@@ -12,4 +12,6 @@
     <color name="red_40">#66B30202</color>
     <color name="red">#B30202</color>
     <color name="red_100">#FF0000</color>
+    <color name="dark_yellow">#FFA000</color>
+    <color name="dark_yellow_40">#66FFA000</color>
 </resources>

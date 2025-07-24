@@ -8,7 +8,7 @@
     </style>
 
     <style name="CounterOverFlow" parent="TextAppearance.Design.Counter.Overflow">
-        <item name="android:textColor">@color/red</item>
+        <item name="android:textColor">@color/dark_yellow</item>
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">

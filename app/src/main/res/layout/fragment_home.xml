@@ -58,7 +58,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/baloo"
-                        android:text="RealPhim"
+                        android:text="Movie in a Box"
                         android:textColor="#CCFFFFFF"
                         android:textSize="20sp"
                         android:textStyle="bold" />

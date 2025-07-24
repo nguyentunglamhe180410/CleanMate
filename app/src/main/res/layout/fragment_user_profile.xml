@@ -356,7 +356,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="90dp"
             android:background="@drawable/button_play"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/dark_yellow"
             android:text="Đăng xuất"/>
 
     </LinearLayout>

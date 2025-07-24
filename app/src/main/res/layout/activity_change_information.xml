@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textAlignment="center"
-                    android:backgroundTint="@color/red"
+                    android:backgroundTint="@color/dark_yellow"
                     android:layout_gravity="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textAlignment="center"
-                    android:backgroundTint="@color/red"
+                    android:backgroundTint="@color/dark_yellow"
                     android:layout_gravity="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -183,7 +183,7 @@
                     android:id="@+id/edittext_change_infor_birthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
+                    android:backgroundTint="@color/dark_yellow"
                     android:elegantTextHeight="false"
                     android:focusable="false"
                     android:inputType="date"

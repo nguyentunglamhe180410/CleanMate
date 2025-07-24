@@ -27,7 +27,7 @@
             android:layout_marginRight="30dp"
             android:text="@string/tv_register"
             android:textAlignment="center"
-            android:textColor="@color/red"
+            android:textColor="@color/dark_yellow"
             android:textSize="40sp"
             android:fontFamily="@font/baloo"
             android:textStyle="bold"/>
@@ -40,13 +40,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:theme="@style/AppTheme"
-            app:errorTextColor="@color/red_100">
+            app:errorTextColor="@color/dark_yellow_40">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_register_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/dark_yellow"
                 android:elegantTextHeight="false"
                 android:hint="@string/tip_name"
                 android:inputType="textPersonName"
@@ -63,13 +63,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:theme="@style/AppTheme"
-            app:errorTextColor="@color/red_100">
+            app:errorTextColor="@color/dark_yellow_40">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_register_user_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/dark_yellow"
                 android:elegantTextHeight="false"
                 android:focusable="false"
                 android:hint="@string/tip_birthday"
@@ -87,13 +87,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:theme="@style/AppTheme"
-            app:errorTextColor="@color/red_100">
+            app:errorTextColor="@color/dark_yellow_40">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_register_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/dark_yellow"
                 android:elegantTextHeight="false"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
@@ -113,13 +113,13 @@
             app:counterOverflowTextAppearance="@style/CounterOverFlow"
             app:counterTextColor="@color/white"
             app:counterMaxLength="20"
-            app:errorTextColor="@color/red_100"
+            app:errorTextColor="@color/dark_yellow_40"
             android:theme="@style/AppTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/dark_yellow"
                 android:elegantTextHeight="false"
                 android:id="@+id/edittext_register_password"
                 android:textColor="@color/white"
@@ -140,13 +140,13 @@
             app:counterOverflowTextAppearance="@style/CounterOverFlow"
             app:counterTextColor="@color/white"
             app:counterMaxLength="20"
-            app:errorTextColor="@color/red_100"
+            app:errorTextColor="@color/dark_yellow_40"
             android:theme="@style/AppTheme">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/dark_yellow"
                 android:elegantTextHeight="false"
                 android:id="@+id/edittext_register_confirm_password"
                 android:textColor="@color/white"
@@ -172,7 +172,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/dark_yellow"
             android:text="@string/btn_confirm"
             android:fontFamily="@font/baloo"
             android:textColor="#FFFFFF"
@@ -201,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/tv_login"
                 android:textAlignment="center"
-                android:textColor="@color/red"
+                android:textColor="@color/dark_yellow"
                 android:textStyle="bold"
                 android:textSize="19sp" />
         </LinearLayout>

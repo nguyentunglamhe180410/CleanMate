@@ -29,14 +29,14 @@
             android:textAlignment="center"
             android:textSize="20dp"
             android:fontFamily="@font/baloo"
-            android:textColor="@color/red"
+            android:textColor="@color/dark_yellow"
             android:text="Đang tải..."/>
 
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/red_40"/>
+        android:background="@color/dark_yellow_40"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
