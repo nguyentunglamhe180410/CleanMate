@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/radial"
-    tools:context=".activity.EditMovieActivity">
+    tools:context=".activity.admin.EditMovieActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

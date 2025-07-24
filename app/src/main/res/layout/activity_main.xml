@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity">
+    tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/flFragment"
@@ -28,8 +28,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:itemIconTint="@color/bnv_tab_item_foreground"
-        app:itemTextColor="@color/bnv_tab_item_foreground"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/white"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:menu="@menu/bottom_nav_menu"/>
 

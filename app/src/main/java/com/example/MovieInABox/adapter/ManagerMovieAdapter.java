@@ -21,11 +21,10 @@ import com.example.MovieInABox.model.Movie;
 import java.util.List;
 
 public class ManagerMovieAdapter extends RecyclerView.Adapter<ManagerMovieAdapter.MovieViewHolder> {
-    // ...
+
     private List<Movie> movies;
     private MovieDeleteListener movieDeleteListener;
 
-    // Constructor
     public ManagerMovieAdapter(List<Movie> movies, MovieDeleteListener listener) {
         this.movies = movies;
         this.movieDeleteListener = listener;

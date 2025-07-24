@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/radial"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.authen.LoginActivity">
 
     <ImageView
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icons_film"/>
+        android:src="@mipmap/ic_background"/>
 
     <TextView
         android:id="@+id/textView6"

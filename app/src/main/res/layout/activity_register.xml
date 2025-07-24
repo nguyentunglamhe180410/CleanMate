@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/radial"
-    tools:context=".activity.RegisterActivity">
+    tools:context=".activity.authen.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icons_film"/>
+            android:src="@mipmap/ic_background"/>
 
         <TextView
             android:id="@+id/textView6"

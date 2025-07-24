@@ -1,6 +1,7 @@
 package com.example.MovieInABox.service;
 
 import com.example.MovieInABox.MainActivity;
+import com.google.firebase.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -43,6 +43,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("com.google.android.exoplayer:exoplayer:2.18.5")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.5")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

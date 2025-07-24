@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@drawable/radial"
-    tools:context=".activity.OtpActivity">
+    tools:context=".activity.authen.OtpActivity">
 
     <!-- Logo -->
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:src="@drawable/icons_film" />
+        android:src="@mipmap/ic_background" />
 
     <!-- Title -->
     <TextView
