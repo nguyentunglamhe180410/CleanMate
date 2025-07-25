@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import com.example.MovieInABox.common.CommonConstants;
 
-public class MyApp extends Application {
+public class MyApplication extends Application {
     private static SharedPreferences sharedPreferences;
     private static final String SHARED_PREFS_NAME = "MyPrefs";
 

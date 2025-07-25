@@ -1,6 +1,6 @@
 package com.example.MovieInABox.service;
 
-import com.example.MovieInABox.MyApp;
+import com.example.MovieInABox.MyApplication;
 import com.google.firebase.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +20,7 @@ public class ApiService {
 
     public static <S> S createService(Class<S> serviceClass) {
 
-        String token = MyApp.getToken();
+        String token = MyApplication.getToken();
 
         Interceptor interceptor = chain -> {
             Request originalRequest = chain.request();

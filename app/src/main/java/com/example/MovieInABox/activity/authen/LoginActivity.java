@@ -16,9 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.MovieInABox.MyApplication;
 import com.example.MovieInABox.R;
-import com.example.MovieInABox.activity.main.MainActivity;
-import com.example.MovieInABox.fragment.HomeFragment;
 import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.Status;
 import com.example.MovieInABox.model.User;
@@ -168,13 +167,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ApiResponse<User>> call, Response<ApiResponse<User>> response) {
                 progressDialog.dismiss();
                 ApiResponse<User> res = response.body();
-                if (res == null) {
-                    Toast.makeText(LoginActivity.this, "Server error: empty response", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                assert res != null;
                 if (res.getStatus() == Status.SUCCESS) {
                     Toast.makeText(LoginActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, HomeFragment.class);
+                    Intent intent = new Intent(LoginActivity.this, MyApplication.class);
                     startActivity(intent);
                     String accessToken = res.getAccessToken();
                     Log.d("AccessToken", "Access Token: " + accessToken); // Log the access token
@@ -196,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
             editor.putString("email", strEmail);
             editor.putString("password", strPass);
             editor.putString(CommonConstants.ACCESS_TOKEN, token);
-            // MyApplication.saveToken(token); // Comment out for now
+            MyApplication.saveToken(token);
             editor.commit();
         } else {
             editor.putString("email", strEmail);
@@ -205,4 +201,4 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-} 
+}
