@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.MovieInABox.MyApplication;
 import com.example.MovieInABox.R;
+import com.example.MovieInABox.activity.main.MainActivity;
 import com.example.MovieInABox.model.ApiResponse;
 import com.example.MovieInABox.model.Status;
 import com.example.MovieInABox.model.User;
@@ -170,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                 assert res != null;
                 if (res.getStatus() == Status.SUCCESS) {
                     Toast.makeText(LoginActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MyApplication.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     String accessToken = res.getAccessToken();
                     Log.d("AccessToken", "Access Token: " + accessToken); // Log the access token
